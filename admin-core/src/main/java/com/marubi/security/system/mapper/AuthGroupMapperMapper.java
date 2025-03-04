@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  *  Mapper 接口
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-30
  */
 public interface AuthGroupMapperMapper extends BaseMapper<AuthGroupMapperEntity> {

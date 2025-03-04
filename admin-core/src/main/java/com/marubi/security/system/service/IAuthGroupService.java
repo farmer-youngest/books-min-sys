@@ -16,7 +16,7 @@ import java.util.Map;
  * 管理员组明细表 服务类
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-06
  */
 public interface IAuthGroupService extends IService<AuthGroupEntity> {

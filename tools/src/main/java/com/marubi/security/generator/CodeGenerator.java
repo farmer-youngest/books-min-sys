@@ -44,7 +44,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         String modulePath = "/admin-core";
         gc.setOutputDir(projectPath +modulePath+ "/src/main/java");
-        gc.setAuthor("whh");
+        gc.setAuthor("tmz");
         gc.setOpen(false);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);

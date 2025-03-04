@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * SecureUtil.md5
- * @author whh
+ * @author tmz
  */
 @Component
 @Slf4j

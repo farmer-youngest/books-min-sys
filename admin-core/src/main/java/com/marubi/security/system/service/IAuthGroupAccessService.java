@@ -12,7 +12,7 @@ import java.util.Map;
  *  服务类
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-06
  */
 public interface IAuthGroupAccessService extends IService<AuthGroupAccessEntity> {

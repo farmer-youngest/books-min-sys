@@ -14,7 +14,6 @@ import com.marubi.security.common.exceptions.BaseBusinessException;
 import java.io.Serializable;
 
 /**
- * @Author LHL
  * @Date 2020-10-27
  * @Description
  * @Version 1.0

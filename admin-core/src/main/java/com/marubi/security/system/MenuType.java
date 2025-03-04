@@ -3,7 +3,7 @@ package com.marubi.security.system;
 import lombok.AllArgsConstructor;
 /**
  * 菜单表 类型
- * @author hhw
+ * @author tmz
  * @date 2021/8/23
  */
 @AllArgsConstructor

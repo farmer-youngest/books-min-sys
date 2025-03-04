@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 用户拥有的权限
  *
- * @author hhw
+ * @author tmz
  */
 @Data
 public class AuthMapperUserDto implements Serializable {

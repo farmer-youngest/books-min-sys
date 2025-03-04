@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * 后台管理员表
  * </p>
  *
- * @author WHH
+ * @author tmz
  * @since 2021-07-31
  */
 @Data

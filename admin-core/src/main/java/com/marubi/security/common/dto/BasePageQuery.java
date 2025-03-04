@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 /**
  * 分页查询的基类
- * @Author LHL
  * @Date 2020-11-08
  * @Description
  * @Version 1.0

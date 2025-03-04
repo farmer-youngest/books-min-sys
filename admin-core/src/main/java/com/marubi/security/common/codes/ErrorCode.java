@@ -7,7 +7,6 @@ package com.marubi.security.common.codes;
  * 2.自身业务系统导致的错误码由B+4位数字组成
  * 3.第三方系统导致的错误码由C+4位数字组成
  *
- * @Author LHL
  * @Date 2020-10-27
  * @Description
  * @Version 1.0

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 权限组映射表 Mapper 接口
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-23
  */
 public interface GroupMapperMapper extends BaseMapper<GroupMapperEntity> {

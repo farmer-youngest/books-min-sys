@@ -12,7 +12,7 @@ import java.util.List;
  *  Mapper 接口
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-23
  */
 public interface AuthMapper extends BaseMapper<AuthEntity> {

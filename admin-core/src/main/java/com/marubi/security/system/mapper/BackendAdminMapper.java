@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 后台管理员表 Mapper 接口
  * </p>
  *
- * @author WHH
+ * @author tmz
  * @since 2021-07-31
  */
 public interface BackendAdminMapper extends BaseMapper<BackendAdminEntity> {

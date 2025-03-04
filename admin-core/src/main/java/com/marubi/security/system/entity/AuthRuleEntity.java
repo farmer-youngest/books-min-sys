@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * 权限认证：规则表
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-18
  */
 @Data

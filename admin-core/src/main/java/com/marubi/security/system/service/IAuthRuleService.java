@@ -11,7 +11,7 @@ import java.util.List;
  * 权限认证：规则表 服务类
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-18
  */
 public interface IAuthRuleService extends IService<AuthRuleEntity> {

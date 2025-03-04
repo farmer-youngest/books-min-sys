@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * 后台管理员表 服务类
  * </p>
  *
- * @author WHH
+ * @author tmz
  * @since 2021-07-31
  */
 public interface IBackendAdminService extends IService<BackendAdminEntity> {

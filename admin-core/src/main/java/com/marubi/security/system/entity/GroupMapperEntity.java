@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
  * 权限组映射表
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-23
  */
 @Data

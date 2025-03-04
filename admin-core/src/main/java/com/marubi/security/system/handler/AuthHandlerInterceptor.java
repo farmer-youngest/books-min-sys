@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * 校验 登录 拦截器 {@link HandlerInterceptor}
  *
- * @author hhw
+ * @author tmz
  */
 @Slf4j
 @Component

@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *  服务类
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-30
  */
 public interface IAuthGroupMapperService extends IService<AuthGroupMapperEntity> {

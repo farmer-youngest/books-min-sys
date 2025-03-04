@@ -11,7 +11,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-23
  */
 public interface IAuthService extends IService<AuthEntity> {

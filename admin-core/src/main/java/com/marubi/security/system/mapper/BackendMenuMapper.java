@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * 后台系统菜单 Mapper 接口
  * </p>
  *
- * @author whh
+ * @author tmz
  * @since 2021-08-18
  */
 public interface BackendMenuMapper extends BaseMapper<BackendMenuEntity> {
