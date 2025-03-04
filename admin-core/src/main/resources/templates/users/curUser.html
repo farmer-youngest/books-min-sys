@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>修改个人资料</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="layui-field-box">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <div class="layui-input-inline" style="display:none">
+                    <input name="id" placeholder="id"
+                           th:value="${session.userId}"
+                           required type="text" lay-verify="required"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名：</label>
+                <div class="layui-input-inline">
+                    <input name="username" placeholder="用户名"
+                           th:value="${session.userName}"
+                           required type="text" lay-verify="required"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱：</label>
+                <div class="layui-input-inline">
+                    <input name="email" placeholder="邮箱"
+                           required lay-verify="required"
+                           type="text"
+                           th:value="${session.email}"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">手机：</label>
+                <div class="layui-input-inline">
+                    <input name="mobile" placeholder="手机"
+                           required lay-verify="required"
+                           th:value="${session.mobile}"
+                           type="text"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline">
+                    <button class="layui-btn" style="margin-left: 255px" lay-submit lay-filter="saveInfo">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use(['form'],function (){
+        var form = layui.form;
+        //监听提交
+        form.on('submit(saveInfo)',function (data){
+            $.ajax({
+                url: '/user/updCurrInfo',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify(data.field),
+                datatype: 'json',
+                success: function (data) {
+                    if ('200' == data.code){
+                        // layer.alert('修改成功')
+                        layer.alert('修改成功', {}, function(){
+                            xadmin.close()
+                        });
+                    } else {
+                        // layer.alert(data.info)
+                        layer.alert(data.info, {}, function(){
+                            xadmin.close()
+                        });
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error)
+                }
+            })
+            return false;
+        })
+    })
+</script>
+<style>
+</style>
+</html>

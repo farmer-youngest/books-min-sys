@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="x-admin-sm"  xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>防窜后台管理系统</title>
+        <head th:replace="./layout/meta::commonInsite"></head>
+
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script>
+            // 是否开启刷新记忆tab功能
+            // var is_remember = false;
+        </script>
+    </head>
+    <body class="index">
+        <!-- 顶部开始 -->
+        <div class="container">
+            <div class="logo">
+                <a href="" style="pointer-events: none;">防伪查询系统后台</a>
+            </div>
+            <div class="left_open">
+                <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+            </div>
+            <ul class="layui-nav right" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:;"  th:text="${session.userName}">admin</a>
+                    <dl class="layui-nav-child">
+                        <!-- 二级菜单 -->
+                        <dd>
+                            <a onclick="xadmin.open('修改个人资料','curUser')">修改个人资料</a>
+                        </dd>
+                        <dd>
+                            <a href="/user/logout">切换帐号</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item to-index">
+                    <a href="/user/logout">退出登录</a>
+                </li>
+            </ul>
+        </div>
+        <!-- 顶部结束 -->
+        <!-- 中部开始 -->
+        <!-- 左侧菜单开始 -->
+        <div class="left-nav">
+            <div id="side-nav">
+                <ul id="nav">
+                    <li th:each="module,userStat : ${session.sysMenu}" class="layui-menu-item-down">
+                        <a href="javascript:;">
+<!--                            <i th:class="'layui-icon layui-icon-heart'" th:utext="${session.icons.get(userStat.index)}">&#xe614;</i>-->
+                            <i class='layui-icon layui-icon-heart' th:utext="${module.get('icon')}">&#xe614;</i>
+                            <cite th:text="${module.name}">系统</cite>
+                            <i class="iconfont nav_right"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li th:each="menu ,userStat : ${module.children}">
+                                <a th:data-name="${menu.name}"th:data-url="${menu.get('url')}"th:data-uni="${menu.get('uniq')}"  th:onclick="xadmin.add_tab([[${menu.name}]],[[ ${menu.url}]])">
+                                    <i class='layui-icon layui-icon-heart' th:utext="${menu.get('icon')}">&#xe614;</i>
+                                    <cite th:text="${menu.name}">菜单管理</cite>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 左侧菜单结束 -->
+        <!-- 右侧主体开始 -->
+        <div class="page-content">
+            <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+                <ul class="layui-tab-title">
+                    <li class="home">
+                        <i class="layui-icon">&#xe68e;</i>首页</li></ul>
+                <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                    <dl>
+                        <dd data-type="this">关闭当前</dd>
+                        <dd data-type="other">关闭其它</dd>
+                        <dd data-type="all">关闭全部</dd></dl>
+                </div>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <iframe src='/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                    </div>
+                </div>
+                <div id="tab_show"></div>
+            </div>
+        </div>
+        <div class="page-content-bg"></div>
+        <style id="theme_style"></style>
+        <!-- 右侧主体结束 -->
+    </body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑/新增生产商信息</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">上级品牌：</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <select name="parentId" id="parentId">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+            <span style="color: #9F9F9F; float: left">不选择品牌时将默认为一级品牌</span>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">品牌名称：</label>
+            <div class="layui-input-inline">
+                <input name="categoryName" placeholder="请输入品牌名称"
+                       type="text" lay-verify="required"
+                       class="layui-input" id="categoryName" style="width: 400px;">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <select name="status" id="status">
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">品牌图片：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="uploadBrandImg"><i class="layui-icon">&#xe67c;</i>上传品牌图片
+                </button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="image">
+                    <p id="uploadText"></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+                <button class="layui-btn" lay-submit="cancel" lay-filter="cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['form', 'jquery', 'table', 'upload'], function () {
+        let $ = layui.jquery;
+        let form = layui.form;
+        let table = layui.table;
+        let upload = layui.upload;
+        let layer = layui.layer;
+
+        let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        //父级品牌选择
+        $(function () {
+            $.ajax({
+                url: '/brand/getBrands',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify({
+                    "pageNum": 1,
+                    "pageSize": 10
+                }),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        $.each(res.data.records, function (index, item) {
+                            $('#parentId').append(new Option(item.categoryName, item.id))
+                        })
+                        form.render('select')
+                    } else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error, {}, function () {
+                        parent.layer.close(index);
+                    })
+                }
+            })
+        })
+        form.render("select");
+        form.on('submit(cancel)', function () {
+            parent.layer.close(index); //再执行关闭
+        })
+        form.on('submit(saveInfo)', function (data) {
+            data.field.file = imgUrl
+            // console.log('data.field',data.field)
+            $.ajax({
+                url: '/brand/saveBrandInfo',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify(data.field),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        layer.alert('操作成功', {}, function () {
+                            parent.layer.close(index);
+                            window.parent.location.href = 'brandList'
+                        })
+                    } else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error, {}, function () {
+                        parent.layer.close(index);
+                    })
+                }
+            })
+
+            return false
+
+        })
+        let imgUrl;
+        //图片上传
+        let uploadInst = upload.render({
+            elem: '#uploadBrandImg'
+            , url: '/commentFile/file/images' //上传接口
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#image').attr('src', result); //图片链接（base64）
+                });
+
+                layer.msg('上传中', {icon: 16, time: 0});
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code !== '200') {
+                    return layer.msg('上传失败');
+                } else {
+                    imgUrl = res.data
+                    $('#uploadText').html(''); //置空上传失败的状态
+                    return layer.msg('上传成功');
+                }
+
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var uploadText = $('#uploadText');
+                uploadText.html('<span style="color: #FF5722; margin-left: 130px">上传失败</span> <a class="layui-btn layui-btn-xs img-reload">重试</a>');
+                uploadText.find('.img-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+
+        });
+
+    })
+
+
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+
+    .layui-form-label {
+        width: 100px
+    }
+
+    .layui-upload-img {
+        width: 100px;
+        height: 100px;
+        margin-left: 130px
+    }
+
+    .img-reload {
+        margin-left: 130px
+    }
+</style>
+</html>

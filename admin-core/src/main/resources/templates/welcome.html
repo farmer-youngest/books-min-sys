@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-防窜后台系统</title>
+        <head th:replace="./layout/meta::commonInsite"></head>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+        <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body ">
+                            <blockquote class="layui-elem-quote">欢迎管理员：
+                                <a href="javascript:;"  th:text="${session.userName}">admin</a>
+<!--                                <span class="x-red">${session.userName}</span>！当前时间:-->
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">开发团队</div>
+                        <div class="layui-card-body ">
+                            <table class="layui-table">
+                                <tbody>
+                                    <tr>
+                                        <th>版权所有</th>
+                                        <td>
+<!--                                            <a href="http://www.marubi.cn/" class="marubi-link">MARUBI</a>-->
+                                            <a onclick="xadmin.open('MARUBI','http://www.marubi.cn/')" class="marubi-link">MARUBI</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>开发者</th>
+                                        <td>数字科技部-王惠惠 wang.huihui@marubi.cn</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <style id="welcome_style"></style>
+                <!--<div class="layui-col-md12">
+                    <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote>
+                </div>-->
+            </div>
+        </div>
+        </div>
+    </body>
+<style>
+    .marubi-link{
+        color: #4750ff;
+    }
+</style>
+</html>

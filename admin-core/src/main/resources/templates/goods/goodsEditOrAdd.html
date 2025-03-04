@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品编辑</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div class="layui-field-box" style="background-color: white">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>通用信息</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">生产商：</label>
+            <div class="layui-input-inline">
+                <select name="manufacturerId"  id="manufacturerId">
+                    <option value="">请选择</option>
+                    <option value=2>广东丸美生物技术股份有限公司</option>
+                    <option value=3>丸美化粧品株式会社</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">生产时间：</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" lay-verify="tag == '0' ? '':required" autocomplete="off"
+                       id="startAt" placeholder="请选择起始时间" style="margin-bottom: 10px">
+                &nbsp; 至 &nbsp;
+                <input type="text" class="layui-input" lay-verify="required" autocomplete="off" id="endAt"
+                       placeholder="请选择结束时间" style="margin-top: 10px">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">品牌名称：</label>
+            <div class="layui-input-inline">
+                <select name="categoryId" lay-verify="required" id="categoryId">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">净含量：</label>
+            <div class="layui-input-inline">
+                <input name="netWeight" placeholder=""
+                       type="text" id="netWeight"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">产品编码：</label>
+            <div class="layui-input-inline">
+                <input name="matnr" placeholder="" id="matnr"
+                       type="text" lay-verify="required"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品图册：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="selectPhoto">选择文件
+                </button>
+                <button type="button" class="layui-btn" id="uploadGoodsGallery"style="margin-left: 10px">
+                    <i class="layui-icon">&#xe67c;</i>上传产品图册
+                </button>
+                <div class="layui-inline layui-word-aux" style="margin-top: 5px; margin-left: 20px">
+                    选择完图片记得点上传哦！（添加时，如有多张图片，请一次性选择完）
+                </div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;margin-left: 40px">
+                    预览图：
+                    <div class="layui-upload-list " id="image">
+                        <p id="uploadText"></p>
+                    </div>
+                </blockquote>
+
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">状态：</label>
+            <div class="layui-input-inline">
+                <select name="status" lay-verify="required" id="status">
+                    <option value="">请选择</option>
+                    <option value="1">上架</option>
+                    <option value="0">下架</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">上传视频：</label>
+            <button type="button" class="layui-btn " id="uploadVedio"><i class="layui-icon"></i>上传视频</button>
+            <div class="layui-inline layui-word-aux" >
+                请上传20M以内的MP4格式的视频
+            </div>
+            <div class="layui-upload-list" id="">
+                <video src="" id="goodsVideo"  controls="controls"  style="margin-left: 130px" height="300px" width="400px"></video>
+                <p id="uploadVdoText"></p>
+            </div>
+        </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>产品信息</legend>
+        </fieldset>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">产品名称：</label>
+            <div class="layui-input-inline">
+                <input name="goodsName" placeholder="请输入产品名称"
+                       type="text" lay-verify="required"
+                       class="layui-input" id="goodsName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">建议零售价：</label>
+            <div class="layui-input-inline">
+                <input name="goodsPrice" placeholder=""
+                       type="text"
+                       class="layui-input" id="goodsPrice">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品信息：</label>
+            <textarea class="layui-textarea" id="goodsInfo" name="goodsInfo" style=""></textarea>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">使用方法：</label>
+            <textarea class="layui-textarea" id="goodsUsage" name="goodsUsage" style=""></textarea>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图文详情：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="uploadPhotoDetail"><i class="layui-icon">&#xe67c;</i>上传图文详情
+                </button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" style="margin-left: 130px" id="photoDetail">
+                    <p id="uploadText2"></p>
+                </div>
+                <div class="layui-inline layui-word-aux" style="margin-left: 130px">
+                    请上传500*200的图片
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创新科技：</label>
+            <textarea class="layui-textarea" id="goodsTech" name="goodsTech" style=""></textarea>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit lay-filter="saveInfo">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    onload = function () {
+        layui.use(['layer', 'form', 'util', 'jquery', 'upload', 'laydate', 'layedit'], function () {
+            let layer = layui.layer
+            let form = layui.form
+            let $ = layui.jquery
+            let upload = layui.upload
+            let layDate = layui.laydate
+            let layEdit = layui.layedit
+            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            let tag = localStorage.getItem("tag") //新增或修改的标志
+
+            let goodsInfo
+            let goodsUsage
+            let goodsTech
+
+            let multiImg = []
+            let i = 0
+
+            let id
+            //加载品牌名称选项
+            //$(function () {
+            $.ajax({
+                async: false,
+                url: '/brand/getBrands',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify({
+                    "pageNum": 1,
+                    "pageSize": 10
+                }),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        $.each(res.data.records, function (index, item) {
+                            $('#categoryId').append(new Option(item.categoryName, item.id))
+                        })
+                        form.render('select')
+                    } else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error, {}, function () {
+                        parent.layer.close(index);
+                    })
+                }
+            })
+            //编辑
+            if (tag === '0') {
+                id = localStorage.getItem("param")
+                $.ajax({
+                    async: false,
+                    url: '/goods/goodsDetail',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: id,
+                    dataType: 'json',
+                    success: function (data) {
+                        if ('200' == data.code && null != data.data) {
+                            $('#id').val(data.data.id)
+                            $('#categoryId').val(data.data.categoryId)
+                            $('#goodsPrice').val(data.data.goodsPrice)
+                            $('#status').val(data.data.status)
+                            $('#manufacturerId').val(data.data.manufacturerId)
+                            $('#matnr').val(data.data.matnr)
+                            $('#goodsName').val(data.data.goodsName)
+                            form.render('select');
+                            //产品图库
+                            data.data.multiImg.forEach(item => {
+                                $('#image').append('<img src="' + item + '" ' + ' class="layui-upload-img" style="margin-left: 5px">')
+                                multiImg[i] = item
+                                i++
+                            })
+                            //图文详情
+                            $('#photoDetail').attr('src', data.data.imgUrl);
+                            //视频
+                            $('#goodsVideo').attr('src', data.data.videoUrl);
+                            //生产时间
+                            if (null !== data.data.startAt && undefined !== data.data.startAt && null !== data.data.endAt && undefined !== data.data.endAt) {
+                                layDate.render({
+                                    elem: '#startAt'
+                                    , type: 'datetime'
+                                    , value: data.data.startAt !== 0 ? new Date(data.data.startAt * 1000) : ''
+                                });
+                                layDate.render({
+                                    elem: '#endAt'
+                                    , type: 'datetime'
+                                    , value: new Date(data.data.endAt * 1000)
+                                });
+                            }
+
+                            //富文本         先赋值再渲染
+                            $('#goodsInfo').val(data.data.goodsInfo)
+                            goodsInfo = layEdit.build('goodsInfo', {
+                                weight: 300,
+                                height: 300,
+                                tool: [
+                                    'strong' //加粗
+                                    , 'italic' //斜体
+                                    , 'underline' //下划线
+                                    , 'del' //删除线
+                                    , '|' //分割线
+                                    , 'left' //左对齐
+                                    , 'center' //居中对齐
+                                    , 'right' //右对齐
+                                    ,'link' //超链接
+                                    ,'unlink' //清除链接
+                                    , 'face' //表情
+                                    //,'image' //插入图片
+                                    //,'help' //帮助
+                                ]
+                            })
+                            $('#goodsUsage').val(data.data.goodsUsage)
+                            goodsUsage = layEdit.build('goodsUsage', {
+                                weight: 300,
+                                height: 300,
+                                tool: [
+                                    'strong' //加粗
+                                    , 'italic' //斜体
+                                    , 'underline' //下划线
+                                    , 'del' //删除线
+                                    , '|' //分割线
+                                    , 'left' //左对齐
+                                    , 'center' //居中对齐
+                                    , 'right' //右对齐
+                                    ,'link' //超链接
+                                    ,'unlink' //清除链接
+                                    , 'face' //表情
+                                    //,'image' //插入图片
+                                    //,'help' //帮助
+                                ]
+                            })
+                            $('#goodsTech').val(data.data.goodsTech)
+                            //layEdit.setContent(goodsTech,$('#goodsTech').val(),false)
+                            goodsTech = layEdit.build('goodsTech', {
+                                weight: 300,
+                                height: 300,
+                                tool: [
+                                    'strong' //加粗
+                                    , 'italic' //斜体
+                                    , 'underline' //下划线
+                                    , 'del' //删除线
+                                    , '|' //分割线
+                                    , 'left' //左对齐
+                                    , 'center' //居中对齐
+                                    , 'right' //右对齐
+                                    ,'link' //超链接
+                                    ,'unlink' //清除链接
+                                    , 'face' //表情
+                                    //,'image' //插入图片
+                                    //,'help' //帮助
+                                ]
+                            })
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert("提交失败！")
+                    }
+                })
+            } else if (tag === '1') {
+                goodsInfo = layEdit.build('goodsInfo', {
+                    weight: 300,
+                    height: 300,
+                    tool: [
+                        'strong' //加粗
+                        , 'italic' //斜体
+                        , 'underline' //下划线
+                        , 'del' //删除线
+                        , '|' //分割线
+                        , 'left' //左对齐
+                        , 'center' //居中对齐
+                        , 'right' //右对齐
+                        ,'link' //超链接
+                        ,'unlink' //清除链接
+                        , 'face' //表情
+                        //,'image' //插入图片
+                        //,'help' //帮助
+                    ]
+                })
+                goodsUsage = layEdit.build('goodsUsage', {
+                    weight: 300,
+                    height: 300,
+                    tool: [
+                        'strong' //加粗
+                        , 'italic' //斜体
+                        , 'underline' //下划线
+                        , 'del' //删除线
+                        , '|' //分割线
+                        , 'left' //左对齐
+                        , 'center' //居中对齐
+                        , 'right' //右对齐
+                        ,'link' //超链接
+                        ,'unlink' //清除链接
+                        , 'face' //表情
+                        //,'image' //插入图片
+                        //,'help' //帮助
+                    ]
+                })
+                goodsTech = layEdit.build('goodsTech', {
+                    weight: 300,
+                    height: 300,
+                    tool: [
+                        'strong' //加粗
+                        , 'italic' //斜体
+                        , 'underline' //下划线
+                        , 'del' //删除线
+                        , '|' //分割线
+                        , 'left' //左对齐
+                        , 'center' //居中对齐
+                        , 'right' //右对齐
+                        ,'link' //超链接
+                        ,'unlink' //清除链接
+                        , 'face' //表情
+                        //,'image' //插入图片
+                        //,'help' //帮助
+                    ]
+                })
+                //日期时间
+                layDate.render({
+                    elem: '#startAt'
+                    , type: 'datetime'
+                    , format: 'yyyy-MM-dd HH:mm'
+                });
+                layDate.render({
+                    elem: '#endAt'
+                    , type: 'datetime'
+                    , format: 'yyyy-MM-dd HH:mm'
+                    , done: function (value, date, endDate) {
+                        //let startAt = new Date($('#startAt').val()).getTime()
+                        //let endAt = new Date($('#endAt').val()).getTime()
+                        let startAt = $('#startAt').val()
+                        let endAt = value
+                        //开始时间不得大于结束时间
+                        if (startAt > endAt) {
+                            layer.alert('开始时间不得大于结束时间')
+                            return
+                        }
+                    }
+
+                });
+            }
+            //})
+            let imgUrl
+            //图文详情上传
+            let uploadInst = upload.render({
+                elem: '#uploadPhotoDetail'
+                , url: '/commentFile/file/images' //上传接口
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#photoDetail').attr('src', result); //图片链接（base64）
+                    });
+
+                    layer.msg('上传中', {icon: 16, time: 0});
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code !== '200') {
+                        return layer.msg('上传失败');
+                    } else {
+                        imgUrl = res.data
+                        $('#uploadText').html(''); //置空上传失败的状态
+                        return layer.msg('上传成功');
+                    }
+
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var uploadText = $('#uploadText2');
+                    uploadText.html('<span style="color: #FF5722; margin-left: 130px">上传失败</span> <a class="layui-btn layui-btn-xs img-reload">重试</a>');
+                    uploadText.find('.img-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+
+            });
+
+            //多图片上传
+            upload.render({
+                elem: '#selectPhoto'
+                , url: '/commentFile/file/images' //此处配置你自己的上传接口即可
+                , multiple: true
+                ,auto: false
+                ,bindAction: '#uploadGoodsGallery'
+                ,choose: function (obj) {
+                    if ('0' === tag){
+                        layer.confirm('是否确认删除原有图册，以新增新图册',
+                            //{icon: 3, title:'提示',btn: ['确定','只是追加']},
+                            {btn: ['确定','只是追加']},
+                            function (index){
+                                $("#image").empty();
+                                multiImg = []
+                                i = 0
+                                obj.preview(function (index, file, result) {
+                                    $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 5px">')
+                                });
+                                layer.close(index)
+                            }, function () {
+                                obj.preview(function (index, file, result) {
+                                    $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 5px">')
+                                });
+                            });
+                    } else {
+                        obj.preview(function (index, file, result) {
+                            $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 5px">')
+                        });
+                    }
+
+
+                }
+                /*, before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="margin-left: 5px">')
+                    });
+                }*/
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code !== '200') {
+                        return layer.msg('上传失败');
+                    } else {
+                        multiImg[i] = res.data
+                        i += 1
+                        $('#uploadText').html(''); //置空上传失败的状态
+                        return layer.msg('上传成功');
+                    }
+
+                }
+            });
+            let videoUrl
+            //视频上传
+            upload.render({
+                elem: '#uploadVedio'
+                , url: '/commentFile/file/videos' //此处配置你自己的上传接口即可
+                , accept: 'video' //视频
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#goodsVideo').attr('src', result);
+
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code !== '200') {
+                        return layer.msg('上传失败');
+                    } else {
+                        videoUrl = res.data
+                        $('#uploadVdoText').html(''); //置空上传失败的状态
+                        return layer.msg('上传成功');
+                    }
+                }
+            });
+            form.on('submit(saveInfo)', function (data) {
+                //生产时间 存到分钟即可
+                let startAt = new Date($('#startAt').val()).getTime() / 1000
+                let endAt = new Date($('#endAt').val()).getTime() / 1000
+                data.field.startAt = startAt
+                data.field.endAt = endAt
+                if (startAt > endAt) {
+                    layer.alert('开始时间不得大于结束时间')
+                } else {
+                    //图片 视频
+                    data.field.imgUrl = imgUrl
+                    data.field.multiImg = multiImg
+                    data.field.videoUrl = videoUrl
+                    //富文本
+                    data.field.goodsInfo = layEdit.getContent(goodsInfo)
+                    data.field.goodsUsage = layEdit.getContent(goodsUsage)
+                    data.field.goodsTech = layEdit.getContent(goodsTech)
+                    //标志
+                    data.field.tag = (tag === '0' ? 0 : 1)
+                    if ('0' === tag){
+                        data.field.id = id
+                    }
+                    $.ajax({
+                        url: '/goods/saveGoodsInfo',
+                        type: 'post',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        data: JSON.stringify(data.field),
+                        datatype: 'json',
+                        success: function (res) {
+                            if ('200' == res.code) {
+                                layer.alert('操作成功', {}, function () {
+                                    parent.layer.close(index);
+                                    window.parent.location.href = 'goodsList'
+                                })
+                            } else if ('D0101' == res.code) {
+                                layer.alert(res.info)
+                            } else {
+                                layer.alert('操作失败')
+                            }
+                        },
+                        error: function (e) {
+                            if (e.status == '500') {
+                                layer.alert('服务器处理失败，无法完成请求', {}, function () {
+                                    parent.layer.close(index);
+                                    window.parent.location.href = 'goodsList'
+                                })
+                            } else {
+                                layer.alert(e.responseJSON.error, {}, function () {
+                                    parent.layer.close(index);
+                                    window.parent.location.href = 'goodsList'
+                                })
+                            }
+
+                        }
+                    })
+                }
+                return false
+
+            })
+        })
+    }
+
+</script>
+<style type="text/css">
+    .layui-form-label {
+        width: 100px;
+    }
+
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+
+    .layui-upload-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .layui-word-aux {
+        color: red !important;
+    }
+</style>
+</html>

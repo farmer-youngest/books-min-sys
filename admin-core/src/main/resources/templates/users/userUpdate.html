@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑管理员信息</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">用户名：</label>
+            <div class="layui-input-inline">
+                <input name="username" placeholder="请输入用户名"
+                       type="text" lay-verify="required"
+                       autocomplete= "new-username"
+                       class="layui-input" id="username">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-inline">
+                <input name="password" placeholder="留空则不修改密码"
+                       type="password" value=""
+                       autocomplete= "new-password"
+                       class="layui-input" id="password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码：</label>
+            <div class="layui-input-inline">
+                <input name="password2" placeholder="请再次输入密码"
+                       type="password" onblur="checkPassword()"
+                       autocomplete= "new-password"
+                       class="layui-input" id="password2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">邮箱：</label>
+            <div class="layui-input-inline">
+                <input name="email" placeholder="邮箱"
+                       type="text" id="email"
+                       lay-verify="required|email"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机：</label>
+            <div class="layui-input-inline">
+                <input name="mobile" placeholder="手机"
+                       type="text" id="mobile"
+                       lay-verify="mobile"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline">
+                <select name="status" id="status" >
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+                <button class="layui-btn" lay-submit="cancel" lay-filter="cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['form', 'jquery', 'table'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var table = layui.table;
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        form.render("select");
+        let phoneReg=/^[1][3,4,5,7,8,9][0-9]{9}$/;
+        //手机号如果不为空则校验
+        form.verify({
+            mobile: function(value){
+                if(''!==value && value.length > 0){
+                    if(!phoneReg.test(value)) {
+                        return '请输入正确的手机号'
+                    }
+                }
+            }
+        })
+        form.on('submit(cancel)', function () {
+            parent.layer.close(index); //再执行关闭
+        })
+        form.on('submit(saveInfo)', function (data) {
+            if (checkPassword()) {
+                $.ajax({
+                    url: '/user/userEdit',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify(data.field),
+                    datatype: 'json',
+                    success: function (res) {
+                        if ('200' == res.code) {
+                            layer.alert('修改成功', {}, function () {
+                                parent.layer.close(index);
+                                window.parent.location.href = 'userList'
+                            })
+                        } else {
+                            layer.alert(res.info)
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert(e.responseJSON.error, {}, function () {
+                            parent.layer.close(index);
+                        })
+                    }
+                })
+
+            } else {
+                layer.alert("请重新确认密码！")
+            }
+            return false
+
+        })
+
+    })
+
+    function checkPassword() {
+        let pwdTag;
+        if ($('#password').val() !== $('#password2').val()) {
+            layer.alert("两次输入密码不一致！")
+            $('#password2').val('')
+            pwdTag = false
+        } else {
+            pwdTag = true
+        }
+        return pwdTag
+    }
+
+
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+</style>
+</html>

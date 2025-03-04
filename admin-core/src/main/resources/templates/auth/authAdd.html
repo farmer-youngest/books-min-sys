@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加管理员组</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="layui-field-box">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">用户组：</label>
+                <div class="layui-input-inline">
+                    <input name="title" placeholder="请输入用户组名称"
+                           type="text"
+                           required lay-verify="required"
+                           class="layui-input" id="title">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label ">用户组描述：</label>
+                <div class="layui-input-inline">
+                    <input name="description" placeholder="请输入用户组描述"
+                           type="text"
+                           class="layui-input" id="description">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-inline">
+                    <select name="status" id="status">
+                        <option value="1">启用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-inline layui-btn-group" style="margin-left: 60%">
+                    <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use(['form','jquery', 'table'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        let table = layui.table;
+        form.render("select");
+        let index = parent.layer.getFrameIndex(window.name);
+        form.on('submit(saveInfo)', function (data) {
+            $.ajax({
+                url: '/authGroup/authAdd',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify(data.field),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        layer.alert('添加成功', {}, function () {
+                            parent.layer.close(index); //再执行关闭
+                            window.parent.location.href = 'authList'
+                        })
+                    }else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error, {}, function () {
+                        parent.layer.close(index);
+                    })
+                }
+            })
+            return false;
+        })
+    })
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+</style>
+</html>

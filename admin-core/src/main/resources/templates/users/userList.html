@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员信息</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">   <!--列间隔为25-->
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <form class="layui-form layui-col-space5">
+                        <div class="layui-form-item layui-inline layui-show-xs-block">
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-inline">
+                                <input name="username" placeholder="用户名"
+                                       type="text"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-inline layui-show-xs-block">
+                            <label class="layui-form-label">邮箱：</label>
+                            <div class="layui-input-inline">
+                                <input name="email" placeholder="邮箱"
+                                       type="text"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-inline layui-show-xs-block">
+                            <label class="layui-form-label">手机号：</label>
+                            <div class="layui-input-inline">
+                                <input name="mobile" placeholder="手机号"
+                                       type="text"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-inline layui-show-xs-block">
+                            <label class="layui-form-label">状态：</label>
+                            <div class="layui-input-inline">
+                                <select name="status">
+                                    <option value="">请选择</option>
+                                    <option value="1">启用</option>
+                                    <option value="0">禁用</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <button class="layui-btn" id="tableReload" data-type="reload"
+                                    lay-submit="search" lay-filter="search"
+                                    style="margin-left: 240px;"><i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="layui-card-body">
+                    <table class="layui-table layui-form" id="userTable" lay-filter="userTable">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="tableBar">
+    <div class="layui-form-item">
+        <div class="layui-btn-group">
+            <button type="button" class="layui-btn layui-btn" lay-event="add">
+                <i class="layui-icon">&#xe654;</i>添加
+            </button>
+            <button type="button" class="layui-btn layui-btn" lay-event="edit">
+                <i class="layui-icon">&#xe642;</i>编辑
+            </button>
+            <button type="button" class="layui-btn layui-btn" lay-event="detail">
+                <i class="layui-icon">&#xe63c;</i>查看
+            </button>
+            <button type="button" class="layui-btn layui-btn-danger layui-btn" lay-event="delete">
+                <i class="layui-icon">&#xe640;</i>删除
+            </button>
+            <button type="button" class="layui-btn layui-btn-danger layui-btn" lay-event="authorize">
+                <i class="layui-icon">&#xe66f;</i>管理员组授权
+            </button>
+        </div>
+        <table id="menuTable" class="layui-table" lay-filter="menuTable"></table>
+    </div>
+</script>
+<script type="text/html" id="tableStatus">
+    {{# if(d.status=== 0) { }}
+    禁用
+    {{# } else if(d.status=== 1) { }}
+    启用
+    {{# } }}
+</script>
+<script type="text/html" id="tableIsFixed">
+    {{# if(d.isFixed === 0) { }}
+    否
+    {{# } else if(d.isFixed === 1) { }}
+    是
+    {{# } }}
+</script>
+<script th:inline=none>
+    layui.use(['form', 'table', 'util'], function () {
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+
+        //监听提交
+        form.on('submit(search)', function (param) {
+            table.reload('userTable', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                where: param.field  //查询参数
+            })
+            return false;
+        });
+        //表格渲染
+        table.render({
+            elem: '#userTable',
+            id: 'userTable',
+            url: '/user/getUsers',
+            method: 'post',
+            contentType: 'application/json',
+            response: {
+                statusCode: 200, //规定成功状态码为200
+            },
+            request: {
+                pageName: 'pageNum', //页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.info, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.records //解析数据列表
+                }
+            },
+            title: '管理员列表',
+            // height: 900,
+            page: true,
+            toolbar: '#tableBar',
+            defaultToolbar: 'false',
+            cols: [[
+                {
+                    type: 'radio',
+                    fixed: 'left'
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    width: '50',
+                    align: 'center'
+                },
+                {
+                    field: 'username',
+                    title: '用户名',
+                    width: '100',
+                    align: 'center'
+                },
+                {
+                    field: 'email',
+                    title: '邮箱',
+                    width: '120',
+                    align: 'center'
+                },
+                {
+                    field: 'mobile',
+                    title: '手机号',
+                    width: '120',
+                    align: 'center'
+                },
+                {
+                    field: 'lastLoginIp',
+                    title: '最后登录IP',
+                    width: '150',
+                    sort: true,
+                    align: 'center'
+                },
+                {
+                    field: 'lastLoginTime',
+                    title: '最后登录时间',
+                    width: '160',
+                    sort: true,
+                    align: 'center'
+
+                },
+                {
+                    field: 'createdAt',
+                    title: '创建时间',
+                    width: '160',
+                    sort: true,
+                    align: 'center'
+                },
+                {
+                    field: 'updatedAt',
+                    title: '更新时间',
+                    width: '160',
+                    sort: true,
+                    align: 'center'
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    width: '60',
+                    align: 'center',
+                    templet: '#tableStatus'
+                },
+                {
+                    field: 'isFixed',
+                    title: '系统锁定（不可删）',
+                    width: '140',
+                    align: 'center',
+                    templet: '#tableIsFixed'
+                }
+            ]]
+        })
+        //查看选中行数据
+        table.on('toolbar(userTable)', function (obj) {
+            let checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            let data = checkStatus.data;  //获取选中行数据
+            switch (obj.event) {
+                //用户资料
+                case 'detail':
+                    if (ifCheck(data.length)) {
+                        localStorage.setItem("param", data[0].id);
+                        layer.open({
+                            type: 2,
+                            area: ['450px', '600px'],
+                            fixed: false, //不固定
+                            title: '查看管理员信息',
+                            content: 'userDetail'
+                        })
+                    }
+                    break;
+                //修改用户信息
+                case 'edit':
+                    if (ifCheck(data.length)) {
+                        layer.open({
+                            type: 2,
+                            area: ['450px', '500px'],
+                            fixed: false, //不固定
+                            title: '修改管理员信息',
+                            content: 'userUpdate',
+                            success: function (layero, index) {
+                                let body = layer.getChildFrame('body', index);
+                                body.find('#id').val(data[0].id)
+                                body.find('#username').val(data[0].username)
+                                body.find('#email').val(data[0].email)
+                                body.find('#username').val(data[0].username)
+                                body.find('#mobile').val(data[0].mobile)
+                                body.find('#status').val(data[0].status)
+                            }
+                        });
+                    }
+                    break;
+                //添加用户
+                case 'add':
+                    layer.open({
+                        type: 2,
+                        area: ['450px', '600px'],
+                        fixed: false,
+                        title: '添加管理员',
+                        content: 'userAdd'
+                    })
+                    break;
+                //删除用户
+                case 'delete':
+                    if (ifCheck(data.length)) {
+                        if (0 === data[0].isFixed) {
+                            layer.confirm('是否确认删除此用户，删除后将不可恢复：' + data[0].username, {
+                                btn: ['必须删', '不删不删'] //按钮
+                            }, function () {
+                                $.ajax({
+                                    url: '/user/userDelete',
+                                    type: 'post',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    data: JSON.stringify(data[0]),
+                                    datatype: 'json',
+                                    success: function (res) {
+                                        if ('200' == res.code) {
+                                            layer.alert('删除成功')
+                                            // 刷新表格
+                                            table.reload('userTable', {
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                },
+                                                where: data.field  //查询参数
+                                            })
+                                        } else {
+                                            layer.alert(res.info)
+                                        }
+                                    },
+                                    error: function (e) {
+                                        layer.alert(e.responseJSON.error)
+                                    }
+                                })
+                            }, function () {
+                            });
+                        } else if (1 === data[0].isFixed) {
+                            layer.alert('该用户已锁定，不可删除！')
+                        }
+
+                    }
+                    break;
+                //管理员组授权
+                case 'authorize':
+                    if (ifCheck(data.length)) {
+                        layer.open({
+                            type: 2,
+                            area: ['500px', '200px'],
+                            fixed: false, //不固定
+                            title: '管理员组授权',
+                            content: 'userAuth',
+                            success: function (layero, index) {
+                                let body = layer.getChildFrame('body', index);
+                                body.find('#id').val(data[0].id)
+                            }
+                        })
+                    }
+                    break;
+            }
+        })
+
+        function ifCheck(length) {
+            if (length <= 0) {
+                layer.alert('请先选择操作行')
+                return false
+            } else {
+                return true
+            }
+        }
+    });
+</script>
+<style>
+    .layui-form-label {
+        width: 120px
+    }
+</style>
+</html>

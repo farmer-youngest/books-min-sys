@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑/新增生产商信息</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">生产商名称：</label>
+            <div class="layui-input-inline">
+                <input name="proName" placeholder="请输入生产商名称"
+                       type="text" lay-verify="required"
+                       class="layui-input" id="proName" style="width: 400px;">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地址：</label>
+            <div class="layui-input-inline">
+                <input name="address" placeholder="地址"
+                       type="text" id="address"
+                       class="layui-input" style="width: 400px;">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline" style="width: 400px;">
+                <select name="status" id="status">
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+                <button class="layui-btn" lay-submit="cancel" lay-filter="cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['form', 'jquery', 'table'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var table = layui.table;
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        form.render("select");
+        form.on('submit(cancel)', function () {
+            parent.layer.close(index); //再执行关闭
+        })
+        form.on('submit(saveInfo)', function (data) {
+            $.ajax({
+                url: '/manufacturer/manufacturerEditOrAdd',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify(data.field),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        layer.alert('操作成功', {}, function () {
+                            parent.layer.close(index);
+                            window.parent.location.href = 'manufacturerList'
+                        })
+                    } else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error, {}, function () {
+                        parent.layer.close(index);
+                    })
+                }
+            })
+
+            return false
+
+        })
+
+    })
+
+
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+
+    .layui-form-label {
+        width: 100px
+    }
+</style>
+</html>

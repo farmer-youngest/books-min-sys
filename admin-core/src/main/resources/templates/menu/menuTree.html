@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>菜单管理</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+</head>
+<body>
+<div class="layui-card-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn" lay-event="add" id="addBtn">
+                    <i class="layui-icon">&#xe654;</i>添加
+                </button>
+                <button type="button" class="layui-btn layui-btn" lay-event="edit" id="editBtn">
+                    <i class="layui-icon">&#xe642;</i>编辑
+                </button>
+                <button type="button" class="layui-btn layui-btn" lay-event="delete" id="delBtn">
+                    <i class="layui-icon">&#xe640;</i>删除
+                </button>
+            </div>
+            <table id="menuTable" class="layui-table" lay-filter="menuTable"></table>
+        </div>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript">
+    layui.config({
+        base: '/js/extModule/treeTable/'
+    }).extend({
+        treeTable: './js/treeTable'
+    });
+    layui.use(['form', 'jquery', 'treeTable'], function () {
+        let $ = layui.jquery;
+        let form = layui.form;
+        let layer = layui.layer;
+        let treeTable = layui.treeTable;
+
+        let re = treeTable.render({
+            elem: '#menuTable',
+            url: '/sysMenu/getMenuList',
+            icon_key: 'id',//打开树按钮标识字段
+            is_checkbox: true,
+            is_cache: false,
+            primary_key: 'id',//用来标识的键字段名
+            parent_key: 'parentId',//父键标识字段名
+            end: function (e) {//构建表后回调
+            },
+            cols: [
+                {
+                    key: 'id',//字段名
+                    title: 'id',//表头名
+                    width: '10px'
+                },
+                {
+                    key: 'labelUnq',
+                    title: '唯一标识',
+                    width: '150px'
+                },
+                {
+                    key: 'moduleName',
+                    title: '名称',
+                    width: '100px'
+                },
+                {
+                    key: 'viewUrl',
+                    title: '视图路径',
+                    width: '140px',
+                    template: function (d) {
+                        if (null === d.viewUrl || undefined === d.viewUrl) {
+                            return ''
+                        } else {
+                            return d.viewUrl
+                        }
+                    }
+                },
+                {
+                    key: 'mapperUrl',
+                    title: '映射路径',
+                    width: '140px',
+                    template: function (d) {
+                        if (null === d.mapperUrl || undefined === d.mapperUrl) {
+                            return ''
+                        } else {
+                            return d.mapperUrl
+                        }
+                    }
+                },
+                {
+                    key: 'isFixed',
+                    title: '系统锁定(不可删)',
+                    width: '90px',
+                    template: function (d) {//可处理返回字段名
+                        if (d.isFixed === 1 || d.isFixed === '1' || d.isFixed === true) {
+                            return '<span >是</span>';
+                        } else if (d.isFixed === 0 || d.isFixed === '0' || d.isFixed === false) {
+                            return '<span>否</span>'
+                        }
+                    }
+                }
+                , {
+                    key: 'enableStatus',
+                    title: '启用标志',
+                    width: '10px',
+                    template: function (d) {//可处理返回字段名
+                        if (d.enableStatus === 1 || d.enableStatus === '1' || d.enableStatus === true) {
+                            return '<span >已启用</span>';
+                        } else if (0 === d.enableStatus || d.enableStatus === '0' || d.enableStatus === false) {
+                            return '<span>未启用</span>'
+                        }
+                    }
+                },
+                {
+                    key: 'type',
+                    title: '类型',    //0：模块，1:二级菜单，2：操作,3:独立页面(弹框)
+                    width: '70px',
+                    template: function (d) {//可处理返回字段名
+                        if (d.type === 0 || d.type === '1') {
+                            return '<span >模块</span>';
+                        } else if (1 === d.type || d.type === '1') {
+                            return '<span>二级菜单</span>'
+                        } else if (2 === d.type || d.type === '2') {
+                            return '<span>请求/操作</span>'
+                        } else if (3 === d.type || d.type === '3') {
+                            return '<span>独立页面(弹框)</span>'
+                        }
+                    }
+                },
+                {
+                    key: 'sort',
+                    title: '排序',
+                    width: '20px'
+                }
+            ]
+        });
+
+        //btn点击事件
+        $('#addBtn').click(function () {
+            console.log('add')
+            //添加菜单信息 tag为1
+            localStorage.setItem("tag", '1');
+            layer.open({
+                type: 2,
+                area: ['500px', '600px'],
+                fixed: false,
+                title: '添加菜单',
+                shadeClose: true,
+                content: 'menuEditOrAdd'
+            })
+        })
+        $('#editBtn').click(function () {
+            if (checkedCount()) {
+                console.log('checkData: ', checkData)
+                //编辑菜单信息 tag为0
+                localStorage.setItem("tag", '0');
+                localStorage.setItem("param", checkData[0]);
+                layer.open({
+                    type: 2,
+                    area: ['500px', '600px'],
+                    fixed: false,
+                    title: '编辑菜单信息',
+                    content: 'menuEditOrAdd'
+                })
+            }
+        })
+        $('#delBtn').click(function () {
+            if (checkedCount()) {
+                console.log('checkData: ', checkData)
+                layer.confirm('是否确认删除，删除后将不可恢复',
+                    {btn: ['必须删', '不删不删']},
+                    function () {
+                        $.ajax({
+                            url: '/sysMenu/deleteMenu',
+                            type: 'post',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            data: JSON.stringify({'id':checkData[0]}),
+                            dataType: 'json',
+                            success: function (res) {
+                                if ('200' == res.code) {
+                                    layer.alert('删除成功')
+                                    // 刷新页面
+                                    window.location.reload()
+                                } else {
+                                    layer.alert(res.info)
+                                }
+                            },
+                            error: function (e) {
+                                layer.alert(e.responseJSON.error)
+                            }
+                        })
+                    }, function () {
+                    });
+            }
+        })
+        //监听选中数据id
+        let checkData = []
+
+        function checkedCount() {
+            let tempStr = treeTable.checked(re).join(',')
+            checkData = tempStr === '' ? [] : tempStr.split(',')
+            if (checkData.length > 1) {
+                layer.alert('不能操作多行数据，请重新选择')
+                return false
+            } else if (checkData.length === 0) {
+                layer.alert('请先选择操作行')
+                return false
+            } else {
+                return true
+            }
+        }
+    })
+</script>
+<style>
+    a:link, a:visited {
+        color: #0a6aa1;
+    }
+</style>
+</html>

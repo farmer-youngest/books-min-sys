@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加用户</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form" >
+        <!--id自动递增-->
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">用户名：</label>
+            <div class="layui-input-inline">
+                <input name="username" placeholder="请输入用户名"
+                       type="text"
+                       required lay-verify="required"
+                       autocomplete= "new-username"
+                       class="layui-input" id="username">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">密码：</label>
+            <div class="layui-input-inline">
+                <input name="password" placeholder="留空则不修改密码"
+                       type="password" value=""
+                       required lay-verify="required"
+                       autocomplete= "new-password"
+                       class="layui-input" id="password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">确认密码：</label>
+            <div class="layui-input-inline">
+                <input name="password2" placeholder="请再次输入密码"
+                       type="password" onblur="checkPassword()"
+                       required lay-verify="required"
+                       autocomplete= "new-password"
+                       class="layui-input" id="password2">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">邮箱：</label>
+            <div class="layui-input-inline">
+                <input name="email" placeholder="邮箱"
+                       type="text" id="email"
+                       required lay-verify="required|email"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机：</label>
+            <div class="layui-input-inline">
+                <input name="mobile" placeholder="手机"
+                       type="text" id="mobile"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline">
+                <select name="status" id="status">
+                    <option value="1">启用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 60%">
+                <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+        form.render("select");
+        let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+        form.on('submit(saveInfo)', function (data) {
+            if (checkPassword()) {
+                $.ajax({
+                    url: '/user/userAdd',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify(data.field),
+                    datatype: 'json',
+                    success: function (res) {
+                        if ('200' == res.code) {
+                            layer.alert('保存成功', {}, function () {
+                                parent.layer.close(index); //再执行关闭
+                                window.parent.location.href = 'userList'
+                            })
+                        }else {
+                            layer.alert(res.info)
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert(e.responseJSON.error, {}, function () {
+                            parent.layer.close(index);
+                        })
+                    }
+                })
+            } else {
+                layer.alert("请重新确认密码！")
+            }
+            return false;
+        })
+    })
+
+    function checkPassword() {
+        let pwdTag;
+        if ($('#password').val() !== $('#password2').val()) {
+            layer.alert("两次输入密码不一致，请重新输入！")
+            $('#password2').val('')
+            pwdTag = false
+        } else {
+            pwdTag = true
+        }
+        return pwdTag
+    }
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+</style>
+</html>

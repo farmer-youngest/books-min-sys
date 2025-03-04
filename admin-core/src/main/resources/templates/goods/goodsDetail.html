@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>产品详情</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" th:src="@{/js/util/utils.js}"></script>
+
+</head>
+<body>
+<div class="layui-field-box" style="background-color: white">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>通用信息</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">生产商：</label>
+            <div class="layui-input-inline">
+                <select name="manufacturerId" id="manufacturerId" disabled="disabled">
+                    <option value="">请选择</option>
+                    <option value=2>广东丸美生物技术股份有限公司</option>
+                    <option value=3>丸美化粧品株式会社</option>
+                </select>
+            </div>
+        </div>
+        <!--<div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label ">生产时间：</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" id="dateRage"
+                         readonly="true">
+            </div>
+        </div>-->
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">生产时间：</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" readonly="true" autocomplete="off"
+                       id="startAt" placeholder="请选择起始时间" style="margin-bottom: 10px">
+                &nbsp; 至 &nbsp;
+                <input type="text" class="layui-input" readonly="true" autocomplete="off" id="endAt"
+                       placeholder="请选择结束时间" style="margin-top: 10px">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">品牌名称：</label>
+            <div class="layui-input-inline">
+                <select name="categoryId" id="categoryId" disabled="disabled">
+                    <option value="">请选择</option>
+                    <option value=71>春纪</option>
+                    <option value=73>丸美眼霜</option>
+                    <option value=76>测试</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">产品名称：</label>
+            <div class="layui-input-inline">
+                <input name="goodsName" placeholder="请输入产品名称"
+                       type="text" readonly="true"
+                       class="layui-input" id="goodsName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">建议零售价：</label>
+            <div class="layui-input-inline">
+                <input name="goodsPrice" placeholder=""
+                       type="text" readonly="true"
+                       class="layui-input" id="goodsPrice">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">产品规格：</label>
+            <div class="layui-input-inline">
+                <input name="netWeight" placeholder=""
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label ">产品编码：</label>
+            <div class="layui-input-inline">
+                <input name="matnr" placeholder="" readonly="true"
+                       type="text" id="matnr"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品图册：</label>
+            <div class="layui-upload">
+                <!--<button type="button" class="layui-btn" id="uploadGoodsGallery"><i class="layui-icon">&#xe67c;</i>上传产品图册
+                </button>-->
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    <div class="layui-upload-list " id="image">
+                        <p id="uploadText"></p>
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline">
+                <select name="status" id="status" disabled="disabled">
+                    <option value="">请选择</option>
+                    <option value="1">上架</option>
+                    <option value="0">下架</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">上传视频：</label>
+            <button type="button" class="layui-btn " id="uploadVedio"><i class="layui-icon"></i>上传视频</button>
+            <div class="layui-inline layui-word-aux"  >
+                请上传20M以内的MP4格式的视频
+            </div>
+            <div class="layui-upload-list" >
+                <video src="" id="goodsVideo"  controls="controls"  style="margin-left: 130px" height="300px" width="400px"></video>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品信息：</label>
+            <textarea class="layui-textarea" id="goodsInfo" name="goodsInfo" style="" readonly="true"></textarea>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">使用方法：</label>
+            <textarea class="layui-textarea" id="goodsUsage" name="goodsUsage" style="" readonly="true"></textarea>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图文详情：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="uploadPhotoDetail"><i class="layui-icon">&#xe67c;</i>上传图文详情
+                </button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" style="margin-left: 130px" id="photoDetail">
+                    <p id="uploadText2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创新科技：</label>
+            <textarea class="layui-textarea" id="goodsTech" name="goodsTech" style="" readonly="true"></textarea>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['layer', 'form', 'util', 'jquery', 'upload', 'laydate', 'layedit'], function () {
+        let layer = layui.layer
+        let form = layui.form
+        let $ = layui.jquery
+        let layDate = layui.laydate
+        let layEdit = layui.layedit
+        let id = localStorage.getItem("param")
+
+
+        $.ajax({
+            url: '/goods/goodsDetail',
+            type: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            data: id,
+            dataType: 'json',
+            success: function (data) {
+                if ('200' == data.code && null != data.data) {
+                    $('#id').val(data.data.id)
+                    $('#categoryId').val(data.data.categoryId)
+                    $('#goodsPrice').val(data.data.goodsPrice)
+                    $('#status').val(data.data.status)
+                    $('#manufacturerId').val(data.data.manufacturerId)
+                    $('#matnr').val(data.data.matnr)
+                    $('#goodsName').val(data.data.goodsName)
+                    form.render('select');
+                    //产品图库
+                    data.data.multiImg.forEach(item => {
+                        $('#image').append('<img src="' + item + '" ' + ' class="layui-upload-img" style="margin-left: 5px">')
+                    })
+                    //图文详情
+                    $('#photoDetail').attr('src', data.data.imgUrl);
+                    //视频
+                    $('#goodsVideo').attr('src', data.data.videoUrl);
+                    //$('#goodsVideo').append('<video src="' + data.data.videoUrl + '"  controls="controls"  style="margin-left: 130px" height="300px" width="400px"></video>')
+
+                    //生产时间
+                    if (null !== data.data.startAt && undefined !== data.data.startAt && null !== data.data.endAt && undefined !== data.data.endAt) {
+                        layDate.render({
+                            elem: '#startAt'
+                            , type: 'datetime'
+                            , value: data.data.startAt !== 0 ? new Date(data.data.startAt * 1000) : ''
+                        });
+                        layDate.render({
+                            elem: '#endAt'
+                            , type: 'datetime'
+                            , value: new Date(data.data.endAt * 1000)
+                        });
+                    }
+                    //富文本         先赋值再渲染
+                    $('#goodsInfo').val(data.data.goodsInfo)
+                    layEdit.build('goodsInfo', {
+                        weight: 300,
+                        height: 300,
+                        tool: [
+                            'strong' //加粗
+                            , 'italic' //斜体
+                            , 'underline' //下划线
+                            , 'del' //删除线
+                            , '|' //分割线
+                            , 'left' //左对齐
+                            , 'center' //居中对齐
+                            , 'right' //右对齐
+                            ,'link' //超链接
+                            ,'unlink' //清除链接
+                            , 'face' //表情
+                            //,'image' //插入图片
+                            //,'help' //帮助
+                        ]
+                    })
+                    $('#goodsUsage').val(data.data.goodsUsage)
+                    layEdit.build('goodsUsage', {
+                        weight: 300,
+                        height: 300,
+                        tool: [
+                            'strong' //加粗
+                            , 'italic' //斜体
+                            , 'underline' //下划线
+                            , 'del' //删除线
+                            , '|' //分割线
+                            , 'left' //左对齐
+                            , 'center' //居中对齐
+                            , 'right' //右对齐
+                            ,'link' //超链接
+                            ,'unlink' //清除链接
+                            , 'face' //表情
+                            //,'image' //插入图片
+                            //,'help' //帮助
+                        ]
+                    })
+                    $('#goodsTech').val(data.data.goodsTech)
+                    layEdit.build('goodsTech', {
+                        weight: 300,
+                        height: 300,
+                        tool: [
+                            'strong' //加粗
+                            , 'italic' //斜体
+                            , 'underline' //下划线
+                            , 'del' //删除线
+                            , '|' //分割线
+                            , 'left' //左对齐
+                            , 'center' //居中对齐
+                            , 'right' //右对齐
+                            ,'link' //超链接
+                            ,'unlink' //清除链接
+                            , 'face' //表情
+                            //,'image' //插入图片
+                            //,'help' //帮助
+                        ]
+                    })
+                }
+
+            },
+            error:
+                function (e) {
+                    layer.alert("提交失败！"+e.responseJSON.error)
+                }
+        })
+    })
+</script>
+<style type="text/css">
+    .layui-form-label {
+        width: 100px;
+    }
+
+    .layui-upload-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .layui-upload-img {
+        width: 100px;
+        height: 100px;
+
+    }
+    .layui-word-aux {
+        color: red !important;
+    }
+</style>
+</html>

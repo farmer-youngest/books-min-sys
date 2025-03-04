@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>配置管理</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row ">
+        <div class="layui-col-md12">
+            <div class="layui-card-body">
+                <form class="layui-form">
+                    <div class="layui-form-item layui-inline layui-show-xs-block">
+                        <label class="layui-form-label">配置分组：</label>
+                        <div class="layui-input-inline">
+                            <select name="configGroup" id="configGroup">
+                                <!--                                <option value="">请选择</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="layui-form-item layui-inline layui-show-xs-block">
+                        <label class="layui-form-label">春纪福利社URL</label>
+                        <div class="layui-input-inline">
+                            <input name="CHUNJI_FORUM_URL" placeholder=""
+                                   type="text" id="urlInput"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="layui-form-item layui-inline layui-show-xs-block">
+                        <label class="layui-form-label">春纪底部背景图：</label>
+                        <div class="layui-upload">
+                            <button type="button" class="layui-btn" id="uploadBgImg"><i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                            <div class="layui-upload-list">
+                                <img src="" class="layui-upload-img" id="image">
+                                <p id="uploadText"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline layui-btn-group" style="margin-left: 130px">
+                            <button class="layui-btn" lay-submit lay-filter="saveInfo">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    layui.use(['layer', 'form', 'util', 'jquery', 'upload'], function () {
+        let layer = layui.layer
+        let form = layui.form
+        let $ = layui.jquery
+        let upload = layui.upload
+
+        //配置分组下拉选项
+        $(function () {
+            $.post('/config/gerConfigGroup',
+                {},
+                function (res) {
+                    if ('200' == res.code) {
+                        $.each(res.data, function (index, item) {
+                            switch (item.name) {
+                                case 'CONFIG_GROUP' :
+                                    let t = item.value.split(':')
+                                    $('#configGroup').append(new Option(t[1], t[0]))
+                                    break;
+                                case 'CHUNJI_FORUM_URL' :
+                                    $('#urlInput').val(item.value)
+                                    break;
+                                case 'CHUNJI_FOOTER_IMG' :
+                                    $("#image").attr("src", item.value);
+                                    break;
+                            }
+
+                        })
+                        form.render('select')
+                    } else {
+                        layer.alert(res.info)
+                    }
+                })
+        })
+        let imgUrl;
+        //图片上传
+        let uploadInst = upload.render({
+            elem: '#uploadBgImg'
+            , url: '/commentFile/file/images' //上传接口
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#image').attr('src', result); //图片链接（base64）
+                });
+
+                layer.msg('上传中', {icon: 16, time: 0});
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code !== '200') {
+                    return layer.msg('上传失败');
+                } else {
+                    imgUrl = res.data
+                    $('#uploadText').html(''); //置空上传失败的状态
+                    return layer.msg('上传成功');
+                }
+
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var uploadText = $('#uploadText');
+                uploadText.html('<span style="color: #FF5722; margin-left: 130px">上传失败</span> <a class="layui-btn layui-btn-xs img-reload">重试</a>');
+                uploadText.find('.img-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+
+        });
+        form.on('submit(saveInfo)', function (data) {
+            data.field.file = imgUrl
+            //设置传参
+            let param = []
+            //春纪福利社URL
+            param[0] = {
+                name: 'CHUNJI_FORUM_URL',
+                value: data.field.CHUNJI_FORUM_URL
+            }
+            //春纪底部背景图url
+            if (undefined !== data.field.file && '' !== data.field.file) {
+                param[1] = {
+                    name: 'CHUNJI_FOOTER_IMG',
+                    value: data.field.file
+                }
+            }
+
+            $.ajax({
+                url: '/config/saveConfigInfo',
+                type: 'post',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify(param),
+                datatype: 'json',
+                success: function (res) {
+                    if ('200' == res.code) {
+                        layer.alert('保存成功')
+                    } else {
+                        layer.alert(res.info)
+                    }
+                },
+                error: function (e) {
+                    layer.alert(e.responseJSON.error)
+                }
+            })
+            return false;
+        })
+
+    })
+</script>
+<style>
+    .layui-form-label {
+        width: 100px
+    }
+
+    .layui-upload-img {
+        width: 550px;
+        height: 400px;
+        margin-left: 130px
+    }
+
+</style>
+</html>

@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "8bab8bc5-de1e-4566-81d8-8dbc2bb6372a",
+		"name": "other push",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\":1,\r\n    \"queryType\":1,\r\n    \"wlmidcode\":\"119970532008000054318140\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://58.249.56.164:8080/is/assistant/InterfaceWlmIdcodeAction.do",
+					"protocol": "http",
+					"host": [
+						"58",
+						"249",
+						"56",
+						"164"
+					],
+					"port": "8080",
+					"path": [
+						"is",
+						"assistant",
+						"InterfaceWlmIdcodeAction.do"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/tangmingze.MAIL39/Desktop/banner.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8088/test/file",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"test",
+						"file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "文件url请求",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8088/marubi/file/videos\\2021/08/171158\\161b365976ba4c8bbe61abbb7c921a7b.mp4",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"marubi",
+						"file",
+						"videos",
+						"2021",
+						"08",
+						"171158",
+						"161b365976ba4c8bbe61abbb7c921a7b.mp4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "上传文件例子",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/tangmingze.MAIL39/Downloads/mda-kbuebc9nqsrrqtr0.mp4"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8088/commentFile/file/videos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"commentFile",
+						"file",
+						"videos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

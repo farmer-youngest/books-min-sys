@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marubi.security.system.mapper.AuthRuleMapper">
+
+    <select id="selectAuthByUid" resultType="com.marubi.security.system.dto.AuthMapperUserDto">
+        SELECT
+        ba.id uid,
+        g.title authName,
+        GROUP_CONCAT(g.id SEPARATOR ',') authIds,
+        GROUP_CONCAT(g.rules SEPARATOR ',') menuIds
+        FROM
+        jk_backend_admin ba
+        INNER JOIN jk_auth_group_access ga ON ba.id = ga.uid
+        INNER JOIN jk_auth_group g ON ga.group_id = g.id
+        <where>
+            1=1
+            <if test="uid!=null">
+                and ba.id = #{uid}
+            </if>
+        </where>
+        group by ba.id
+    </select>
+</mapper>

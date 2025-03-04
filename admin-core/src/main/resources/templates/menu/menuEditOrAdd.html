@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑/新增菜单</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box" style="background-color: white">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label">上级菜单：</label>
+            <div class="layui-input-block">
+                <input type="text" id="parentId" lay-filter="parentId" class="layui-input" >
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">菜单类型：</label>
+            <div class="layui-input-block">
+                <select name="type" id="type" lay-verify="required">
+                    <option value=0>模块</option>
+                    <option value=1>二级菜单</option>
+                    <option value=2>操作/请求</option>
+                    <option value=3>独立页面/弹窗</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">菜单名：</label>
+            <div class="layui-input-block">
+                <input name="moduleName" placeholder="请输入菜单名"
+                       type="text" lay-verify="required"
+                       class="layui-input" id="moduleName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">唯一标识：</label>
+            <div class="layui-input-block">
+                <input name="labelUnq" placeholder="请输入唯一标识"
+                       type="text" lay-verify="required"
+                       class="layui-input" id="labelUnq">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">启用状态：</label>
+            <div class="layui-input-block">
+                <select name="enableStatus" id="enableStatus">
+                    <option value=1>已启用</option>
+                    <option value=0>未启用</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">视图路径：</label>
+            <div class="layui-input-block">
+                <input name="viewUrl" placeholder="请输入视图URL"
+                       type="text" lay-verify="viewUrlVerify"
+                       class="layui-input" id="viewUrl">
+            </div>
+            <span class="alert-msg">注意：类型为”二级菜单、独立页面/弹窗“时，必填视图url</span>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label ">映射路径：</label>
+            <div class="layui-input-block">
+                <input name="mapperUrl" placeholder="请输入映射视图的路径"
+                       type="text" lay-verify="mapperUrlVerify"
+                       class="layui-input" id="mapperUrl">
+            </div>
+            <span class="alert-msg">注意：除模块外，均必填视图url</span>
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">是否锁定(不可删)：</label>
+            <div class="layui-input-block">
+                <select name="isFixed" id="isFixed">
+                    <option value=1>是</option>
+                    <option value=0>否</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序：</label>
+            <div class="layui-input-block">
+                <input name="sort" placeholder="排序"
+                       type="number"
+                       class="layui-input" id="sort">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit lay-filter="saveInfo">保存</button>
+                <button class="layui-btn" lay-submit lay-filter="cancel">取消</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    //onload = function () {
+        layui.config({
+            base: '/js/extModule/treeSelect/'
+        }).extend({
+            eleTree: 'treeSelect'
+        });
+        layui.use(['form', 'jquery', 'treeSelect'], function () {
+            let $ = layui.jquery;
+            let form = layui.form;
+            let layer = layui.layer;
+
+            let treeSelect = layui.treeSelect;
+
+            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            let tag = localStorage.getItem("tag")
+            let id
+
+            //如果是编辑
+            if (tag === '0') {
+                id = localStorage.getItem("param")
+                $.ajax({
+                    //async: false,
+                    url: '/sysMenu/getMenuDetail',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify({'id':id}),
+                    datatype: 'json',
+                    success: function (data) {
+                        if ('200' === data.code && null != data.data){
+                            $('#id').val(data.data.id)
+                            $('#parentId').val(data.data.parentId)
+                            $('#type').val(data.data.type)
+                            $('#moduleName').val(data.data.moduleName)
+                            $('#labelUnq').val(data.data.labelUnq)
+                            $('#enableStatus').val(data.data.enableStatus)
+                            $('#viewUrl').val(data.data.viewUrl)
+                            $('#mapperUrl').val(data.data.mapperUrl)
+                            $('#isFixed').val(data.data.isFixed===true?1:0)
+                            $('#sort').val(data.data.sort)
+                        }
+                        form.render("select");
+                        treeSelect.render({
+                            elem: '#parentId',
+                            data: '/sysMenu/getMenuTreeSelect',
+                            type: 'get',
+                            placeholder: '请选择父级菜单',
+                            search: true,
+                            style: {
+                              folder: {enable: false},
+                              line: {enable: true}
+                            },
+                            click: function (d) {
+                                $('#parentId').val(d.current.id);
+                            },
+                            success: function (d) {
+                                let pIdVal = $('#parentId').val()
+                                if (pIdVal !== ''&&pIdVal !== undefined) {
+                                    //默认选中节点，根据id筛选
+                                    treeSelect.checkNode('parentId',pIdVal)
+                                }
+                            }
+
+                        })
+                    }
+                })
+            } else {
+                treeSelect.render({
+                    elem: '#parentId',
+                    data: '/sysMenu/getMenuTreeSelect',
+                    type: 'get',
+                    placeholder: '请选择父级菜单',
+                    search: true,
+                    click: function (d) {
+                        $('#parentId').val(d.current.id);
+                    },
+                    success: function (d) {
+                        let pIdVal = $('#parentId').val()
+                        if (pIdVal !== ''&&pIdVal !== undefined) {
+                            //默认选中节点，根据id筛选
+                            treeSelect.checkNode('parentId',pIdVal)
+                        }
+                    }
+
+                })
+            }
+            //视图url校验：独立页面、弹窗、二级菜单必填；
+            form.verify({
+                viewUrlVerify: function(value){
+                    if ($('#type').val() === '1' || $('#type').val() === '3' ) {
+                        if(''===value || null == value || value.length === 0){
+                            return '二级菜单、独立页面/弹窗，必填视图url'
+                        }
+                    }
+                }
+            })
+            //映射路径校验：除模块外都必填
+            form.verify({
+                mapperUrlVerify: function(value){
+                    if ($('#type').val() !== 0 && $('#type').val() !== '0' ) {
+                        if(''===value || null == value || value.length === 0){
+                            return '除模块外，均必填映射路径'
+                        }
+                    }
+
+                }
+            })
+            form.on('submit(cancel)', function () {
+                parent.layer.close(index); //再执行关闭
+            })
+            form.on('submit(saveInfo)', function (data) {
+                data.field.parentId = $('#parentId').val()
+                $.ajax({
+                    url: '/sysMenu/saveMenuInfo',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify(data.field),
+                    datatype: 'json',
+                    success: function (res) {
+                        if ('200' == res.code) {
+                            layer.alert('操作成功', {}, function () {
+                                parent.layer.close(index);
+                                window.parent.location.href = 'menuTree'
+                            })
+                        } else {
+                            layer.alert(res.info)
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert(e.responseJSON.error, {}, function () {
+                            parent.layer.close(index);
+                        })
+                    }
+                })
+
+                return false
+
+            })
+
+
+        })
+    //}
+
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+    .alert-msg{
+        margin-left: 26px;
+        color: red;
+    }
+</style>
+</html>

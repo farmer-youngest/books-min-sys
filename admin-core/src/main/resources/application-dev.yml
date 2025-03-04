@@ -1,0 +1,54 @@
+server:
+  port: 8089
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&
+    username: root
+    password: 123456
+    hikari:
+      minimum-idle: 3
+      auto-commit: true
+      idle-timeout: 10000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+    mode: HTML
+    cache: false
+
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/ , file:static/upload
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 150MB
+#日志打印级别
+logging:
+  level:
+    root: info
+    com.marubi.security.system.mapper: debug
+    com.marubi.security.business.mapper: debug
+
+#solt
+admin:
+  solt: amazing
+marubi:
+  jwt:
+    key: nice
+  pre:
+    address: http://127.0.0.1:${server.port}
+retrofit2:
+  api:
+    address:
+      dev: http://127.0.0.1:8089/
+      test: http://p.marubi.cn/
+      master: http://58.249.56.164:8090/
+api:
+  fangcuan:
+    url: http://58.249.56.164:8090/
+

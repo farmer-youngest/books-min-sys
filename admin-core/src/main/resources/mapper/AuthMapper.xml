@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.marubi.security.system.mapper.AuthMapper">
+
+    <select id="getAuthByUId" resultType="com.marubi.security.system.dto.AuthMapperUserDto">
+        SELECT a.id uid,g.`name` authName, g.id authId,
+        sm.mapper_url  mapperUrl, sm.module_name operationName,sm.type `type`
+        FROM jk_backend_admin a  INNER join m_group_mapper m on a.id = m.uid
+        INNER JOIN m_auth_group_mapper g on g.id = m.group_id
+        INNER JOIN m_auth ma on ma.group_id = m.group_id
+        INNER JOIN m_sys_menu sm on ma.menu_url_id = sm.id
+        <where>
+            1=1
+            <if test="uid!=null">
+                and a.id= #{uid}
+            </if>
+        </where>
+    </select>
+</mapper>

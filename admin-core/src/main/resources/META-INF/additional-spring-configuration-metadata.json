@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "retrofit2.api.address",
+      "type": "java.util.Map",
+      "description": "请求url ip:port/域名 地址."
+    }
+  ]
+}

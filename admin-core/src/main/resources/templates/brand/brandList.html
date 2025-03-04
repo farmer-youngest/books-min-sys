@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌管理</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">   <!--列间隔为25-->
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <table class="layui-table layui-form" id="brandTable" lay-filter="brandTable">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/html" id="tableBar">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn" lay-event="add">
+            <i class="layui-icon">&#xe654;</i>添加
+        </button>
+        <button type="button" class="layui-btn layui-btn" lay-event="edit">
+            <i class="layui-icon">&#xe642;</i>编辑
+        </button>
+        <button type="button" class="layui-btn layui-btn-danger layui-btn" lay-event="delete">
+            <i class="layui-icon">&#xe640;</i>删除
+        </button>
+    </div>
+</script>
+<script type="text/html" id="tableStatus">
+    {{# if(d.status=== 0) { }}
+    禁用
+    {{# } else if(d.status=== 1) { }}
+    启用
+    {{# } }}
+</script>
+<script type="text/html" id="imgTmp">
+    <img src="{{d.categoryIcon}}" style="width: 100px; height: 100px"/>
+</script>
+<script th:inline=none>
+    layui.use(['form', 'table' ], function () {
+        let form = layui.form;
+        let table = layui.table;
+
+        //监听提交
+        form.on('submit(search)', function (param) {
+            table.reload('brandTable', {
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                where: param.field  //查询参数
+            })
+            return false;
+        });
+        //表格渲染
+        table.render({
+            elem: '#brandTable',
+            id: 'brandTable',
+            url: '/brand/getBrands',
+            method: 'post',
+            contentType: 'application/json',
+            response: {
+                statusCode: 200, //规定成功状态码为200
+            },
+            request: {
+                pageName: 'pageNum', //页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.code,
+                    "msg": res.info, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.records //解析数据列表
+                }
+            },
+            title: '品牌列表',
+            // height: 900,
+            page: true,
+            toolbar: '#tableBar',
+            defaultToolbar: 'false',
+            cols: [[
+                {
+                    type: 'radio',
+                    fixed: 'left'
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    width: '50',
+                    align: 'center'
+                },
+                {
+                    field: 'categoryName',
+                    title: '品牌名称',
+                    width: '200',
+                    align: 'center'
+                },
+                {
+                    field: 'categoryIcon',
+                    title: '品牌图片',
+                    align: 'center',
+                    width: '100',
+                    templet: '#imgTmp'
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    width: '60',
+                    align: 'center',
+                    templet: '#tableStatus'
+                }
+            ]]
+        })
+        //查看选中行数据
+        table.on('toolbar(brandTable)', function (obj) {
+            let checkStatus = table.checkStatus(obj.config.id); //获取选中行状态
+            let data = checkStatus.data;  //获取选中行数据
+            switch (obj.event) {
+                //编辑
+                case 'edit':
+                    if (ifCheck(data.length)) {
+                        layer.open({
+                            type: 2,
+                            area: ['600px', '400px'],
+                            fixed: false, //不固定
+                            title: '修改品牌信息',
+                            content: 'brandEditOrAdd',
+                            success: function (layero, index) {
+                                let body = layer.getChildFrame('body', index);
+                                body.find('#id').val(data[0].id)
+                                body.find('#categoryName').val(data[0].categoryName)
+                                body.find('#categoryIcon').val(data[0].categoryIcon)
+                                body.find('#status').val(data[0].status)
+                            }
+                        });
+                    }
+                    break;
+                //添加
+                case 'add':
+                    layer.open({
+                        type: 2,
+                        area: ['600px', '600px'],
+                        fixed: false,
+                        title: '添加品牌',
+                        content: 'brandEditOrAdd'
+                    })
+                    break;
+                case 'delete':
+                    if(ifCheck(data.length)) {
+                        layer.confirm('是否确认删除，删除后将不可恢复',
+                            {btn: ['必须删','不删不删']},
+                            function (){
+                                $.ajax({
+                                    url: '/brand/brandDelete',
+                                    type: 'post',
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    data: JSON.stringify(data[0]),
+                                    datatype: 'json',
+                                    success: function (res) {
+                                        if ('200' == res.code) {
+                                            layer.alert('删除成功')
+                                            // 刷新表格
+                                            table.reload('brandTable', {
+                                                page: {
+                                                    curr: 1 //重新从第 1 页开始
+                                                },
+                                                where: data.field  //查询参数
+                                            })
+                                        } else {
+                                            layer.alert(res.info)
+                                        }
+                                    },
+                                    error: function (e) {
+                                        layer.alert(e.responseJSON.error)
+                                    }
+                                })
+                            }, function () {
+                            });
+                    }
+                    break;
+            }
+        })
+
+        function ifCheck(length) {
+            if (length <= 0) {
+                layer.alert('请先选择操作行')
+                return false
+            } else {
+                return true
+            }
+        }
+    });
+</script>
+<style>
+</style>
+</html>

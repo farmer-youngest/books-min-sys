@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员组授权</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form" lay-filter="authForm">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="float:left; margin-left: 10px; padding-left: 0px">
+                <label class="">管理员组权限选择</label>
+                <br>
+                <br>
+                <input type="checkbox" name="system" title="管理员">
+                <input type="checkbox" name="chunji" title="春纪编辑">
+                <input type="checkbox" name="wanmei" title="丸美编辑">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline " style="float: right">
+                <button class="layui-btn" lay-submit="" lay-filter="saveInfo" style="float: right">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    onload = function () {
+        layui.use(['form', 'jquery'], function () {
+            let form = layui.form;
+            let $ = layui.jquery;
+            let index = parent.layer.getFrameIndex(window.name);
+            $.ajax({
+                url: '/authGroupAccess/getUserAuthGroup',
+                type: 'post',
+                async: false,
+                headers: {
+                    'content-type': 'application/json'
+                },
+                data: JSON.stringify({'id': parseInt($('#id').val())}),
+                datatype: 'json',
+                success: function (res) {
+                    res.data.forEach(item => {
+                        switch (item.groupId) {
+                            case 1:
+                                form.val('authForm', {
+                                    "system": true
+                                })
+                                break;
+                            case 2:
+                                form.val('authForm', {
+                                    "chunji": true
+                                })
+                                break;
+                            case 3:
+                                form.val('authForm', {
+                                    "wanmei": true
+                                })
+                                break;
+                        }
+                    })
+                }
+            })
+            form.on('submit(saveInfo)', function (data) {
+                data.field.id = parseInt(data.field.id)
+                if (1 == data.field.id) {
+                    layer.alert('超管用户拥有至高无上的权力，无需授权~')
+                } else {
+                    $.ajax({
+                        url: '/authGroupAccess/setUserAuthGroup',
+                        type: 'post',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        data: JSON.stringify(data.field),
+                        datatype: 'json',
+                        success: function (res) {
+                            if ('200' == res.code) {
+                                layer.alert('修改成功', {}, function () {
+                                    parent.layer.close(index);
+                                    window.parent.location.href = 'userList'
+                                })
+                            }
+                        },
+                        error: function (e) {
+                            layer.alert('授权失败！->' + e.responseJSON.error)
+                        }
+                    })
+                }
+                return false
+            })
+
+        })
+    }
+
+</script>
+</html>

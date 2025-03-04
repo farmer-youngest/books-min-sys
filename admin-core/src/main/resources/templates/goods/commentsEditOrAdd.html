@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div class="layui-field-box" style="background-color: white">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline">
+                <input name="goodsId" placeholder="goodsId" id="goodsId"
+                       type="text" style="display:none"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label required">名称：</label>
+            <div class="layui-input-inline">
+                <input name="title" placeholder="" id="title"
+                       type="text" lay-verify="required"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline layui-show-xs-block">
+            <label class="layui-form-label ">内容：</label>
+            <div class="layui-input-inline">
+                <textarea class="layui-textarea" id="content" name="content" style=""></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图册：</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="selectPhoto">选择文件
+                </button>
+                <button type="button" class="layui-btn" id="uploadGallery" style="margin-left: 10px">
+                    <i class="layui-icon">&#xe67c;</i>上传图册
+                </button>
+                <div class="layui-inline layui-word-aux" style="margin-top: 5px; margin-left: 20px">
+                    选择完图片记得点上传哦！（添加时，如有多张图片，请一次性选择完）
+                </div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;margin-left: 40px">
+                    预览图：
+                    <div class="layui-upload-list " id="image">
+                        <p id="uploadText"></p>
+                    </div>
+                </blockquote>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-inline layui-btn-group" style="margin-left: 50%">
+                <button class="layui-btn" lay-submit="saveInfo" lay-filter="saveInfo">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    onload = function () {
+        layui.use(['form', 'jquery', 'upload'], function () {
+            let form = layui.form
+            let $ = layui.jquery
+            let upload = layui.upload
+            let index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            let tag = localStorage.getItem("tag") //新增或修改的标志
+            let id = tag ==='0' ?localStorage.getItem("param"):''
+
+            let multiImg = ''
+
+            //编辑
+            if (tag === '0') {
+                 id = localStorage.getItem("param")
+
+                $.ajax({
+                    async: false,
+                    url: '/goods/commentsDetail',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: id,
+                    dataType: 'json',
+                    success: function (data) {
+                        if ('200' == data.code && null != data.data) {
+                            $('#id').val(data.data.id)
+                            $('#goodsId').val(data.data.goodsId)
+                            $('#title').val(data.data.title)
+                            $('#content').val(data.data.content)
+                            let gallery = data.data.gallery.split(";")
+                            gallery.pop()
+                            gallery.forEach(item => {
+                                $('#image').append('<img src="' + item + '" ' + ' class="layui-upload-img" style="">')
+                                multiImg += item
+                                multiImg += ';'
+                            })
+
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert("获取信息失败！"+e.responseJSON.error)
+                    }
+
+                })
+            } else if (tag === '1') {
+                let goodsId = localStorage.getItem("param")
+                $('#goodsId').val(goodsId)
+            }
+            upload.render({
+                elem: '#selectPhoto'
+                , url: '/commentFile/file/images' //此处配置你自己的上传接口即可
+                , multiple: true
+                ,auto: false
+                ,bindAction: '#uploadGallery'
+                ,choose: function (obj) {
+                    if ('0' === tag){
+                        layer.confirm('是否确认删除原有图册，以新增新图册',
+                            //{icon: 3, title:'提示',btn: ['确定','只是追加']},
+                            {btn: ['确定','只是追加']},
+                            function (index){
+                                $("#image").empty();
+                                multiImg = ''
+                                obj.preview(function (index, file, result) {
+                                    $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="">')
+                                });
+                                layer.close(index)
+                            }, function () {
+                                obj.preview(function (index, file, result) {
+                                    $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="">')
+                                });
+                            });
+                    } else {
+                        obj.preview(function (index, file, result) {
+                            $('#image').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="">')
+                        });
+                    }
+
+
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code !== '200') {
+                        return layer.msg('上传失败');
+                    } else {
+                        let t = multiImg+res.data
+                        multiImg = t + ';'
+                        $('#uploadText').html(''); //置空上传失败的状态
+                        return layer.msg('上传成功');
+                    }
+
+                }
+            });
+
+            form.on('submit(saveInfo)', function (data) {
+                data.field.gallery = multiImg
+                $.ajax({
+                    url: '/goods/saveComments',
+                    type: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    data: JSON.stringify(data.field),
+                    datatype: 'json',
+                    success: function (res) {
+                        if ('200' == res.code) {
+                            layer.alert('操作成功', {}, function () {
+                                parent.layer.close(index);
+                                localStorage.setItem("param", $('#goodsId').val());
+                                window.parent.location.href = 'commentsList'
+                                //parent.parent.layer.closeAll();
+                            })
+                        } else {
+                            layer.alert('操作失败')
+                        }
+                    },
+                    error: function (e) {
+                        layer.alert(e.responseJSON.error, {}, function () {
+                            parent.layer.close(index);
+                            localStorage.setItem("param", $('#goodsId').val());
+                            window.parent.location.href = 'commentsList'
+                        })
+                    }
+                })
+                return false
+            })
+        })
+    }
+</script>
+<style>
+    .layui-form-label.required:before {
+        content: '* ';
+        color: red;
+    }
+    .layui-textarea {
+        width: 370px;
+    }
+    .layui-word-aux {
+        color: red !important;
+    }
+
+    .layui-upload-img {
+        width: 100px;
+        height: 100px;
+        margin: 5px;
+    }
+</style>
+</html>

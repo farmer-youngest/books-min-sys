@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看管理员信息</title>
+    <head th:replace="./layout/meta::commonInsite"></head>
+    <script type="text/javascript" th:src="@{/js/util/utils.js}"></script>
+
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="layui-field-box">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">ID：</label>
+            <div class="layui-input-inline">
+                <input name="id" placeholder="id" id="id"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-inline">
+                <input name="username" placeholder="用户名"
+                       type="text" readonly="true"
+                       class="layui-input" id="username">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱：</label>
+            <div class="layui-input-inline">
+                <input name="email" placeholder="邮箱"
+                       type="text" id="email" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">手机：</label>
+            <div class="layui-input-inline">
+                <input name="mobile" placeholder="手机"
+                       type="text" id="mobile" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-inline">
+                <input name="status" placeholder="status" id="status"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间：</label>
+            <div class="layui-input-inline">
+                <input name="createdAt" placeholder="创建时间" id="createdAt"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">更改时间：</label>
+            <div class="layui-input-inline">
+                <input name="updatedAt" placeholder="创建时间" id="updatedAt"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">最后登录IP：</label>
+            <div class="layui-input-inline">
+                <input name="lastLoginIp" placeholder="最后登录IP" id="lastLoginIp"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">最后登录时间：</label>
+            <div class="layui-input-inline">
+                <input name="lastLoginTime" placeholder="最后登录时间" id="lastLoginTime"
+                       type="text" readonly="true"
+                       class="layui-input">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    layui.use(['jquery'], function () {
+        var id = localStorage.getItem("param")
+        var $ = layui.jquery;
+
+        $.ajax({
+            url: '/user/userDetail',
+            type: 'post',
+            headers: {
+                'content-type': 'application/json'
+            },
+            data: id,
+            dataType: 'json',
+            success: function (data) {
+                if ('200' == data.code && null != data.data) {
+                    $('#id').val(data.data.id)
+                    $('#username').val(data.data.username)
+                    $('#email').val(data.data.email)
+                    $('#mobile').val(data.data.mobile)
+                    $('#status').val(data.data.status===1 ? '启用' : '禁用')
+                    $('#createdAt').val(data.data.createdAt)
+                    $('#updatedAt').val(data.data.updatedAt)
+                    $('#lastLoginIp').val(data.data.lastLoginIp)
+                    $('#lastLoginTime').val(data.data.lastLoginTime)
+                }
+            },
+            error: function (e) {
+                layer.alert("提交失败！")
+            }
+        })
+    })
+</script>
+<style>
+    .layui-form-label{
+        width: 120px
+    }
+</style>
+</html>
