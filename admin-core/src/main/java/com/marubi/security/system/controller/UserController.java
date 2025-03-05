@@ -29,7 +29,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -38,11 +40,13 @@ import java.util.List;
 @Api(tags = "登录相关接口")
 public class UserController {
     @Autowired
-    IBackendAdminService iBackendAdminService;
+    private IBackendAdminService iBackendAdminService;
     @Autowired
-    IAuthGroupAccessService iAuthGroupAccessService;
+    private IAuthGroupAccessService iAuthGroupAccessService;
     @Autowired
     private MenuService menuService;
+    @Autowired
+    private UserHelper userHelper;
 
 
     /**
@@ -68,11 +72,11 @@ public class UserController {
                 List<String> icons = UploadCommonUtils.getInstance().iconAll();
                 session.setAttribute("sysMenu", listResult.getData());
                 session.setAttribute("icons", icons);
-            } else {
-                return listResult;
             }
         }
-        return result;
+        Map<String,Object> param = new HashMap<>(6);
+        param.put("token",userHelper.getToken());
+        return Result.build(param);
 
     }
 

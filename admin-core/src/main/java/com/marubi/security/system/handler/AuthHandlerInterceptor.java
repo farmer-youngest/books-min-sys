@@ -4,7 +4,9 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.marubi.security.common.codes.ErrorCode;
 import com.marubi.security.common.dto.Result;
 import com.marubi.security.system.dto.AuthMapperUserDto;
 import com.marubi.security.system.entity.SysMenuEntity;
@@ -40,6 +42,8 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     MenuService menuService;
     @Autowired
     IAuthRuleService authRuleService;
+    @Autowired
+    ObjectMapper objectMapper;
 
     private static final List<String> whiteList = Lists.newArrayList(
            "error"
@@ -70,8 +74,17 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         /*********end*********/
         //判断是否有登录token信息
         if (!userHelper.checkHandler(request)) {
-            // 没有就重定向，重新登录
-            response.sendRedirect("/login");
+            String accept = request.getHeader("Accept");
+            /*if (accept != null && accept.contains("application/json")) {
+
+            } else */
+            if (accept != null && accept.contains("text/html")) {
+                // 这是一个视图页面请求
+                response.sendRedirect("/login");
+            }
+            response.setStatus(HttpServletResponse.SC_OK); // 设置响应状态码为 200
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(Result.build(ErrorCode.A0004,"没有登陆无权限操作")));
             return false;
         }
       /*  //鉴权

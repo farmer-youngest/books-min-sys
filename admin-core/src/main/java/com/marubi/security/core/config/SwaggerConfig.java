@@ -9,11 +9,14 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import  com.google.common.base.Optional;
+
+import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
@@ -29,7 +32,11 @@ public class SwaggerConfig {
 //                .apis(RequestHandlerSelectors.any())
                 .apis(basePackage("com.marubi.security.business.controller","com.marubi.security.core.controller","com.marubi.security.system.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .securitySchemes(Collections.singletonList(apiKey()));
+    }
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", "Authorization", "header");
     }
 
     private ApiInfo apiInfo() {

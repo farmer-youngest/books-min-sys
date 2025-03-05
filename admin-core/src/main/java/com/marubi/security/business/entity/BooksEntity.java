@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -56,15 +57,6 @@ public class BooksEntity implements Serializable {
      */
     private BigDecimal price;
 
-    /**
-     * 页数
-     */
-    private Integer pages;
-
-    /**
-     * 语言
-     */
-    private String language;
 
     /**
      * 类别
@@ -81,10 +73,6 @@ public class BooksEntity implements Serializable {
      */
     private String keywords;
 
-    /**
-     * 丛书信息
-     */
-    private String seriesInfo;
 
     /**
      * 0:未删除1已删除
