@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Lists;
 import com.marubi.security.common.dto.Result;
 import com.marubi.security.system.dto.AuthMapperUserDto;
 import com.marubi.security.system.entity.SysMenuEntity;
@@ -40,6 +41,9 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     IAuthRuleService authRuleService;
 
+    private static final List<String> whiteList = Lists.newArrayList(
+           "error"
+    );
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //如果是资源的请求，则放行
@@ -47,9 +51,12 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             return true;
         }
         String requestURI = request.getRequestURI();
-        if(requestURI.indexOf("error")!=-1){
-            return true;
+        for (String path : whiteList) {
+            if(requestURI.indexOf(path)!=-1){
+                return true;
+            }
         }
+
         //过滤上传请求  上传请求不需要登录  如果需要  请注释代码
         /***********start*****/
         if (handler instanceof HandlerMethod) {

@@ -5,6 +5,8 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.marubi.security.common.dto.Result;
 import com.marubi.security.common.utils.UploadCommonUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +35,7 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("commentFile")
 @Slf4j
+@ApiIgnore
 public class CommentFileController {
     @Value("${marubi.pre.address: http://127.0.0.1:8089}")
     private String preName;
@@ -45,6 +49,7 @@ public class CommentFileController {
      * @date 2021/8/17
      */
     @PostMapping("file/{type}")
+    @ApiOperation(value = "上传文件同一接口", notes = "上传文件同一接口")
     public Result<String> upload(MultipartFile file, @PathVariable(value = "type",required = false) String type) throws FileNotFoundException {
         String uploadFileAbsPath = null;
         FileTypeEnums typeEnum = FileTypeEnums.getByType(type);

@@ -43,7 +43,7 @@ public class UserHelper {
                 .setPayload(Contants.USERNAME, entity.getUsername())
                 .setKey(StrUtil.bytes(key, CharsetUtil.UTF_8))
                 .setIssuedAt(now)
-                .setExpiresAt(DateUtil.offsetHour(now, 1))
+                .setExpiresAt(DateUtil.offsetHour(now, 24))
                 .sign();
         return token;
     }
@@ -112,7 +112,8 @@ public class UserHelper {
         if(session!=null) {
             if (session.getAttribute(Contants.TOKEN)!=null &&
                    session.getAttribute(Contants.USERNAME)!=null) {
-                return true;
+                boolean b = checkToken((String) session.getAttribute(Contants.TOKEN));
+                return b;
             }
         }
         return false;

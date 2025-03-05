@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.marubi.security.core.entity.Test1Entity;
 import com.marubi.security.core.service.ITest1Service;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("test")
 @Slf4j
+@ApiIgnore
 public class TestContorller {
     @Autowired
     private ITest1Service iTest1Service;

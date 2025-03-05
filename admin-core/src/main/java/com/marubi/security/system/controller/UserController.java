@@ -15,11 +15,14 @@ import com.marubi.security.system.entity.BackendAdminEntity;
 import com.marubi.security.system.service.IBackendAdminService;
 import com.marubi.security.system.service.MenuService;
 import com.marubi.security.system.utils.UserHelper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +35,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/user")
+@Api(tags = "登录相关接口")
 public class UserController {
     @Autowired
     IBackendAdminService iBackendAdminService;
@@ -49,19 +53,22 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    public Result login(@Valid @RequestBody LoginDto dto, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @ApiOperation("登录接口")
+    public Result login(@Valid @RequestBody LoginDto dto,
+                        HttpServletRequest request,
+                        HttpServletResponse response) throws IOException {
         log.info("登陆传参->{}", dto);
         Result result = iBackendAdminService.login(dto, request);
-        if(result.isSuccess()){
+        if (result.isSuccess()) {
             Result<List<Tree<Integer>>> listResult = menuService.viewMenuListByGroupId(request,
                     NumberUtil.parseInt(StrUtil.toString(request.getSession()
                             .getAttribute(UserHelper.Contants.USERID))));
             HttpSession session = request.getSession();
-            if (listResult.isSuccess()&&session!=null&&listResult!=null&& CollUtil.isNotEmpty(listResult.getData())) {
+            if (listResult.isSuccess() && session != null && listResult != null && CollUtil.isNotEmpty(listResult.getData())) {
                 List<String> icons = UploadCommonUtils.getInstance().iconAll();
-                session.setAttribute("sysMenu",listResult.getData());
-                session.setAttribute("icons",icons);
-            }else{
+                session.setAttribute("sysMenu", listResult.getData());
+                session.setAttribute("icons", icons);
+            } else {
                 return listResult;
             }
         }
@@ -76,6 +83,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/logout")
+    @ApiOperation("登出接口")
     public ModelAndView logout(HttpServletRequest req) {
         try {
             req.getSession().removeAttribute(UserHelper.Contants.TOKEN);
@@ -92,6 +100,7 @@ public class UserController {
      * @param backendAdminEntity
      * @return
      */
+    @ApiIgnore
     @PostMapping("/updCurrInfo")
     public Result updCurrInfo(@Valid @RequestBody BackendAdminEntity backendAdminEntity, HttpServletRequest request) {
         return iBackendAdminService.updCurrInfo(backendAdminEntity, request);
@@ -103,6 +112,7 @@ public class UserController {
      * @param param
      * @return
      */
+    @ApiIgnore
     @PostMapping("/getUsers")
     public Result<IPage<BackendAdminEntity>> getUsers(@RequestBody AdminParamDto param) {
         return iBackendAdminService.getUsers(param);
@@ -114,6 +124,7 @@ public class UserController {
      * @param id
      * @return
      */
+    @ApiIgnore
     @PostMapping("/userDetail")
     public Result userDetail(@RequestBody Integer id) {
         return iBackendAdminService.userDetail(id);
@@ -125,6 +136,7 @@ public class UserController {
      * @param param
      * @return
      */
+    @ApiIgnore
     @PostMapping("/userEdit")
     public Result userEdit(@RequestBody BackendAdminEntity param) {
         return iBackendAdminService.userEdit(param);
@@ -136,6 +148,7 @@ public class UserController {
      * @param param
      * @return
      */
+    @ApiIgnore
     @PostMapping("/userDelete")
     public Result userDelete(@RequestBody BackendAdminEntity param) {
         return iBackendAdminService.userDelete(param);
@@ -143,9 +156,11 @@ public class UserController {
 
     /**
      * 添加用户
+     *
      * @param param
      * @return
      */
+    @ApiIgnore
     @PostMapping("/userAdd")
     public Result userAdd(@RequestBody BackendAdminEntity param) {
         return iBackendAdminService.userAdd(param);

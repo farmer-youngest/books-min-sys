@@ -134,7 +134,16 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/login","/marubi/file/**","/t1/**",
                         "/test/**","/error/**",
                         "/api/**",
-                        "/config/gerConfigGroup"); // 不走拦截器的请求
+                        "/config/gerConfigGroup",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
+                        "/swagger-resources/**",
+                        "/v2/**",
+                        "/v3/**",
+                        "/webjars/**",
+                        "/doc.html",
+                        "/favicon.ico"
+                ); // 不走拦截器的请求
     }
 
     /**
@@ -148,6 +157,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/META-INF/resources/",
                         "classpath:/resources/", "classpath:/static/", "classpath:/public/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
         //添加资源url 映射本地文件地址
         registry.addResourceHandler("/marubi/file/**")
                 .addResourceLocations(String.format("file:%s/", UploadCommonUtils.getInstance().getFilePathLcoal()));

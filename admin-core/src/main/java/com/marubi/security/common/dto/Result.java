@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
@@ -20,6 +22,7 @@ import java.io.Serializable;
  */
 @Data
 @Setter(AccessLevel.NONE)
+@ApiModel("接口返回结果模型")
 public class Result<T> implements Serializable {
 
     public final static String SUCCESS_CODE="200";
@@ -65,13 +68,13 @@ public class Result<T> implements Serializable {
         return new Result<T>(e.getErrorCode(),e.getErroMessage());
     }
 
-//    @Schema(description = "错误码：'00000'代表成功，其它代表失败")
+    @ApiModelProperty("结果码：'200'代表成功，其它代表失败")
     private final String code;
 
-//    @Schema(description = "错误信息")
+    @ApiModelProperty("错误信息")
     private final String info;
 
-//    @Schema(description = "data")
+    @ApiModelProperty("返回值")
     private final T data;
 
 

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/sysMenu",produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
+@ApiIgnore
 public class SysMenuController {
     @Autowired
     ISysMenuService iSysMenuService;
