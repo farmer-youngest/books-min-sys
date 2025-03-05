@@ -32,7 +32,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/user")
+@RequestMapping("/books")
 @Api(tags = "图书管理")
 public class BooksController {
     @Autowired

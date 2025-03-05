@@ -24,35 +24,35 @@ public class BookEditParamDto implements Serializable {
      * 书籍ID
      */
     @ApiModelProperty("书籍ID，新增不用穿")
-    @NotNull(groups = {GroupEdit.class})
+    @NotNull(groups = {GroupEdit.class},message = "修改时书籍ID不能为空")
     private Integer bookId;
 
     /**
      * 书名
      */
     @ApiModelProperty("书名")
-    @NotBlank(groups = {GroupAdd.class})
+    @NotBlank(groups = {GroupAdd.class},message = "书名ID不能为空")
     private String title;
 
     /**
      * 作者
      */
     @ApiModelProperty("作者")
-    @NotBlank(groups = {GroupAdd.class})
+    @NotBlank(groups = {GroupAdd.class},message = "作者不能为空")
     private String author;
 
     /**
      * 出版社
      */
     @ApiModelProperty("出版社")
-    @NotBlank(groups = {GroupAdd.class})
+    @NotBlank(groups = {GroupAdd.class},message = "出版社不能为空")
     private String publisher;
 
     /**
      * 出版日期
      */
     @ApiModelProperty("出版日期")
-    @NotBlank(groups = {GroupAdd.class})
+    @NotNull(groups = {GroupAdd.class})
     private LocalDate publishDate;
 
     /**

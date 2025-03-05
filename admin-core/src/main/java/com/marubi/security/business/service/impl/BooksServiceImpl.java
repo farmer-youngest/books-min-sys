@@ -45,6 +45,7 @@ public class BooksServiceImpl extends ServiceImpl<BooksMapper, BooksEntity> impl
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean add(BookEditParamDto add) {
+        add.setBookId(null);
         BooksEntity entity = new BooksEntity();
         BeanUtils.copyProperties(add, entity);
 //        ServletUtil.g
@@ -61,6 +62,8 @@ public class BooksServiceImpl extends ServiceImpl<BooksMapper, BooksEntity> impl
         log.debug("id:{}",edit.getBookId());
         BooksEntity entity = new BooksEntity();
         BeanUtils.copyProperties(edit, entity);
+        entity.setUpdateTime(LocalDateTime.now());
+        entity.setUpdateName(userHelper.geUserName());
         return updateById(entity);
     }
 

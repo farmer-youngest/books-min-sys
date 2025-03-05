@@ -21,10 +21,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.Method;
@@ -82,6 +79,8 @@ public class FlexAppContentRunning implements ApplicationContextAware, CommandLi
                 }
                 GetMapping getMapping = declaredMethods.get(i).getAnnotation(GetMapping.class);
                 PostMapping postMapping = declaredMethods.get(i).getDeclaredAnnotation(PostMapping.class);
+                PutMapping putMapping = declaredMethods.get(i).getDeclaredAnnotation(PutMapping.class);
+                DeleteMapping delMapping = declaredMethods.get(i).getDeclaredAnnotation(DeleteMapping.class);
 //                System.out.println("Get相关的："+ JSONUtil.toJsonStr(getMapping));
 //                System.out.println("Post相关的："+JSONUtil.toJsonStr(postMapping));
                 if(getMapping!=null){
@@ -89,6 +88,12 @@ public class FlexAppContentRunning implements ApplicationContextAware, CommandLi
                 }
                 if(postMapping!=null){
                     list.add(StrUtil.format(temp,postMapping.value()[0].replace("/","")));
+                }
+                if(putMapping!=null){
+                    list.add(StrUtil.format(temp,putMapping.value()[0].replace("/","")));
+                }
+                if(delMapping!=null){
+                    list.add(StrUtil.format(temp,delMapping.value()[0].replace("/","")));
                 }
 
             }

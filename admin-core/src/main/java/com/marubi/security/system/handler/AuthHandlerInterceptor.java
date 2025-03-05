@@ -6,6 +6,7 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import com.google.common.util.concurrent.AtomicDouble;
 import com.marubi.security.common.codes.ErrorCode;
 import com.marubi.security.common.dto.Result;
 import com.marubi.security.system.dto.AuthMapperUserDto;
@@ -84,9 +85,10 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
             }
             response.setStatus(HttpServletResponse.SC_OK); // 设置响应状态码为 200
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(Result.build(ErrorCode.A0004,"没有登陆无权限操作")));
+            response.getWriter().write(objectMapper.writeValueAsString(Result.build(ErrorCode.A0004,"未登录")));
             return false;
         }
+        //todo  2025-03-05 暂时不做细致鉴权 只做是否登录的权限校验
       /*  //鉴权
         AuthMapperUserDto auth = (AuthMapperUserDto) request.getSession().getAttribute("authforUser");
 
@@ -100,7 +102,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         } else {
             return false;
         }*/
-        List<SysMenuEntity> reqUrl = (List<SysMenuEntity>) request.getSession()
+        /*List<SysMenuEntity> reqUrl = (List<SysMenuEntity>) request.getSession()
                 .getAttribute("authUrlList");
         if(CollUtil.isEmpty(reqUrl)){
             return false;
@@ -108,9 +110,16 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         List<String> url = reqUrl.stream().map(SysMenuEntity::getMapperUrl).collect(Collectors.toList());
 
         if (CollUtil.isEmpty(url) || url.indexOf(requestURI) == -1) {
-            response.sendRedirect("/error/403");
+            String accept = request.getHeader("Accept");
+            if (accept != null && accept.contains("text/html")) {
+                // 这是一个视图页面请求
+                response.sendRedirect("/error/403");
+            }
+            response.setStatus(HttpServletResponse.SC_OK); // 设置响应状态码为 200
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(Result.build(ErrorCode.A0004,"没有操作权限")));
             return false;
-        }
+        }*/
         return true;
     }
 

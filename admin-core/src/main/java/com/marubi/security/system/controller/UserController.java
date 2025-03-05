@@ -88,6 +88,7 @@ public class UserController {
      */
     @GetMapping("/logout")
     @ApiOperation("登出接口")
+    @ApiIgnore
     public ModelAndView logout(HttpServletRequest req) {
         try {
             req.getSession().removeAttribute(UserHelper.Contants.TOKEN);
