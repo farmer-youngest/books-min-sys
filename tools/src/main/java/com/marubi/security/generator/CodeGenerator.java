@@ -52,10 +52,10 @@ public class CodeGenerator {
         // 数据源配置
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
 //        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/starter?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/marubi_security?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8");
         dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("Q!W@e3r4");
+        dataSourceConfig.setPassword("123456");
         mpg.setDataSource(dataSourceConfig);
 
         // 包配置
@@ -139,7 +139,7 @@ public class CodeGenerator {
             @Override
             public String entityNameConvert(TableInfo tableInfo) {
                 return NamingStrategy.capitalFirst(
-                        NamingStrategy.underlineToCamel(NamingStrategy.removePrefixAndCamel(tableInfo.getName(),new String[]{"jk_","m_"}))
+                        NamingStrategy.underlineToCamel(NamingStrategy.removePrefixAndCamel(tableInfo.getName(),new String[]{"jk_","m_","bk_"}))
                                 +"Entity");
             }
 
