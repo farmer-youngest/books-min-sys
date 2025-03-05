@@ -2972,3 +2972,1453 @@ INSERT INTO `m_sys_menu_0916` VALUES ('41', '', '/sysMenu/saveMenuInfo', '添加
 INSERT INTO `m_sys_menu_0916` VALUES ('42', '/yes', '/yes', '对对对', '1', null, '35', '1', '1', '2021-09-08 18:28:51', '2021-09-08 18:29:04', 'administrator', 'YES', '1', '0');
 INSERT INTO `m_sys_menu_0916` VALUES ('68', 'error/403', '/error/403', '无权限页面', '3', null, '0', '0', '1', '2021-09-15 22:30:33', '2021-09-15 22:35:22', 'system', 'ERROR_403', '0', '0')
  [42000-199]
+2025-03-05 16:13:25 jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1822)
+	at org.jkiss.dbeaver.ext.generic.model.GenericDataSource.populateClientAppName(GenericDataSource.java:200)
+	at org.jkiss.dbeaver.ext.generic.model.GenericDataSource.openConnection(GenericDataSource.java:163)
+	at org.jkiss.dbeaver.ext.h2.model.H2DataSource.openConnection(H2DataSource.java:74)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCExecutionContext.connect(JDBCExecutionContext.java:124)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCRemoteInstance.initializeMainContext(JDBCRemoteInstance.java:106)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCRemoteInstance.<init>(JDBCRemoteInstance.java:61)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCDataSource.initializeRemoteInstance(JDBCDataSource.java:125)
+	at org.jkiss.dbeaver.ext.generic.model.GenericDataSource.<init>(GenericDataSource.java:125)
+	at org.jkiss.dbeaver.ext.h2.model.H2DataSource.<init>(H2DataSource.java:43)
+	at org.jkiss.dbeaver.ext.h2.model.H2MetaModel.createDataSourceImpl(H2MetaModel.java:56)
+	at org.jkiss.dbeaver.ext.generic.GenericDataSourceProvider.openDataSource(GenericDataSourceProvider.java:57)
+	at org.jkiss.dbeaver.registry.DataSourceDescriptor.openDataSource(DataSourceDescriptor.java:1417)
+	at org.jkiss.dbeaver.registry.DataSourceDescriptor.connect0(DataSourceDescriptor.java:1280)
+	at org.jkiss.dbeaver.registry.DataSourceDescriptor.connect(DataSourceDescriptor.java:1070)
+	at org.jkiss.dbeaver.runtime.jobs.ConnectJob.run(ConnectJob.java:78)
+	at org.jkiss.dbeaver.runtime.jobs.ConnectJob.runSync(ConnectJob.java:109)
+	at org.jkiss.dbeaver.ui.actions.datasource.DataSourceHandler.connectToDataSource(DataSourceHandler.java:123)
+	at org.jkiss.dbeaver.ui.actions.datasource.UIServiceConnectionsImpl.initConnection(UIServiceConnectionsImpl.java:87)
+	at org.jkiss.dbeaver.model.DBUtils.initDataSource(DBUtils.java:2461)
+	at org.jkiss.dbeaver.model.navigator.DBNDataSource.initializeNode(DBNDataSource.java:159)
+	at org.jkiss.dbeaver.model.navigator.DBNDatabaseNode.getChildren(DBNDatabaseNode.java:226)
+	at org.jkiss.dbeaver.model.navigator.DBNDatabaseNode.getChildren(DBNDatabaseNode.java:1)
+	at org.jkiss.dbeaver.model.navigator.DBNUtils.getNodeChildrenFiltered(DBNUtils.java:92)
+	at org.jkiss.dbeaver.ui.navigator.database.load.TreeLoadService.evaluate(TreeLoadService.java:49)
+	at org.jkiss.dbeaver.ui.navigator.database.load.TreeLoadService.evaluate(TreeLoadService.java:1)
+	at org.jkiss.dbeaver.ui.LoadingJob.run(LoadingJob.java:88)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 16:22:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `BK_BOOKS` (
+	`BOOK_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`TITLE` VARCHAR(255) NOT NULL COMMENT '书名',
+	`AUTHOR` VARCHAR(255) NOT NULL COMMENT '作者',
+	`PUBLISHER` VARCHAR(255) NULL DEFAULT NULL COMMENT '出版社',
+	`PUBLISH_DATE` DATE NULL DEFAULT NULL COMMENT '出版日期',
+	`PRICE` DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`CATEGORY` VARCHAR(100) NULL DEFAULT NULL COMMENT '类别',
+	`SUMMARY` TEXT NULL COMMENT '简介',
+	`KEYWORDS` VARCHAR(255) NULL DEFAULT NULL COMMENT '关键字',
+	`DEL_FLAG` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`CREATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`CREATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	`UPDATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`UPDATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`BOOK_ID`)
+) COMMENT '图书信息表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `bk_books` (
+	`book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`title` varchar(255) NOT NULL COMMENT '书名',
+	`author` varchar(255) NOT NULL COMMENT '作者',
+	`publisher` varchar(255) NULL DEFAULT NULL COMMENT '出版社',
+	`publish_date` date NULL DEFAULT NULL COMMENT '出版日期',
+	`price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`category` varchar(100) NULL DEFAULT NULL COMMENT '类别',
+	`summary` text NULL COMMENT '简介',
+	`keywords` varchar(255) NULL DEFAULT NULL COMMENT '关键字',
+	`del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`create_time` datetime(0) NULL DEFAULT NULL,
+	`create_name` varchar(100) NULL DEFAULT NULL,
+	`update_time` datetime(0) NULL DEFAULT NULL,
+	`update_name` varchar(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`book_id`)
+) COMMENT '图书信息表' [42000-199]
+2025-03-05 16:22:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `BK_BOOKS` (
+	`BOOK_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`TITLE` VARCHAR(255) NOT NULL COMMENT '书名',
+	`AUTHOR` VARCHAR(255) NOT NULL COMMENT '作者',
+	`PUBLISHER` VARCHAR(255) NULL DEFAULT NULL COMMENT '出版社',
+	`PUBLISH_DATE` DATE NULL DEFAULT NULL COMMENT '出版日期',
+	`PRICE` DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`CATEGORY` VARCHAR(100) NULL DEFAULT NULL COMMENT '类别',
+	`SUMMARY` TEXT NULL COMMENT '简介',
+	`KEYWORDS` VARCHAR(255) NULL DEFAULT NULL COMMENT '关键字',
+	`DEL_FLAG` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`CREATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`CREATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	`UPDATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`UPDATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`BOOK_ID`)
+) COMMENT '图书信息表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `bk_books` (
+	`book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`title` varchar(255) NOT NULL COMMENT '书名',
+	`author` varchar(255) NOT NULL COMMENT '作者',
+	`publisher` varchar(255) NULL DEFAULT NULL COMMENT '出版社',
+	`publish_date` date NULL DEFAULT NULL COMMENT '出版日期',
+	`price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`category` varchar(100) NULL DEFAULT NULL COMMENT '类别',
+	`summary` text NULL COMMENT '简介',
+	`keywords` varchar(255) NULL DEFAULT NULL COMMENT '关键字',
+	`del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`create_time` datetime(0) NULL DEFAULT NULL,
+	`create_name` varchar(100) NULL DEFAULT NULL,
+	`update_time` datetime(0) NULL DEFAULT NULL,
+	`update_name` varchar(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`book_id`)
+) COMMENT '图书信息表' [42000-199]
+2025-03-05 16:22:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `BK_BOOKS` (
+	`BOOK_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`TITLE` VARCHAR(255) NOT NULL COMMENT '书名',
+	`AUTHOR` VARCHAR(255) NOT NULL COMMENT '作者',
+	`PUBLISHER` VARCHAR(255) NULL DEFAULT NULL COMMENT '出版社',
+	`PUBLISH_DATE` DATE NULL DEFAULT NULL COMMENT '出版日期',
+	`PRICE` DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`CATEGORY` VARCHAR(100) NULL DEFAULT NULL COMMENT '类别',
+	`SUMMARY` TEXT NULL COMMENT '简介',
+	`KEYWORDS` VARCHAR(255) NULL DEFAULT NULL COMMENT '关键字',
+	`DEL_FLAG` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`CREATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`CREATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	`UPDATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`UPDATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`BOOK_ID`)
+) COMMENT '图书信息表'[*]; "; SQL statement:
+CREATE TABLE IF NOT EXISTS `bk_books` (
+	`book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`title` varchar(255) NOT NULL COMMENT '书名',
+	`author` varchar(255) NOT NULL COMMENT '作者',
+	`publisher` varchar(255) NULL DEFAULT NULL COMMENT '出版社',
+	`publish_date` date NULL DEFAULT NULL COMMENT '出版日期',
+	`price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`category` varchar(100) NULL DEFAULT NULL COMMENT '类别',
+	`summary` text NULL COMMENT '简介',
+	`keywords` varchar(255) NULL DEFAULT NULL COMMENT '关键字',
+	`del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`create_time` datetime(0) NULL DEFAULT NULL,
+	`create_name` varchar(100) NULL DEFAULT NULL,
+	`update_time` datetime(0) NULL DEFAULT NULL,
+	`update_name` varchar(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`book_id`)
+) COMMENT '图书信息表'; [42000-199]
+2025-03-05 16:23:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `BK_BOOKS` (
+	`BOOK_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`TITLE` VARCHAR(255) NOT NULL COMMENT '书名',
+	`AUTHOR` VARCHAR(255) NOT NULL COMMENT '作者',
+	`PUBLISHER` VARCHAR(255) NULL DEFAULT NULL COMMENT '出版社',
+	`PUBLISH_DATE` DATE NULL DEFAULT NULL COMMENT '出版日期',
+	`PRICE` DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`CATEGORY` VARCHAR(100) NULL DEFAULT NULL COMMENT '类别',
+	`SUMMARY` TEXT NULL COMMENT '简介',
+	`KEYWORDS` VARCHAR(255) NULL DEFAULT NULL COMMENT '关键字',
+	`DEL_FLAG` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`CREATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`CREATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	`UPDATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`UPDATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`BOOK_ID`)
+) COMMENT '图书信息表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `bk_books` (
+	`book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`title` varchar(255) NOT NULL COMMENT '书名',
+	`author` varchar(255) NOT NULL COMMENT '作者',
+	`publisher` varchar(255) NULL DEFAULT NULL COMMENT '出版社',
+	`publish_date` date NULL DEFAULT NULL COMMENT '出版日期',
+	`price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`category` varchar(100) NULL DEFAULT NULL COMMENT '类别',
+	`summary` text NULL COMMENT '简介',
+	`keywords` varchar(255) NULL DEFAULT NULL COMMENT '关键字',
+	`del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`create_time` datetime(0) NULL DEFAULT NULL,
+	`create_name` varchar(100) NULL DEFAULT NULL,
+	`update_time` datetime(0) NULL DEFAULT NULL,
+	`update_name` varchar(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`book_id`)
+) COMMENT '图书信息表' [42000-199]
+2025-03-05 16:25:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `BK_BOOKS` (
+	`BOOK_ID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`TITLE` VARCHAR(255) NOT NULL COMMENT '书名',
+	`AUTHOR` VARCHAR(255) NOT NULL COMMENT '作者',
+	`PUBLISHER` VARCHAR(255) NULL DEFAULT NULL COMMENT '出版社',
+	`PUBLISH_DATE` DATE NULL DEFAULT NULL COMMENT '出版日期',
+	`PRICE` DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`CATEGORY` VARCHAR(100) NULL DEFAULT NULL COMMENT '类别',
+	`SUMMARY` TEXT NULL COMMENT '简介',
+	`KEYWORDS` VARCHAR(255) NULL DEFAULT NULL COMMENT '关键字',
+	`DEL_FLAG` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`CREATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`CREATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	`UPDATE_TIME` DATETIME(0) NULL DEFAULT NULL,
+	`UPDATE_NAME` VARCHAR(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`BOOK_ID`)
+) COMMENT '图书信息表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `bk_books` (
+	`book_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+	`title` varchar(255) NOT NULL COMMENT '书名',
+	`author` varchar(255) NOT NULL COMMENT '作者',
+	`publisher` varchar(255) NULL DEFAULT NULL COMMENT '出版社',
+	`publish_date` date NULL DEFAULT NULL COMMENT '出版日期',
+	`price` decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+	`category` varchar(100) NULL DEFAULT NULL COMMENT '类别',
+	`summary` text NULL COMMENT '简介',
+	`keywords` varchar(255) NULL DEFAULT NULL COMMENT '关键字',
+	`del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+	`create_time` datetime(0) NULL DEFAULT NULL,
+	`create_name` varchar(100) NULL DEFAULT NULL,
+	`update_time` datetime(0) NULL DEFAULT NULL,
+	`update_name` varchar(100) NULL DEFAULT NULL,
+	PRIMARY KEY (`book_id`)
+) COMMENT '图书信息表' [42000-199]
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `JK_AUTH_GROUP` (
+	`ID` MEDIUMINT(8) NOT NULL AUTO_INCREMENT,
+	`TITLE` CHAR(100) NOT NULL COMMENT '组名',
+	`DESCRIPTION` VARCHAR(255) NULL DEFAULT NULL COMMENT '用户组描述',
+	`STATUS` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+	`RULES` TEXT NULL COMMENT '用户组拥有的规则id, 多个规则"",""隔开',
+	PRIMARY KEY (`ID`)
+) COMMENT '管理员组明细表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `jk_auth_group` (
+	`id` mediumint(8) NOT NULL AUTO_INCREMENT,
+	`title` char(100) NOT NULL COMMENT '组名',
+	`description` varchar(255) NULL DEFAULT NULL COMMENT '用户组描述',
+	`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+	`rules` text NULL COMMENT '用户组拥有的规则id, 多个规则","隔开',
+	PRIMARY KEY (`id`)
+) COMMENT '管理员组明细表' [42000-199]
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "FK_BACKEND_ADMIN_HAS_AUTH_GROUP_BACKEND_ADMIN_IDX_5"; SQL statement:
+CREATE TABLE IF NOT EXISTS `jk_auth_group_access` (
+	`uid` int(11) NOT NULL COMMENT '用户id',
+	`group_id` mediumint(8) NOT NULL,
+	PRIMARY KEY (`uid`, `group_id`),
+	INDEX fk_backend_admin_has_auth_group_backend_admin_idx_5(`uid`),
+	INDEX fk_auth_group_access_auth_group1_idx_6(`group_id`)
+) [50004-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5524)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5254)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:7932)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:7832)
+	at org.h2.command.Parser.parseCreate(Parser.java:5818)
+	at org.h2.command.Parser.parsePrepared(Parser.java:846)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:565)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `JK_AUTH_RULE` (
+	`ID` MEDIUMINT(8) NOT NULL AUTO_INCREMENT,
+	`NAME` CHAR(80) NOT NULL COMMENT '规则唯一标识',
+	`TITLE` CHAR(20) NOT NULL COMMENT '规则中文名称',
+	`TYPE` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '规则类型，1：url，2：main',
+	`STATUS` TINYINT(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+	`CONDITION` CHAR(100) NULL DEFAULT NULL COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+	`PARENT_ID` INT(11) NULL DEFAULT NULL COMMENT '父级规则ID',
+	PRIMARY KEY (`ID`),
+	UNIQUE NAME_UNIQUE_7 (`NAME`)
+) COMMENT '权限认证：规则表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `jk_auth_rule` (
+	`id` mediumint(8) NOT NULL AUTO_INCREMENT,
+	`name` char(80) NOT NULL COMMENT '规则唯一标识',
+	`title` char(20) NOT NULL COMMENT '规则中文名称',
+	`type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '规则类型，1：url，2：main',
+	`status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+	`condition` char(100) NULL DEFAULT NULL COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+	`parent_id` int(11) NULL DEFAULT NULL COMMENT '父级规则ID',
+	PRIMARY KEY (`id`),
+	UNIQUE name_UNIQUE_7 (`name`)
+) COMMENT '权限认证：规则表' [42000-199]
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `JK_BACKEND_ADMIN` (
+	`ID` INT(11) NOT NULL AUTO_INCREMENT,
+	`USERNAME` CHAR(16) NOT NULL COMMENT '用户名',
+	`PASSWORD` CHAR(32) NOT NULL COMMENT '密码',
+	`EMAIL` VARCHAR(45) NULL DEFAULT NULL,
+	`MOBILE` VARCHAR(15) NULL DEFAULT NULL,
+	`STATUS` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '状态，0:禁用、1:启用',
+	`CREATED_AT` TIMESTAMP(0) NOT NULL DEFAULT '0001-01-01 00:00:00',
+	`UPDATED_AT` TIMESTAMP(0) NOT NULL DEFAULT '0001-01-01 00:00:00' ON UPDATE CURRENT_TIMESTAMP(0),
+	`LAST_LOGIN_IP` VARCHAR(20) NOT NULL DEFAULT '0.0.0.0',
+	`LAST_LOGIN_TIME` TIMESTAMP(0) NOT NULL DEFAULT '0001-01-01 00:00:00' COMMENT '最后登录时间',
+	`IS_FIXED` TINYINT(4) NOT NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+	PRIMARY KEY (`ID`)
+) COMMENT '后台管理员表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `jk_backend_admin` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`username` char(16) NOT NULL COMMENT '用户名',
+	`password` char(32) NOT NULL COMMENT '密码',
+	`email` varchar(45) NULL DEFAULT NULL,
+	`mobile` varchar(15) NULL DEFAULT NULL,
+	`status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态，0:禁用、1:启用',
+	`created_at` timestamp(0) NOT NULL DEFAULT '0001-01-01 00:00:00',
+	`updated_at` timestamp(0) NOT NULL DEFAULT '0001-01-01 00:00:00' ON UPDATE CURRENT_TIMESTAMP(0),
+	`last_login_ip` varchar(20) NOT NULL DEFAULT '0.0.0.0',
+	`last_login_time` timestamp(0) NOT NULL DEFAULT '0001-01-01 00:00:00' COMMENT '最后登录时间',
+	`is_fixed` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+	PRIMARY KEY (`id`)
+) COMMENT '后台管理员表' [42000-199]
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `JK_BACKEND_MENU` (
+	`ID` INT(11) NOT NULL AUTO_INCREMENT,
+	`NAME` VARCHAR(255) NOT NULL COMMENT '标识',
+	`TITLE` CHAR(10) NOT NULL COMMENT '显示名称',
+	`PARENT_ID` INT(11) NOT NULL DEFAULT 0 COMMENT '上级id',
+	`SORT` INT(11) NOT NULL DEFAULT 0 COMMENT '排序',
+	`URL` VARCHAR(255) NOT NULL COMMENT '链接地址',
+	`IS_HIDE` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏',
+	`IS_DEV` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否仅开发者模式可见',
+	`TIP` VARCHAR(255) NULL DEFAULT NULL COMMENT '提示',
+	`GROUP` VARCHAR(255) NULL DEFAULT NULL COMMENT '分组',
+	`IS_FIXED` TINYINT(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`ID`)
+) COMMENT '后台系统菜单'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `jk_backend_menu` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(255) NOT NULL COMMENT '标识',
+	`title` char(10) NOT NULL COMMENT '显示名称',
+	`parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '上级id',
+	`sort` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+	`url` varchar(255) NOT NULL COMMENT '链接地址',
+	`is_hide` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏',
+	`is_dev` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否仅开发者模式可见',
+	`tip` varchar(255) NULL DEFAULT NULL COMMENT '提示',
+	`group` varchar(255) NULL DEFAULT NULL COMMENT '分组',
+	`is_fixed` tinyint(1) NOT NULL DEFAULT 0,
+	PRIMARY KEY (`id`)
+) COMMENT '后台系统菜单' [42000-199]
+2025-03-05 16:25:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS `M_GROUP_MAPPER` (
+	`UID` INT(11) NOT NULL COMMENT 'jk_backend_admin id',
+	`GROUP_ID` INT(11) NOT NULL COMMENT 'm_auth_group',
+	PRIMARY KEY (`UID`)
+) COMMENT '权限组映射表'[*] "; SQL statement:
+CREATE TABLE IF NOT EXISTS `m_group_mapper` (
+	`uid` int(11) NOT NULL COMMENT 'jk_backend_admin id',
+	`group_id` int(11) NOT NULL COMMENT 'm_auth_group',
+	PRIMARY KEY (`uid`)
+) COMMENT '权限组映射表' [42000-199]
+2025-03-05 16:37:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE BK_BOOKS  (
+  BOOK_ID INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+  TITLE VARCHAR(255) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '书名',
+  AUTHOR VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '作者',
+  PUBLISHER VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '出版社',
+  PUBLISH_DATE DATE NULL DEFAULT NULL COMMENT '出版日期',
+  PRICE DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+  CATEGORY VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '类别',
+  SUMMARY TEXT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL COMMENT '简介',
+  KEYWORDS VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '关键字',
+  DEL_FLAG TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+  CREATE_TIME DATETIME(0) NULL DEFAULT NULL,
+  CREATE_NAME VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  UPDATE_TIME DATETIME(0) NULL DEFAULT NULL,
+  UPDATE_NAME VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  PRIMARY KEY (BOOK_ID) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE bk_books  (
+  book_id int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+  title varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '书名',
+  author varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '作者',
+  publisher varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '出版社',
+  publish_date date NULL DEFAULT NULL COMMENT '出版日期',
+  price decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+  category varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别',
+  summary text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
+  keywords varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键字',
+  del_flag tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+  create_time datetime(0) NULL DEFAULT NULL,
+  create_name varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  update_time datetime(0) NULL DEFAULT NULL,
+  update_name varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (book_id) 
+)  [42001-199]
+2025-03-05 16:37:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE BK_BOOKS  (
+  BOOK_ID INT(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+  TITLE VARCHAR(255) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '书名',
+  AUTHOR VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '作者',
+  PUBLISHER VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '出版社',
+  PUBLISH_DATE DATE NULL DEFAULT NULL COMMENT '出版日期',
+  PRICE DECIMAL(10, 2) NULL DEFAULT NULL COMMENT '价格',
+  CATEGORY VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '类别',
+  SUMMARY TEXT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL COMMENT '简介',
+  KEYWORDS VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '关键字',
+  DEL_FLAG TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+  CREATE_TIME DATETIME(0) NULL DEFAULT NULL,
+  CREATE_NAME VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  UPDATE_TIME DATETIME(0) NULL DEFAULT NULL,
+  UPDATE_NAME VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  PRIMARY KEY (BOOK_ID) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE bk_books  (
+  book_id int(11) NOT NULL AUTO_INCREMENT COMMENT '书籍ID',
+  title varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '书名',
+  author varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '作者',
+  publisher varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '出版社',
+  publish_date date NULL DEFAULT NULL COMMENT '出版日期',
+  price decimal(10, 2) NULL DEFAULT NULL COMMENT '价格',
+  category varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别',
+  summary text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
+  keywords varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键字',
+  del_flag tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除1已删除',
+  create_time datetime(0) NULL DEFAULT NULL,
+  create_name varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  update_time datetime(0) NULL DEFAULT NULL,
+  update_name varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (book_id) 
+)  [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE JK_AUTH_GROUP  (
+  ID MEDIUMINT(8) NOT NULL AUTO_INCREMENT,
+  TITLE CHAR(100) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '组名',
+  DESCRIPTION VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '用户组描述',
+  STATUS TINYINT(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+  RULES TEXT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL COMMENT '用户组拥有的规则id, 多个规则\"",\""隔开',
+  PRIMARY KEY (ID) 
+) "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE jk_auth_group  (
+  id mediumint(8) NOT NULL AUTO_INCREMENT,
+  title char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '组名',
+  description varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户组描述',
+  status tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+  rules text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '用户组拥有的规则id, 多个规则\",\"隔开',
+  PRIMARY KEY (id) 
+) [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "FK_BACKEND_ADMIN_HAS_AUTH_GROUP_BACKEND_ADMIN_IDX"; SQL statement:
+CREATE TABLE jk_auth_group_access  (
+  uid int(11) NOT NULL COMMENT '用户id',
+  group_id mediumint(8) NOT NULL,
+  PRIMARY KEY (uid, group_id) ,
+  INDEX fk_backend_admin_has_auth_group_backend_admin_idx(uid) ,
+  INDEX fk_auth_group_access_auth_group1_idx(group_id) ,
+  CONSTRAINT fk_auth_group_access_auth_group1 FOREIGN KEY (group_id) REFERENCES jk_auth_group (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_backend_admin_has_auth_group_backend_admin FOREIGN KEY (uid) REFERENCES jk_backend_admin (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+)  [50004-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:502)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:5524)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5254)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:7932)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:7832)
+	at org.h2.command.Parser.parseCreate(Parser.java:5818)
+	at org.h2.command.Parser.parsePrepared(Parser.java:846)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:565)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE JK_AUTH_RULE  (
+  ID MEDIUMINT(8) NOT NULL AUTO_INCREMENT,
+  NAME CHAR(80) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '规则唯一标识',
+  TITLE CHAR(20) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '规则中文名称',
+  TYPE TINYINT(1) NOT NULL DEFAULT 1 COMMENT '规则类型，1：url，2：main',
+  STATUS TINYINT(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+  CONDITION CHAR(100) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+  PARENT_ID INT(11) NULL DEFAULT NULL COMMENT '父级规则ID',
+  PRIMARY KEY (ID) ,
+  UNIQUE INDEX NAME_UNIQUE(NAME) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE jk_auth_rule  (
+  id mediumint(8) NOT NULL AUTO_INCREMENT,
+  name char(80) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '规则唯一标识',
+  title char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '规则中文名称',
+  type tinyint(1) NOT NULL DEFAULT 1 COMMENT '规则类型，1：url，2：main',
+  status tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态：为1正常，为0禁用',
+  condition char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+  parent_id int(11) NULL DEFAULT NULL COMMENT '父级规则ID',
+  PRIMARY KEY (id) ,
+  UNIQUE INDEX name_UNIQUE(name) 
+)  [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE JK_BACKEND_ADMIN  (
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  USERNAME CHAR(16) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '用户名',
+  PASSWORD CHAR(32) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '密码',
+  EMAIL VARCHAR(45) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  MOBILE VARCHAR(15) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL,
+  STATUS TINYINT(4) NOT NULL DEFAULT 0 COMMENT '状态，0:禁用、1:启用',
+  CREATED_AT TIMESTAMP(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  UPDATED_AT TIMESTAMP(0) NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP(0),
+  LAST_LOGIN_IP VARCHAR(20) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL DEFAULT '0.0.0.0',
+  LAST_LOGIN_TIME TIMESTAMP(0) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后登录时间',
+  IS_FIXED TINYINT(4) NOT NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+  PRIMARY KEY (ID) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE jk_backend_admin  (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  username char(16) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
+  password char(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  email varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  mobile varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  status tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态，0:禁用、1:启用',
+  created_at timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  updated_at timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP(0),
+  last_login_ip varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0.0.0.0',
+  last_login_time timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后登录时间',
+  is_fixed tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+  PRIMARY KEY (id) 
+)  [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE JK_BACKEND_MENU  (
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255) CHARACTER[*] SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '标识',
+  TITLE CHAR(10) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '显示名称',
+  PARENT_ID INT(11) NOT NULL DEFAULT 0 COMMENT '上级id',
+  SORT INT(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  URL VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NOT NULL COMMENT '链接地址',
+  IS_HIDE TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏',
+  IS_DEV TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否仅开发者模式可见',
+  TIP VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '提示',
+  GROUP VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI NULL DEFAULT NULL COMMENT '分组',
+  IS_FIXED TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (ID) 
+) "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE jk_backend_menu  (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标识',
+  title char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '显示名称',
+  parent_id int(11) NOT NULL DEFAULT 0 COMMENT '上级id',
+  sort int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  url varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '链接地址',
+  is_hide tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏',
+  is_dev tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否仅开发者模式可见',
+  tip varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '提示',
+  group varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '分组',
+  is_fixed tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (id) 
+) [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE JK_CONFIG  (
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  NAME CHAR(50) CHARACTER[*] SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL COMMENT '配置标识，大写',
+  TITLE CHAR(30) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL COMMENT '配置项',
+  REMARKS VARCHAR(100) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL DEFAULT '' COMMENT '配置说明',
+  OPTIONS VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL DEFAULT '' COMMENT '配置选项',
+  VALUE TEXT CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NULL COMMENT '配置值',
+  STATUS TINYINT(4) NOT NULL DEFAULT 1 COMMENT '状态，1：启用、0：禁用、-1：软删除',
+  CONFIG_GROUP VARCHAR(255) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NULL DEFAULT NULL COMMENT '配置分租',
+  CONFIG_TYPE CHAR(50) CHARACTER SET UTF8 COLLATE UTF8_UNICODE_CI NOT NULL DEFAULT '0' COMMENT '配置类型',
+  SORT SMALLINT(6) NOT NULL DEFAULT 0 COMMENT '排序',
+  IS_FIXED TINYINT(1) NOT NULL DEFAULT 0 COMMENT '是否锁定',
+  UPDATED_AT INT(11) NULL DEFAULT NULL COMMENT '更新时间',
+  IS_DEV TINYINT(1) NOT NULL DEFAULT 0 COMMENT '开发者模式可见',
+  PRIMARY KEY (ID) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE jk_config  (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name char(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '配置标识，大写',
+  title char(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '配置项',
+  remarks varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '配置说明',
+  options varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '配置选项',
+  value text CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL COMMENT '配置值',
+  status tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态，1：启用、0：禁用、-1：软删除',
+  config_group varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '配置分租',
+  config_type char(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '0' COMMENT '配置类型',
+  sort smallint(6) NOT NULL DEFAULT 0 COMMENT '排序',
+  is_fixed tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否锁定',
+  updated_at int(11) NULL DEFAULT NULL COMMENT '更新时间',
+  is_dev tinyint(1) NOT NULL DEFAULT 0 COMMENT '开发者模式可见',
+  PRIMARY KEY (id) 
+)  [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE M_AUTH_GROUP  (
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255) CHARACTER[*] SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '组名',
+  ENABLE TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:已启用，1:未启用',
+  CREATE_TIME DATETIME(0) NOT NULL,
+  OPERATOR VARCHAR(255) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '操作人',
+  PRIMARY KEY (ID) 
+) "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE m_auth_group  (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '组名',
+  enable tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:已启用，1:未启用',
+  create_time datetime(0) NOT NULL,
+  operator varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作人',
+  PRIMARY KEY (id) 
+) [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE M_AUTH_GROUP_MAPPER  (
+  ID INT(11) NOT NULL AUTO_INCREMENT,
+  NAME VARCHAR(255) CHARACTER[*] SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '组名',
+  ENABLE TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:已启用，1:未启用',
+  CREATE_TIME DATETIME(0) NOT NULL,
+  OPERATOR VARCHAR(255) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '操作人',
+  PRIMARY KEY (ID) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE m_auth_group_mapper  (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '组名',
+  enable tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:已启用，1:未启用',
+  create_time datetime(0) NOT NULL,
+  operator varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作人',
+  PRIMARY KEY (id) 
+)  [42001-199]
+2025-03-05 16:37:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE M_SYS_MENU  (
+  ID INT(11) NOT NULL IDENTITY,
+  VIEW_URL VARCHAR(255)  NULL DEFAULT NULL COMMENT '视图路径， 模块/操作( type=0/2)的请求路径时可为空',
+  MAPPER_URL VARCHAR(500) CHARACTER[*] SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NULL DEFAULT NULL COMMENT '映射视图的请求路径，选模块（type=0）时可不填',
+  MODULE_NAME VARCHAR(255) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '菜单名，模块名，操作名称',
+  TYPE TINYINT(4) NULL DEFAULT NULL COMMENT '0：模块，1:二级菜单，2：操作,3:独立页面(弹框)',
+  ICON VARCHAR(255) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NULL DEFAULT NULL COMMENT '图标',
+  PARENT_ID INT(11) NULL DEFAULT 0 COMMENT '父节点ID 0为根节点',
+  DEL_STATUS TINYINT(4) NOT NULL DEFAULT 0 COMMENT '0:未删除，1:已删除',
+  ENABLE_STATUS TINYINT(4) NOT NULL DEFAULT 1 COMMENT '1:已启用，0:未启用',
+  CREATE_TIME DATETIME(0) NOT NULL,
+  UPDATE_TIME DATETIME(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  OPERATOR VARCHAR(100) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL DEFAULT 'system' COMMENT '操作人',
+  LABEL_UNQ VARCHAR(100) CHARACTER SET UTF8MB4 COLLATE UTF8MB4_GENERAL_CI NOT NULL COMMENT '唯一标识',
+  SORT INT(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  IS_FIXED TINYINT(4) NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+  PRIMARY KEY (ID) ,
+  UNIQUE INDEX UNI_INDEX(LABEL_UNQ) 
+)  "; expected "FOR, UNSIGNED, INVISIBLE, VISIBLE, NOT, NULL, AS, DEFAULT, GENERATED, ON, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE m_sys_menu  (
+  id int(11) NOT NULL IDENTITY,
+  view_url varchar(255)  NULL DEFAULT NULL COMMENT '视图路径， 模块/操作( type=0/2)的请求路径时可为空',
+  mapper_url varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '映射视图的请求路径，选模块（type=0）时可不填',
+  module_name varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名，模块名，操作名称',
+  type tinyint(4) NULL DEFAULT NULL COMMENT '0：模块，1:二级菜单，2：操作,3:独立页面(弹框)',
+  icon varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标',
+  parent_id int(11) NULL DEFAULT 0 COMMENT '父节点ID 0为根节点',
+  del_status tinyint(4) NOT NULL DEFAULT 0 COMMENT '0:未删除，1:已删除',
+  enable_status tinyint(4) NOT NULL DEFAULT 1 COMMENT '1:已启用，0:未启用',
+  create_time datetime(0) NOT NULL,
+  update_time datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  operator varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'system' COMMENT '操作人',
+  label_unq varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '唯一标识',
+  sort int(11) NOT NULL DEFAULT 0 COMMENT '排序',
+  is_fixed tinyint(4) NULL DEFAULT 0 COMMENT '是否锁定，0:否、1:是',
+  PRIMARY KEY (id) ,
+  UNIQUE INDEX uni_index(label_unq) 
+)  [42001-199]
+2025-03-05 17:07:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('auth/authAccess','/authAccess','访问授权',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:18:07','administrator','IFRAME_AUTH_ACCESS',0,0),
+	 ('users/userList','/userList','管理员信息',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:41','administrator','PAGE_USER_LIST',0,0),
+	 ('goods/goodsList','/goodsList','产品列表',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:53:32','administrator','PAGE_GOODS_LIST',0,0),
+	 ('users/userAdd','/userAdd','添加管理员',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:31','administrator','IFRAME_USER_ADD',0,0),
+	 ('manufacturer/manufacturerList','/manufacturerList','生产商管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:36','administrator','PAGE_MANUFACTURER_LIST',0,0),
+	 ('users/userDetail','/userDetail','查看管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:43','administrator','IFRAME_USER_DETAIL',0,0),
+	 ('brand/brandList','/brandList','品牌管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:46','administrator','PAGE_BRAND_LIST',0,0),
+	 ('auth/authList','/authList','权限管理',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:56','administrator','PAGE_AUTH_LIST',0,0),
+	 ('brand/brandEditOrAdd','/brandEditOrAdd','编辑/新增品牌信息',3,NULL,19,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:42','administrator','IFRAME_BRAND_INFO',0,0),
+	 ('menu/menuTree','/menuTree','菜单管理',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-07 17:29:27','system','PAGE_MENU_TREE',0,1) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,NULL,'系统模块',0,'&#xe614;',0,0,1,'2021-08-23 17:14:59','2021-09-07 17:09:19','system','MODULE_SYSTEM',0,1),
+	 ('index','/','主页备选路径',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-16 10:32:33','administrator','PAGE_INDEX_BAC',0,0),
+	 ('','','产品管理',0,'&#xe653;',0,1,0,'2021-08-24 10:46:14','2025-03-05 16:07:55','administrator','MODULE_BUSINESS',0,0),
+	 ('configGroup/config','/configPage','配置管理',1,NULL,23,0,0,'2021-08-30 10:42:41','2025-03-04 21:51:24','administrator','PAGE_CONFIG_MANAGEMENT',0,0),
+	 ('goods/goodsEditOrAdd','/goodsEditOrAdd','新增/编辑产品信息',3,NULL,14,1,1,'2021-08-30 10:54:23','2025-03-04 21:53:26','administrator','IFRAME_GOODS_INFO',0,0),
+	 ('goods/goodsDetail','/goodsDetail','查看产品信息',3,NULL,14,1,1,'2021-08-31 17:11:40','2025-03-04 21:53:21','administrator','IFRAME_GOODS_SHOW',0,0),
+	 ('goods/commentsList','/commentsList','查看产品评价',3,NULL,14,1,1,'2021-09-02 17:29:57','2025-03-04 21:53:16','administrator','IFRAME_GOODS_COMMENTS',0,0),
+	 ('goods/commentsEditOrAdd','/commentsEditOrAdd','新增/编辑使用体验',3,NULL,31,1,1,'2021-09-02 18:29:04','2025-03-04 21:53:09','administrator','IFRAME_COMMENTS_INFO',0,0),
+	 (NULL,'/goods/goodsDetail','33eba51c-3f5b-4cbd-9fc9-90ad8b36e6d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','9dbe3a67-39b6-4030-9c62-445de86f0424',0,0),
+	 ('menu/menuEditOrAdd','/menuEditOrAdd','添加/编辑菜单页面',3,NULL,22,0,1,'2021-09-06 12:23:57','2021-09-06 12:23:59','system','IFRAME_MENU_INFO',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('','','测试模块1',0,NULL,0,1,1,'2021-09-07 15:39:25','2021-09-08 18:29:10','administrator','MODOLE_TEST1',1,0),
+	 ('test/test','/test','测试页面',1,NULL,35,1,1,'2021-09-07 15:47:29','2021-09-08 18:29:08','administrator','PAGE_TEST',2,0),
+	 ('test/test','TEST','测试弹窗',3,NULL,35,1,1,'2021-09-07 16:35:30','2021-09-08 18:29:01','administrator','IFRAME_TEST',2,0),
+	 ('','/re','测试请求',2,NULL,35,0,1,'2021-09-07 16:44:05','2021-09-08 18:09:55','administrator','REQUEST_TEST',0,0),
+	 ('TEST','TEST','测试页面2',1,NULL,35,1,1,'2021-09-07 17:01:21','2021-09-08 18:27:55','administrator','PAGE_TEST2',0,0),
+	 ('','/sysMenu/saveMenuInfo','fcd4bb4d-b8da-41da-a56f-e7957983ca6e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4dd5bebe-f10e-4b6d-b870-b2572a0e9d7b',0,1),
+	 ('error/403','/error/403','无权限页面',3,NULL,0,0,1,'2021-09-15 22:30:33','2025-03-05 16:08:49','administrator','ERROR_403',1,0),
+	 (NULL,'/brand/brandDelete','f7b1d7ae-e2d3-487d-983d-a179621557ae',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','de9c0b6e-26f8-45f4-afd1-b3852f6ec2c1',0,0),
+	 (NULL,'/brand/saveBrandInfo','bf7e0ba5-13b7-484f-b275-c5ff86bab1bd',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','39c7bc57-8206-49e6-afff-e4765ef8495c',0,0),
+	 (NULL,'/brand/getBrands','d3879b6f-ed91-4fa0-97ce-aece808c21d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','4931e931-aa80-499a-a56a-d4283a72404d',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/goods/saveGoodsInfo','1a24bf9a-53d7-41fb-b1d4-9fe19f7f11d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','f4052350-4b52-41d5-a36c-0ef22b02bb3d',0,0),
+	 (NULL,'/goods/goodsDelete','f6aa2e09-5d82-4708-8f8a-36e1b08bde9e',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','5167bb8a-4cdf-4187-a70a-47d96a5e81c4',0,0),
+	 (NULL,'/goods/commentsDetail','837738f7-d1c4-4386-baa9-be119ad0cc30',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ff3c6487-3e80-4c75-94ad-114e9656fa6c',0,0),
+	 (NULL,'/goods/delComments','d4a0dd6f-34b0-4fa8-8ad2-8ed9a6418192',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','efd80f16-dcf5-454a-a9cd-65734e11539b',0,0),
+	 (NULL,'/goods/saveComments','224e8600-e80c-4170-b4f1-d1896f96f9fc',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','285d7854-9c92-4e9e-a97b-4c62701e0b8f',0,0),
+	 (NULL,'/goods/statusChange','ae8790e5-02a7-4f55-a909-489ee23a029b',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','823e072a-e34f-413b-8212-d0d21f29eb27',0,0),
+	 (NULL,'/goods/getGoodsList','2c66b9b1-f27e-4bf4-846b-9a4e47aa05d2',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','67b8d0b9-128b-4a0e-8de3-655e2c61f4a7',0,0),
+	 (NULL,'/goods/getComments','93faf49d-8889-410b-904d-7e08ab2af87d',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ebabf87d-76b2-4ba8-a2c3-d6aba33a1ba0',0,0),
+	 (NULL,'/manufacturer/getManufaturer','c2b159ee-5904-4087-8113-af06a7b80d77',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','0d41881d-c8c7-4afa-975a-dcf09ca57ba0',0,0),
+	 (NULL,'/manufacturer/manufacturerEditOrAdd','ad9f9d9c-84a3-4554-983f-9655d921cd55',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','079864a9-3e9a-434c-a0c6-d37d9c03fe23',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/menu/getMenuTree','23319801-08de-447c-8d31-0126bc6f9332',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','05053b72-9bba-4162-b184-cd4bd1aa1de2',0,0),
+	 (NULL,'/menu/getMenuList','637da060-9758-4777-8458-0eac56279535',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','11ffcf14-5b25-47ae-b375-bd070ff570c0',0,0),
+	 (NULL,'/api/search','7f24c8ff-83a1-42fa-bed0-6f2f687fe1d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','78666439-8900-490b-9ed5-daa5ecc660ea',0,0),
+	 (NULL,'/commentFile/file{type}','e310f9b0-f51c-4675-8862-4dfd5ee26c0c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5140eca4-9cb8-4153-8ce5-cacb0716aefb',0,0),
+	 (NULL,'/test/bb','9d1cd05a-3acd-437b-81b9-fbf41113f0dc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','52537df8-4701-4a54-a0df-74cc37dc2943',0,0),
+	 (NULL,'/test/tree','dcc45f2d-aa9a-4654-b724-f9e252167e66',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','03a555a0-9eb4-4afd-9dd8-387b641f832d',0,0),
+	 (NULL,'/test/testPage','2f7d50e4-36a6-4b3c-a561-9127d28dbc5e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ebc1eb11-de27-4ca1-87ba-e866a9db5b72',0,0),
+	 (NULL,'/test/demo1','2f93b167-e92d-479f-87ca-3fdc6deefecc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','579faa29-254f-4958-927e-e22e39be8b12',0,0),
+	 (NULL,'/authGroupAccess/getUserAuthGroup','1bd0849d-a1da-4839-8a88-c6518f1f7220',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','da2f1bd7-81eb-47b8-905b-c5e11553406a',0,0),
+	 (NULL,'/authGroupAccess/setUserAuthGroup','53128c0b-7fbe-4d5b-a107-41a964516c41',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','406f2cd3-fb56-45a0-8801-10c3fdd4866f',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/authGroup/getAuthAccessTree','9012ff02-9ef1-4192-bf63-005ed644e0a3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9f08681b-e9f4-49bf-83fb-8e81162c598f',0,0),
+	 (NULL,'/authGroup/authAdd','bb5ac668-dce5-48fa-9e7f-3225c6d19551',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d28eeef0-d511-4c29-8d00-2affcc8c0c97',0,0),
+	 (NULL,'/authGroup/authDelete','2e8c046c-3ff4-40e1-920b-9529d41eb245',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','479c6514-be06-459a-8479-635ab1e798fa',0,0),
+	 (NULL,'/authGroup/saveAuthAccess','924369c6-dc42-4503-97d1-b7b897972fb3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','646c58f4-4d59-4975-b7be-db02cd610111',0,0),
+	 (NULL,'/authGroup/authEdit','aa7ebcb0-fa93-4f97-b730-5374dc3095f5',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3e75c415-7199-4021-ab64-55c565dfe59e',0,0),
+	 (NULL,'/authGroup/getAuthGroupList','b094e3bc-c128-4326-b2db-f71c0dfbdd2b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4d93ac54-1e14-4e2b-acb3-eb821963b85c',0,0),
+	 (NULL,'/config/saveConfigInfo','1a2626d8-8f3c-4057-ae8b-004fba1ce82b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','e093f729-0e75-4df1-bde8-3effc1fb4d30',0,0),
+	 (NULL,'/config/gerConfigGroup','e5774549-8be8-40f8-96d2-e7b5534ee072',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','021817e9-0e19-4c13-a2f1-d1fdb53c518a',0,0),
+	 (NULL,'/sysMenu/getMenuList','9569b2a8-49ec-47ef-9e9a-0977cfb141c8',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5432e505-2521-4a7c-bcb0-3e4e929d2ece',0,0),
+	 (NULL,'/sysMenu/getMenuTreeSelect','71d38cae-d055-48c5-854c-890d04e88632',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','8163a0b9-d152-48d3-bb1f-9ffc3b0fc116',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/sysMenu/getMenuDetail','893d7bff-5d33-42b6-acb3-2be918cfefee',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ff6daf43-a693-4a8a-8fd8-f52563ffa22b',0,0),
+	 (NULL,'/sysMenu/icon','0f25a1ff-0325-4bd2-aea8-86d9cfb57b6b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','592fae3a-fa72-4fa4-9b6e-7547cd005d93',0,0),
+	 (NULL,'/sysMenu/deleteMenu','e7c0aed7-10f7-45e9-b429-ddeb0b022232',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','88377e71-da2d-4243-abcc-8c676e993652',0,0),
+	 (NULL,'/user/login','f01529f2-d47f-488a-a95a-9dfb431cf23a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','b50dc93e-bcc8-4c77-b4cf-b7f5cfda13b4',0,0),
+	 (NULL,'/user/userDelete','7ca31541-3dde-484b-be33-f658a7b7a15c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','65a25846-a45c-4fd2-869e-5a43fa232d10',0,0),
+	 (NULL,'/user/getUsers','bbfc7528-99d4-4f0c-8dc8-019bd0d0401a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','75cf69b5-81e6-4df6-8589-7920d708dce9',0,0),
+	 (NULL,'/user/userDetail','603ec13f-eada-4bdd-9828-00ae504ef33b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9c38578c-a4b2-4825-9081-d8525353c52f',0,0),
+	 (NULL,'/user/userAdd','6acfd3dc-aa1a-477b-8544-2b68b5489c0f',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','dfc2aef3-0cd7-4e26-953c-d22ece0a77bd',0,0),
+	 (NULL,'/user/updCurrInfo','2a5d0547-7d1d-4a4f-b678-77c19d6d77bd',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','858c6c87-70da-431d-b393-913be99debf7',0,0),
+	 (NULL,'/user/userEdit','6710e4d0-0e0f-43ba-a86d-221376240361',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','852e76eb-ecee-450a-8f72-eb6215262d17',0,0) [42102-199]
+2025-03-05 17:07:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/user/logout','d3413f1752-7ad3-4a-a64b-e467ef954a23',2,NULL,1,0,1,'2021-09-16 11:29:53','2021-09-16 11:31:06','system','423f1752-7ad3-4d3a-a64b-e467ef954a23',0,0),
+	 (NULL,'/user/edit','901aa12c-cc41-4229-8f21-a51476382805',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','1c6212de-d5d7-4ffc-971a-b357ed38d55e',0,0),
+	 (NULL,'/user/page','0fe7c295-e0a6-4993-a2e5-110f1e36b449',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','40ca1c15-d196-4cee-b1fd-42c999ee2eca',0,0),
+	 (NULL,'/books/page','03ac55ac-c95f-41b0-a87a-b7a9b8de2bf4',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3db9c5e5-c98d-43e3-9236-70b19645e070',0,0),
+	 (NULL,'/books/edit','a8b3175d-b77b-4194-8328-57a96297589b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','c3ca9065-77e0-4f78-af47-79c9aaf9651c',0,0),
+	 (NULL,'/books/add','3b1564ee-f585-46b6-bdfc-ebb9a8559c8b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','24b2bde9-9c7a-4668-95c1-6ccd930c9347',0,0),
+	 (NULL,'/books/del','fcf4a079-d3d4-43c3-a2c7-2365deef0427',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d4ec1568-e469-405d-828e-13a2855a6958',0,0),
+	 ('','','图书模块',0,NULL,0,0,1,'2025-03-05 16:08:31','2025-03-05 16:08:31','administrator','MODULE_BOOKS',0,1) [42102-199]
+2025-03-05 17:07:57 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42102-199]
+2025-03-05 17:08:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42102-199]
+2025-03-05 17:08:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "M_SYS_MENU" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42102-199]
+2025-03-05 17:09:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('auth/authAccess','/authAccess','访问授权',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:18:07','administrator','IFRAME_AUTH_ACCESS',0,0),
+	 ('users/userList','/userList','管理员信息',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:41','administrator','PAGE_USER_LIST',0,0),
+	 ('goods/goodsList','/goodsList','产品列表',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:53:32','administrator','PAGE_GOODS_LIST',0,0),
+	 ('users/userAdd','/userAdd','添加管理员',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:31','administrator','IFRAME_USER_ADD',0,0),
+	 ('manufacturer/manufacturerList','/manufacturerList','生产商管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:36','administrator','PAGE_MANUFACTURER_LIST',0,0),
+	 ('users/userDetail','/userDetail','查看管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:43','administrator','IFRAME_USER_DETAIL',0,0),
+	 ('brand/brandList','/brandList','品牌管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:46','administrator','PAGE_BRAND_LIST',0,0),
+	 ('auth/authList','/authList','权限管理',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:56','administrator','PAGE_AUTH_LIST',0,0),
+	 ('brand/brandEditOrAdd','/brandEditOrAdd','编辑/新增品牌信息',3,NULL,19,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:42','administrator','IFRAME_BRAND_INFO',0,0),
+	 ('menu/menuTree','/menuTree','菜单管理',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-07 17:29:27','system','PAGE_MENU_TREE',0,1);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,NULL,'系统模块',0,'&#xe614;',0,0,1,'2021-08-23 17:14:59','2021-09-07 17:09:19','system','MODULE_SYSTEM',0,1),
+	 ('index','/','主页备选路径',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-16 10:32:33','administrator','PAGE_INDEX_BAC',0,0),
+	 ('','','产品管理',0,'&#xe653;',0,1,0,'2021-08-24 10:46:14','2025-03-05 16:07:55','administrator','MODULE_BUSINESS',0,0),
+	 ('configGroup/config','/configPage','配置管理',1,NULL,23,0,0,'2021-08-30 10:42:41','2025-03-04 21:51:24','administrator','PAGE_CONFIG_MANAGEMENT',0,0),
+	 ('goods/goodsEditOrAdd','/goodsEditOrAdd','新增/编辑产品信息',3,NULL,14,1,1,'2021-08-30 10:54:23','2025-03-04 21:53:26','administrator','IFRAME_GOODS_INFO',0,0),
+	 ('goods/goodsDetail','/goodsDetail','查看产品信息',3,NULL,14,1,1,'2021-08-31 17:11:40','2025-03-04 21:53:21','administrator','IFRAME_GOODS_SHOW',0,0),
+	 ('goods/commentsList','/commentsList','查看产品评价',3,NULL,14,1,1,'2021-09-02 17:29:57','2025-03-04 21:53:16','administrator','IFRAME_GOODS_COMMENTS',0,0),
+	 ('goods/commentsEditOrAdd','/commentsEditOrAdd','新增/编辑使用体验',3,NULL,31,1,1,'2021-09-02 18:29:04','2025-03-04 21:53:09','administrator','IFRAME_COMMENTS_INFO',0,0),
+	 (NULL,'/goods/goodsDetail','33eba51c-3f5b-4cbd-9fc9-90ad8b36e6d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','9dbe3a67-39b6-4030-9c62-445de86f0424',0,0),
+	 ('menu/menuEditOrAdd','/menuEditOrAdd','添加/编辑菜单页面',3,NULL,22,0,1,'2021-09-06 12:23:57','2021-09-06 12:23:59','system','IFRAME_MENU_INFO',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('','','测试模块1',0,NULL,0,1,1,'2021-09-07 15:39:25','2021-09-08 18:29:10','administrator','MODOLE_TEST1',1,0),
+	 ('test/test','/test','测试页面',1,NULL,35,1,1,'2021-09-07 15:47:29','2021-09-08 18:29:08','administrator','PAGE_TEST',2,0),
+	 ('test/test','TEST','测试弹窗',3,NULL,35,1,1,'2021-09-07 16:35:30','2021-09-08 18:29:01','administrator','IFRAME_TEST',2,0),
+	 ('','/re','测试请求',2,NULL,35,0,1,'2021-09-07 16:44:05','2021-09-08 18:09:55','administrator','REQUEST_TEST',0,0),
+	 ('TEST','TEST','测试页面2',1,NULL,35,1,1,'2021-09-07 17:01:21','2021-09-08 18:27:55','administrator','PAGE_TEST2',0,0),
+	 ('','/sysMenu/saveMenuInfo','fcd4bb4d-b8da-41da-a56f-e7957983ca6e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4dd5bebe-f10e-4b6d-b870-b2572a0e9d7b',0,1),
+	 ('error/403','/error/403','无权限页面',3,NULL,0,0,1,'2021-09-15 22:30:33','2025-03-05 16:08:49','administrator','ERROR_403',1,0),
+	 (NULL,'/brand/brandDelete','f7b1d7ae-e2d3-487d-983d-a179621557ae',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','de9c0b6e-26f8-45f4-afd1-b3852f6ec2c1',0,0),
+	 (NULL,'/brand/saveBrandInfo','bf7e0ba5-13b7-484f-b275-c5ff86bab1bd',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','39c7bc57-8206-49e6-afff-e4765ef8495c',0,0),
+	 (NULL,'/brand/getBrands','d3879b6f-ed91-4fa0-97ce-aece808c21d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','4931e931-aa80-499a-a56a-d4283a72404d',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/goods/saveGoodsInfo','1a24bf9a-53d7-41fb-b1d4-9fe19f7f11d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','f4052350-4b52-41d5-a36c-0ef22b02bb3d',0,0),
+	 (NULL,'/goods/goodsDelete','f6aa2e09-5d82-4708-8f8a-36e1b08bde9e',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','5167bb8a-4cdf-4187-a70a-47d96a5e81c4',0,0),
+	 (NULL,'/goods/commentsDetail','837738f7-d1c4-4386-baa9-be119ad0cc30',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ff3c6487-3e80-4c75-94ad-114e9656fa6c',0,0),
+	 (NULL,'/goods/delComments','d4a0dd6f-34b0-4fa8-8ad2-8ed9a6418192',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','efd80f16-dcf5-454a-a9cd-65734e11539b',0,0),
+	 (NULL,'/goods/saveComments','224e8600-e80c-4170-b4f1-d1896f96f9fc',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','285d7854-9c92-4e9e-a97b-4c62701e0b8f',0,0),
+	 (NULL,'/goods/statusChange','ae8790e5-02a7-4f55-a909-489ee23a029b',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','823e072a-e34f-413b-8212-d0d21f29eb27',0,0),
+	 (NULL,'/goods/getGoodsList','2c66b9b1-f27e-4bf4-846b-9a4e47aa05d2',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','67b8d0b9-128b-4a0e-8de3-655e2c61f4a7',0,0),
+	 (NULL,'/goods/getComments','93faf49d-8889-410b-904d-7e08ab2af87d',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ebabf87d-76b2-4ba8-a2c3-d6aba33a1ba0',0,0),
+	 (NULL,'/manufacturer/getManufaturer','c2b159ee-5904-4087-8113-af06a7b80d77',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','0d41881d-c8c7-4afa-975a-dcf09ca57ba0',0,0),
+	 (NULL,'/manufacturer/manufacturerEditOrAdd','ad9f9d9c-84a3-4554-983f-9655d921cd55',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','079864a9-3e9a-434c-a0c6-d37d9c03fe23',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/menu/getMenuTree','23319801-08de-447c-8d31-0126bc6f9332',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','05053b72-9bba-4162-b184-cd4bd1aa1de2',0,0),
+	 (NULL,'/menu/getMenuList','637da060-9758-4777-8458-0eac56279535',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','11ffcf14-5b25-47ae-b375-bd070ff570c0',0,0),
+	 (NULL,'/api/search','7f24c8ff-83a1-42fa-bed0-6f2f687fe1d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','78666439-8900-490b-9ed5-daa5ecc660ea',0,0),
+	 (NULL,'/commentFile/file{type}','e310f9b0-f51c-4675-8862-4dfd5ee26c0c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5140eca4-9cb8-4153-8ce5-cacb0716aefb',0,0),
+	 (NULL,'/test/bb','9d1cd05a-3acd-437b-81b9-fbf41113f0dc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','52537df8-4701-4a54-a0df-74cc37dc2943',0,0),
+	 (NULL,'/test/tree','dcc45f2d-aa9a-4654-b724-f9e252167e66',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','03a555a0-9eb4-4afd-9dd8-387b641f832d',0,0),
+	 (NULL,'/test/testPage','2f7d50e4-36a6-4b3c-a561-9127d28dbc5e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ebc1eb11-de27-4ca1-87ba-e866a9db5b72',0,0),
+	 (NULL,'/test/demo1','2f93b167-e92d-479f-87ca-3fdc6deefecc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','579faa29-254f-4958-927e-e22e39be8b12',0,0),
+	 (NULL,'/authGroupAccess/getUserAuthGroup','1bd0849d-a1da-4839-8a88-c6518f1f7220',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','da2f1bd7-81eb-47b8-905b-c5e11553406a',0,0),
+	 (NULL,'/authGroupAccess/setUserAuthGroup','53128c0b-7fbe-4d5b-a107-41a964516c41',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','406f2cd3-fb56-45a0-8801-10c3fdd4866f',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/authGroup/getAuthAccessTree','9012ff02-9ef1-4192-bf63-005ed644e0a3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9f08681b-e9f4-49bf-83fb-8e81162c598f',0,0),
+	 (NULL,'/authGroup/authAdd','bb5ac668-dce5-48fa-9e7f-3225c6d19551',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d28eeef0-d511-4c29-8d00-2affcc8c0c97',0,0),
+	 (NULL,'/authGroup/authDelete','2e8c046c-3ff4-40e1-920b-9529d41eb245',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','479c6514-be06-459a-8479-635ab1e798fa',0,0),
+	 (NULL,'/authGroup/saveAuthAccess','924369c6-dc42-4503-97d1-b7b897972fb3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','646c58f4-4d59-4975-b7be-db02cd610111',0,0),
+	 (NULL,'/authGroup/authEdit','aa7ebcb0-fa93-4f97-b730-5374dc3095f5',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3e75c415-7199-4021-ab64-55c565dfe59e',0,0),
+	 (NULL,'/authGroup/getAuthGroupList','b094e3bc-c128-4326-b2db-f71c0dfbdd2b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4d93ac54-1e14-4e2b-acb3-eb821963b85c',0,0),
+	 (NULL,'/config/saveConfigInfo','1a2626d8-8f3c-4057-ae8b-004fba1ce82b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','e093f729-0e75-4df1-bde8-3effc1fb4d30',0,0),
+	 (NULL,'/config/gerConfigGroup','e5774549-8be8-40f8-96d2-e7b5534ee072',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','021817e9-0e19-4c13-a2f1-d1fdb53c518a',0,0),
+	 (NULL,'/sysMenu/getMenuList','9569b2a8-49ec-47ef-9e9a-0977cfb141c8',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5432e505-2521-4a7c-bcb0-3e4e929d2ece',0,0),
+	 (NULL,'/sysMenu/getMenuTreeSelect','71d38cae-d055-48c5-854c-890d04e88632',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','8163a0b9-d152-48d3-bb1f-9ffc3b0fc116',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/sysMenu/getMenuDetail','893d7bff-5d33-42b6-acb3-2be918cfefee',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ff6daf43-a693-4a8a-8fd8-f52563ffa22b',0,0),
+	 (NULL,'/sysMenu/icon','0f25a1ff-0325-4bd2-aea8-86d9cfb57b6b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','592fae3a-fa72-4fa4-9b6e-7547cd005d93',0,0),
+	 (NULL,'/sysMenu/deleteMenu','e7c0aed7-10f7-45e9-b429-ddeb0b022232',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','88377e71-da2d-4243-abcc-8c676e993652',0,0),
+	 (NULL,'/user/login','f01529f2-d47f-488a-a95a-9dfb431cf23a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','b50dc93e-bcc8-4c77-b4cf-b7f5cfda13b4',0,0),
+	 (NULL,'/user/userDelete','7ca31541-3dde-484b-be33-f658a7b7a15c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','65a25846-a45c-4fd2-869e-5a43fa232d10',0,0),
+	 (NULL,'/user/getUsers','bbfc7528-99d4-4f0c-8dc8-019bd0d0401a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','75cf69b5-81e6-4df6-8589-7920d708dce9',0,0),
+	 (NULL,'/user/userDetail','603ec13f-eada-4bdd-9828-00ae504ef33b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9c38578c-a4b2-4825-9081-d8525353c52f',0,0),
+	 (NULL,'/user/userAdd','6acfd3dc-aa1a-477b-8544-2b68b5489c0f',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','dfc2aef3-0cd7-4e26-953c-d22ece0a77bd',0,0),
+	 (NULL,'/user/updCurrInfo','2a5d0547-7d1d-4a4f-b678-77c19d6d77bd',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','858c6c87-70da-431d-b393-913be99debf7',0,0),
+	 (NULL,'/user/userEdit','6710e4d0-0e0f-43ba-a86d-221376240361',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','852e76eb-ecee-450a-8f72-eb6215262d17',0,0);
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/user/logout','d3413f1752-7ad3-4a-a64b-e467ef954a23',2,NULL,1,0,1,'2021-09-16 11:29:53','2021-09-16 11:31:06','system','423f1752-7ad3-4d3a-a64b-e467ef954a23',0,0),
+	 (NULL,'/user/edit','901aa12c-cc41-4229-8f21-a51476382805',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','1c6212de-d5d7-4ffc-971a-b357ed38d55e',0,0),
+	 (NULL,'/user/page','0fe7c295-e0a6-4993-a2e5-110f1e36b449',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','40ca1c15-d196-4cee-b1fd-42c999ee2eca',0,0),
+	 (NULL,'/books/page','03ac55ac-c95f-41b0-a87a-b7a9b8de2bf4',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3db9c5e5-c98d-43e3-9236-70b19645e070',0,0),
+	 (NULL,'/books/edit','a8b3175d-b77b-4194-8328-57a96297589b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','c3ca9065-77e0-4f78-af47-79c9aaf9651c',0,0),
+	 (NULL,'/books/add','3b1564ee-f585-46b6-bdfc-ebb9a8559c8b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','24b2bde9-9c7a-4668-95c1-6ccd930c9347',0,0),
+	 (NULL,'/books/del','fcf4a079-d3d4-43c3-a2c7-2365deef0427',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d4ec1568-e469-405d-828e-13a2855a6958',0,0),
+	 ('','','图书模块',0,NULL,0,0,1,'2025-03-05 16:08:31','2025-03-05 16:08:31','administrator','MODULE_BOOKS',0,1)
+ [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.extractData(SQLQueryJob.java:1039)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:4319)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.lambda$0(ResultSetJobDataRead.java:128)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:126)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5081)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('auth/authAccess','/authAccess','访问授权',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:18:07','administrator','IFRAME_AUTH_ACCESS',0,0),
+	 ('users/userList','/userList','管理员信息',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:41','administrator','PAGE_USER_LIST',0,0),
+	 ('goods/goodsList','/goodsList','产品列表',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:53:32','administrator','PAGE_GOODS_LIST',0,0),
+	 ('users/userAdd','/userAdd','添加管理员',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:31','administrator','IFRAME_USER_ADD',0,0),
+	 ('manufacturer/manufacturerList','/manufacturerList','生产商管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:36','administrator','PAGE_MANUFACTURER_LIST',0,0),
+	 ('users/userDetail','/userDetail','查看管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:30:43','administrator','IFRAME_USER_DETAIL',0,0),
+	 ('brand/brandList','/brandList','品牌管理',1,NULL,27,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:46','administrator','PAGE_BRAND_LIST',0,0),
+	 ('auth/authList','/authList','权限管理',1,NULL,23,0,0,'2021-08-23 16:53:41','2025-03-04 21:50:56','administrator','PAGE_AUTH_LIST',0,0),
+	 ('brand/brandEditOrAdd','/brandEditOrAdd','编辑/新增品牌信息',3,NULL,19,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:42','administrator','IFRAME_BRAND_INFO',0,0),
+	 ('menu/menuTree','/menuTree','菜单管理',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-07 17:29:27','system','PAGE_MENU_TREE',0,1) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,NULL,'系统模块',0,'&#xe614;',0,0,1,'2021-08-23 17:14:59','2021-09-07 17:09:19','system','MODULE_SYSTEM',0,1),
+	 ('index','/','主页备选路径',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-16 10:32:33','administrator','PAGE_INDEX_BAC',0,0),
+	 ('','','产品管理',0,'&#xe653;',0,1,0,'2021-08-24 10:46:14','2025-03-05 16:07:55','administrator','MODULE_BUSINESS',0,0),
+	 ('configGroup/config','/configPage','配置管理',1,NULL,23,0,0,'2021-08-30 10:42:41','2025-03-04 21:51:24','administrator','PAGE_CONFIG_MANAGEMENT',0,0),
+	 ('goods/goodsEditOrAdd','/goodsEditOrAdd','新增/编辑产品信息',3,NULL,14,1,1,'2021-08-30 10:54:23','2025-03-04 21:53:26','administrator','IFRAME_GOODS_INFO',0,0),
+	 ('goods/goodsDetail','/goodsDetail','查看产品信息',3,NULL,14,1,1,'2021-08-31 17:11:40','2025-03-04 21:53:21','administrator','IFRAME_GOODS_SHOW',0,0),
+	 ('goods/commentsList','/commentsList','查看产品评价',3,NULL,14,1,1,'2021-09-02 17:29:57','2025-03-04 21:53:16','administrator','IFRAME_GOODS_COMMENTS',0,0),
+	 ('goods/commentsEditOrAdd','/commentsEditOrAdd','新增/编辑使用体验',3,NULL,31,1,1,'2021-09-02 18:29:04','2025-03-04 21:53:09','administrator','IFRAME_COMMENTS_INFO',0,0),
+	 (NULL,'/goods/goodsDetail','33eba51c-3f5b-4cbd-9fc9-90ad8b36e6d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','9dbe3a67-39b6-4030-9c62-445de86f0424',0,0),
+	 ('menu/menuEditOrAdd','/menuEditOrAdd','添加/编辑菜单页面',3,NULL,22,0,1,'2021-09-06 12:23:57','2021-09-06 12:23:59','system','IFRAME_MENU_INFO',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('','','测试模块1',0,NULL,0,1,1,'2021-09-07 15:39:25','2021-09-08 18:29:10','administrator','MODOLE_TEST1',1,0),
+	 ('test/test','/test','测试页面',1,NULL,35,1,1,'2021-09-07 15:47:29','2021-09-08 18:29:08','administrator','PAGE_TEST',2,0),
+	 ('test/test','TEST','测试弹窗',3,NULL,35,1,1,'2021-09-07 16:35:30','2021-09-08 18:29:01','administrator','IFRAME_TEST',2,0),
+	 ('','/re','测试请求',2,NULL,35,0,1,'2021-09-07 16:44:05','2021-09-08 18:09:55','administrator','REQUEST_TEST',0,0),
+	 ('TEST','TEST','测试页面2',1,NULL,35,1,1,'2021-09-07 17:01:21','2021-09-08 18:27:55','administrator','PAGE_TEST2',0,0),
+	 ('','/sysMenu/saveMenuInfo','fcd4bb4d-b8da-41da-a56f-e7957983ca6e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4dd5bebe-f10e-4b6d-b870-b2572a0e9d7b',0,1),
+	 ('error/403','/error/403','无权限页面',3,NULL,0,0,1,'2021-09-15 22:30:33','2025-03-05 16:08:49','administrator','ERROR_403',1,0),
+	 (NULL,'/brand/brandDelete','f7b1d7ae-e2d3-487d-983d-a179621557ae',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','de9c0b6e-26f8-45f4-afd1-b3852f6ec2c1',0,0),
+	 (NULL,'/brand/saveBrandInfo','bf7e0ba5-13b7-484f-b275-c5ff86bab1bd',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','39c7bc57-8206-49e6-afff-e4765ef8495c',0,0),
+	 (NULL,'/brand/getBrands','d3879b6f-ed91-4fa0-97ce-aece808c21d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','4931e931-aa80-499a-a56a-d4283a72404d',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/goods/saveGoodsInfo','1a24bf9a-53d7-41fb-b1d4-9fe19f7f11d6',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','f4052350-4b52-41d5-a36c-0ef22b02bb3d',0,0),
+	 (NULL,'/goods/goodsDelete','f6aa2e09-5d82-4708-8f8a-36e1b08bde9e',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','5167bb8a-4cdf-4187-a70a-47d96a5e81c4',0,0),
+	 (NULL,'/goods/commentsDetail','837738f7-d1c4-4386-baa9-be119ad0cc30',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ff3c6487-3e80-4c75-94ad-114e9656fa6c',0,0),
+	 (NULL,'/goods/delComments','d4a0dd6f-34b0-4fa8-8ad2-8ed9a6418192',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','efd80f16-dcf5-454a-a9cd-65734e11539b',0,0),
+	 (NULL,'/goods/saveComments','224e8600-e80c-4170-b4f1-d1896f96f9fc',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','285d7854-9c92-4e9e-a97b-4c62701e0b8f',0,0),
+	 (NULL,'/goods/statusChange','ae8790e5-02a7-4f55-a909-489ee23a029b',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','823e072a-e34f-413b-8212-d0d21f29eb27',0,0),
+	 (NULL,'/goods/getGoodsList','2c66b9b1-f27e-4bf4-846b-9a4e47aa05d2',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','67b8d0b9-128b-4a0e-8de3-655e2c61f4a7',0,0),
+	 (NULL,'/goods/getComments','93faf49d-8889-410b-904d-7e08ab2af87d',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','ebabf87d-76b2-4ba8-a2c3-d6aba33a1ba0',0,0),
+	 (NULL,'/manufacturer/getManufaturer','c2b159ee-5904-4087-8113-af06a7b80d77',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','0d41881d-c8c7-4afa-975a-dcf09ca57ba0',0,0),
+	 (NULL,'/manufacturer/manufacturerEditOrAdd','ad9f9d9c-84a3-4554-983f-9655d921cd55',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','079864a9-3e9a-434c-a0c6-d37d9c03fe23',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/menu/getMenuTree','23319801-08de-447c-8d31-0126bc6f9332',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','05053b72-9bba-4162-b184-cd4bd1aa1de2',0,0),
+	 (NULL,'/menu/getMenuList','637da060-9758-4777-8458-0eac56279535',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','11ffcf14-5b25-47ae-b375-bd070ff570c0',0,0),
+	 (NULL,'/api/search','7f24c8ff-83a1-42fa-bed0-6f2f687fe1d0',2,NULL,0,0,0,'2025-03-04 21:45:44','2025-03-04 21:45:44','system','78666439-8900-490b-9ed5-daa5ecc660ea',0,0),
+	 (NULL,'/commentFile/file{type}','e310f9b0-f51c-4675-8862-4dfd5ee26c0c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5140eca4-9cb8-4153-8ce5-cacb0716aefb',0,0),
+	 (NULL,'/test/bb','9d1cd05a-3acd-437b-81b9-fbf41113f0dc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','52537df8-4701-4a54-a0df-74cc37dc2943',0,0),
+	 (NULL,'/test/tree','dcc45f2d-aa9a-4654-b724-f9e252167e66',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','03a555a0-9eb4-4afd-9dd8-387b641f832d',0,0),
+	 (NULL,'/test/testPage','2f7d50e4-36a6-4b3c-a561-9127d28dbc5e',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ebc1eb11-de27-4ca1-87ba-e866a9db5b72',0,0),
+	 (NULL,'/test/demo1','2f93b167-e92d-479f-87ca-3fdc6deefecc',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','579faa29-254f-4958-927e-e22e39be8b12',0,0),
+	 (NULL,'/authGroupAccess/getUserAuthGroup','1bd0849d-a1da-4839-8a88-c6518f1f7220',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','da2f1bd7-81eb-47b8-905b-c5e11553406a',0,0),
+	 (NULL,'/authGroupAccess/setUserAuthGroup','53128c0b-7fbe-4d5b-a107-41a964516c41',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','406f2cd3-fb56-45a0-8801-10c3fdd4866f',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/authGroup/getAuthAccessTree','9012ff02-9ef1-4192-bf63-005ed644e0a3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9f08681b-e9f4-49bf-83fb-8e81162c598f',0,0),
+	 (NULL,'/authGroup/authAdd','bb5ac668-dce5-48fa-9e7f-3225c6d19551',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d28eeef0-d511-4c29-8d00-2affcc8c0c97',0,0),
+	 (NULL,'/authGroup/authDelete','2e8c046c-3ff4-40e1-920b-9529d41eb245',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','479c6514-be06-459a-8479-635ab1e798fa',0,0),
+	 (NULL,'/authGroup/saveAuthAccess','924369c6-dc42-4503-97d1-b7b897972fb3',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','646c58f4-4d59-4975-b7be-db02cd610111',0,0),
+	 (NULL,'/authGroup/authEdit','aa7ebcb0-fa93-4f97-b730-5374dc3095f5',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3e75c415-7199-4021-ab64-55c565dfe59e',0,0),
+	 (NULL,'/authGroup/getAuthGroupList','b094e3bc-c128-4326-b2db-f71c0dfbdd2b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','4d93ac54-1e14-4e2b-acb3-eb821963b85c',0,0),
+	 (NULL,'/config/saveConfigInfo','1a2626d8-8f3c-4057-ae8b-004fba1ce82b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','e093f729-0e75-4df1-bde8-3effc1fb4d30',0,0),
+	 (NULL,'/config/gerConfigGroup','e5774549-8be8-40f8-96d2-e7b5534ee072',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','021817e9-0e19-4c13-a2f1-d1fdb53c518a',0,0),
+	 (NULL,'/sysMenu/getMenuList','9569b2a8-49ec-47ef-9e9a-0977cfb141c8',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','5432e505-2521-4a7c-bcb0-3e4e929d2ece',0,0),
+	 (NULL,'/sysMenu/getMenuTreeSelect','71d38cae-d055-48c5-854c-890d04e88632',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','8163a0b9-d152-48d3-bb1f-9ffc3b0fc116',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/sysMenu/getMenuDetail','893d7bff-5d33-42b6-acb3-2be918cfefee',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','ff6daf43-a693-4a8a-8fd8-f52563ffa22b',0,0),
+	 (NULL,'/sysMenu/icon','0f25a1ff-0325-4bd2-aea8-86d9cfb57b6b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','592fae3a-fa72-4fa4-9b6e-7547cd005d93',0,0),
+	 (NULL,'/sysMenu/deleteMenu','e7c0aed7-10f7-45e9-b429-ddeb0b022232',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','88377e71-da2d-4243-abcc-8c676e993652',0,0),
+	 (NULL,'/user/login','f01529f2-d47f-488a-a95a-9dfb431cf23a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','b50dc93e-bcc8-4c77-b4cf-b7f5cfda13b4',0,0),
+	 (NULL,'/user/userDelete','7ca31541-3dde-484b-be33-f658a7b7a15c',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','65a25846-a45c-4fd2-869e-5a43fa232d10',0,0),
+	 (NULL,'/user/getUsers','bbfc7528-99d4-4f0c-8dc8-019bd0d0401a',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','75cf69b5-81e6-4df6-8589-7920d708dce9',0,0),
+	 (NULL,'/user/userDetail','603ec13f-eada-4bdd-9828-00ae504ef33b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','9c38578c-a4b2-4825-9081-d8525353c52f',0,0),
+	 (NULL,'/user/userAdd','6acfd3dc-aa1a-477b-8544-2b68b5489c0f',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','dfc2aef3-0cd7-4e26-953c-d22ece0a77bd',0,0),
+	 (NULL,'/user/updCurrInfo','2a5d0547-7d1d-4a4f-b678-77c19d6d77bd',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','858c6c87-70da-431d-b393-913be99debf7',0,0),
+	 (NULL,'/user/userEdit','6710e4d0-0e0f-43ba-a86d-221376240361',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','852e76eb-ecee-450a-8f72-eb6215262d17',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:09:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 (NULL,'/user/logout','d3413f1752-7ad3-4a-a64b-e467ef954a23',2,NULL,1,0,1,'2021-09-16 11:29:53','2021-09-16 11:31:06','system','423f1752-7ad3-4d3a-a64b-e467ef954a23',0,0),
+	 (NULL,'/user/edit','901aa12c-cc41-4229-8f21-a51476382805',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','1c6212de-d5d7-4ffc-971a-b357ed38d55e',0,0),
+	 (NULL,'/user/page','0fe7c295-e0a6-4993-a2e5-110f1e36b449',2,NULL,0,0,0,'2025-03-05 15:32:38','2025-03-05 15:32:38','system','40ca1c15-d196-4cee-b1fd-42c999ee2eca',0,0),
+	 (NULL,'/books/page','03ac55ac-c95f-41b0-a87a-b7a9b8de2bf4',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','3db9c5e5-c98d-43e3-9236-70b19645e070',0,0),
+	 (NULL,'/books/edit','a8b3175d-b77b-4194-8328-57a96297589b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','c3ca9065-77e0-4f78-af47-79c9aaf9651c',0,0),
+	 (NULL,'/books/add','3b1564ee-f585-46b6-bdfc-ebb9a8559c8b',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','24b2bde9-9c7a-4668-95c1-6ccd930c9347',0,0),
+	 (NULL,'/books/del','fcf4a079-d3d4-43c3-a2c7-2365deef0427',2,NULL,0,0,0,'2025-03-05 17:03:48','2025-03-05 17:03:48','system','d4ec1568-e469-405d-828e-13a2855a6958',0,0),
+	 ('','','图书模块',0,NULL,0,0,1,'2025-03-05 16:08:31','2025-03-05 16:08:31','administrator','MODULE_BOOKS',0,1) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.run(SQLQueryJob.java:241)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:10:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,`type`,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.extractData(SQLQueryJob.java:1039)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:4319)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.lambda$0(ResultSetJobDataRead.java:128)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:126)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5081)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:10:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+INSERT INTO m_sys_menu (view_url,mapper_url,module_name,type,icon,parent_id,del_status,enable_status,create_time,update_time,operator,label_unq,sort,is_fixed) VALUES
+	 ('login','/login','登录页面',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:50:47','administrator','PAGE_LOGIN',1,1),
+	 ('welcome','/welcome','欢迎页面',1,NULL,23,0,1,'2021-08-23 16:53:41','2021-09-08 09:42:42','administrator','PAGE_WELCOME',1,0),
+	 ('manufacturer/manufacturerEditOrAdd','/manufacturerEditOrAdd','编辑/新增生产商信息',3,NULL,16,1,1,'2021-08-23 16:53:41','2025-03-04 21:52:31','administrator','IFRAME_MANUFACTURER_INFO',0,0),
+	 ('users/userAuth','/userAuth','管理员组授权',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:33','administrator','IFRAME_USER_AUTH',0,0),
+	 ('auth/authAdd','/authAdd','添加管理员组',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:35','administrator','IFRAME_AUTH_ADD',0,0),
+	 ('users/curUser','/curUser','修改个人资料',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:10:25','administrator','IFRAME_CURUSER',0,0),
+	 ('auth/authEdit','/authEdit','编辑管理员组信息',3,NULL,20,0,1,'2021-08-23 16:53:41','2021-09-07 17:19:40','administrator','IFRAME_AUTH_EDIT',0,0),
+	 ('brand/test','/t1','测试',3,NULL,23,1,1,'2021-08-23 16:53:41','2021-09-07 17:25:31','administrator','IFRAME_TEST1',0,0),
+	 ('index','/index','主页',3,NULL,0,0,1,'2021-08-23 16:53:41','2021-09-07 17:15:44','administrator','PAGE_INDEX',1,0),
+	 ('users/userUpdate','/userUpdate','编辑管理员信息',3,NULL,13,0,1,'2021-08-23 16:53:41','2021-09-07 17:17:44','administrator','PAGE_USER_UPDATE',0,0) [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.table.Table.getColumn(Table.java:708)
+	at org.h2.command.Parser.parseColumn(Parser.java:1377)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1362)
+	at org.h2.command.Parser.parseInsertGivenTable(Parser.java:1731)
+	at org.h2.command.Parser.parseInsert(Parser.java:1684)
+	at org.h2.command.Parser.parsePrepared(Parser.java:891)
+	at org.h2.command.Parser.parse(Parser.java:788)
+	at org.h2.command.Parser.parse(Parser.java:760)
+	at org.h2.command.Parser.prepareCommand(Parser.java:683)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:568)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.extractData(SQLQueryJob.java:1039)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:4319)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.lambda$0(ResultSetJobDataRead.java:128)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:126)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5081)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+2025-03-05 17:14:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "JK_CONFIG" not found; SQL statement:
+INSERT INTO jk_config (name,title,remarks,`options`,value,status,config_group,config_type,sort,is_fixed,updated_at,is_dev) VALUES
+	 ('CONFIG_TYPE','配置类型','','','number:数字
+string:字符串
+text:文本
+array:数组
+enum:枚举',1,NULL,'text',0,1,NULL,1),
+	 ('CONFIG_GROUP','配置分组','配置分组','','chunji:春纪',1,'system','text',0,1,NULL,1),
+	 ('CHUNJI_FORUM_URL','春纪福利社URL','请输入完整网址','','http://w.cac-chunji.cn/m/view/personal/personal.aspx',1,'chunji','string',0,0,NULL,0),
+	 ('CHUNJI_FOOTER_IMG','春纪底部背景图','尺寸()','','/backend//Uploads/Config/20180621/5b2b5ac17c049.jpg',1,'chunji','image',0,0,NULL,0) [42102-199]
+2025-03-05 17:14:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BK_BOOKS" not found; SQL statement:
+INSERT INTO bk_books (title,author,publisher,publish_date,price,category,summary,keywords,del_flag,create_time,create_name,update_time,update_name) VALUES
+	 ('测试图书','刚改的作者222','匿名','2025-01-06',1.25,'中文图书','简介1111','我是关键字',1,'2025-03-05 16:02:27','administrator','2025-03-05 16:04:48','administrator') [42102-199]
+2025-03-05 17:15:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "BK_BOOKS[*] "; expected "BACKUP, BEGIN"; SQL statement:
+bk_books [42001-199]
+2025-03-05 18:04:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "TYPE" not found; SQL statement:
+SELECT
+	id,
+	view_url,
+	mapper_url,
+	module_name,
+	TYPE,
+	icon,
+	parent_id,
+	del_status,
+	enable_status,
+	create_time,
+	update_time,
+	operator,
+	label_unq,
+	sort,
+	is_fixed
+FROM
+	m_sys_menu  [42122-199]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:451)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:427)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:176)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:158)
+	at org.h2.command.dml.Select.prepare(Select.java:1245)
+	at org.h2.command.Parser.prepareCommand(Parser.java:689)
+	at org.h2.engine.Session.prepareLocal(Session.java:627)
+	at org.h2.engine.Session.prepareCommand(Session.java:565)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1292)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:205)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.execute(JDBCStatementImpl.java:344)
+	at org.jkiss.dbeaver.model.impl.jdbc.exec.JDBCStatementImpl.executeStatement(JDBCStatementImpl.java:128)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeStatement(SQLQueryJob.java:653)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.lambda$2(SQLQueryJob.java:546)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.executeSingleQuery(SQLQueryJob.java:565)
+	at org.jkiss.dbeaver.ui.editors.sql.execute.SQLQueryJob.extractData(SQLQueryJob.java:1039)
+	at org.jkiss.dbeaver.ui.editors.sql.SQLEditor$QueryResultsContainer.readData(SQLEditor.java:4319)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.lambda$0(ResultSetJobDataRead.java:128)
+	at org.jkiss.dbeaver.model.exec.DBExecUtils.tryExecuteRecover(DBExecUtils.java:192)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetJobDataRead.run(ResultSetJobDataRead.java:126)
+	at org.jkiss.dbeaver.ui.controls.resultset.ResultSetViewer$ResultSetDataPumpJob.run(ResultSetViewer.java:5081)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

@@ -41,12 +41,6 @@ public class FlexAppContentRunning implements ApplicationContextAware, CommandLi
     // 定义一个私有的方便本class中调用
     private ApplicationContext applicationContext;
     @Autowired
-    private IAuthService authService;
-    @Autowired
-    private IAuthGroupService authGroupService;
-    @Autowired
-    private IGroupMapperService groupMapperService;
-    @Autowired
     private ISysMenuService smenuService;
     @Override
     public void run(String... args) throws Exception {

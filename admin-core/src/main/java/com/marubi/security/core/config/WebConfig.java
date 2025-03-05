@@ -87,6 +87,9 @@ public class WebConfig implements WebMvcConfigurer {
         mapperPage.put("/menuTree","menu/menuTree");
         //配置管理
         mapperPage.put("/configPage","configGroup/config");
+        //图书管理
+        mapperPage.put("/bookList","book/bookList");
+        mapperPage.put("/bookEditOrAdd","book/bookEditOrAdd");
 
 
 

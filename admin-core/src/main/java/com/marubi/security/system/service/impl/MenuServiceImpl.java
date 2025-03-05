@@ -82,27 +82,20 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public Result<List<Tree<Integer>>> viewMenuListByGroupId(HttpServletRequest req,Integer uid) {
-        List<AuthMapperUserDto> authDtoListById = authRuleService.getAuthDtoListById(uid);
-        if(CollUtil.isNotEmpty(authDtoListById)&&authDtoListById.size()==1){
-            //当前用户权限
-            AuthMapperUserDto mapperUserDto = authDtoListById.get(0);
-            List<Integer> meunIds = StrUtil.split(mapperUserDto.getMenuIds(),",",true,true)
-                    .stream().distinct().filter(o->StrUtil.isNotBlank(o)).map(NumberUtil::parseInt).collect(Collectors.toList());
-            LambdaQueryWrapper<SysMenuEntity> query = Wrappers.lambdaQuery(SysMenuEntity.class);
-            query.eq(SysMenuEntity::getDelStatus,0)
-                    .eq(SysMenuEntity::getEnableStatus,1)
-                    .in(SysMenuEntity::getType, MenuType.MENU.ordinal(),MenuType.MODULE.ordinal())
-                    .orderByAsc(SysMenuEntity::getSort).in(SysMenuEntity::getId,meunIds);
+        LambdaQueryWrapper<SysMenuEntity> query = Wrappers.lambdaQuery(SysMenuEntity.class);
+        query.eq(SysMenuEntity::getDelStatus,0)
+                .eq(SysMenuEntity::getEnableStatus,1)
+                .in(SysMenuEntity::getType, MenuType.MENU.ordinal(),MenuType.MODULE.ordinal())
+                .orderByAsc(SysMenuEntity::getSort)
+//                    .in(SysMenuEntity::getId,meunIds)
+        ;
 
-            List<SysMenuEntity> allList = sysMenuService.listByIds(meunIds);
-            List<SysMenuEntity> menu = sysMenuService.list(query);
-            req.getSession().setAttribute("sysMenuList",menu);
-            req.getSession().setAttribute("authUrlList",allList);
-            req.getSession().setAttribute("authforUser",mapperUserDto);
-            req.getSession().setAttribute("authId",mapperUserDto.getAuthIds());
-            return Result.build(viewMenuList(menu));
-        }
-        return Result.build(new BaseBusinessException(ErrorCode.C0110,uid));
+        List<SysMenuEntity> menu = sysMenuService.list(query);
+        req.getSession().setAttribute("sysMenuList",menu);
+        req.getSession().setAttribute("authUrlList",menu);
+//        req.getSession().setAttribute("authforUser",mapperUserDto);
+//        req.getSession().setAttribute("authId",mapperUserDto.getAuthIds());
+        return Result.build(viewMenuList(menu));
     }
 
     @Override

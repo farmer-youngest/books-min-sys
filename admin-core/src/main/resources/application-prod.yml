@@ -1,11 +1,18 @@
 server:
   port: 8089
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/marubi_security?useUnicode=true&useSSL=false&characterEncoding=utf8&
+    sql-script-encoding: UTF-8
+    schema: classpath:/db/1.sql
+    data: classpath:/db/2.sql
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=true;
     username: root
-    password: Q!W@e3r4
+    password: root
     hikari:
       minimum-idle: 3
       auto-commit: true
@@ -19,11 +26,14 @@ spring:
     servlet:
       content-type: text/html
     mode: HTML
-    cache: true
+    cache: false
 
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/ , file:static/upload
-
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 150MB
 #日志打印级别
 logging:
   level:
@@ -39,12 +49,3 @@ marubi:
     key: nice
   pre:
     address: http://127.0.0.1:${server.port}
-retrofit2:
-  api:
-    address:
-      dev: http://127.0.0.1:8088/
-      test: http://p.marubi.cn/
-      master: http://58.249.56.164:8090/
-api:
-  fangchuan:
-    url: http://58.249.56.164:8090/

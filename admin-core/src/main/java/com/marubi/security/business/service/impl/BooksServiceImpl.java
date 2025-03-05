@@ -86,7 +86,9 @@ public class BooksServiceImpl extends ServiceImpl<BooksMapper, BooksEntity> impl
         // 判断是否带查询参数，没有则全查询
         Page<BooksEntity> page = page(new Page<>(paramDto.getPageNum(), paramDto.getPageSize()),
                 Wrappers.lambdaQuery(BooksEntity.class)
-                        .like(StrUtil.isNotBlank(paramDto.getTitle()), BooksEntity::getTitle, paramDto.getTitle()));
+                        .like(StrUtil.isNotBlank(paramDto.getTitle()), BooksEntity::getTitle, paramDto.getTitle())
+                        .orderByDesc(BooksEntity::getCreateTime)
+        );
         IPage<ShowBookVo> res = new Page<>();
         BeanUtils.copyProperties(page, res, "records");
         List<ShowBookVo> collect = page.getRecords().stream().map(booksEntity -> {

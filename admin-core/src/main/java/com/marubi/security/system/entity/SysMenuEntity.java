@@ -1,5 +1,6 @@
 package com.marubi.security.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -47,6 +48,7 @@ public class SysMenuEntity implements Serializable {
      * 0：模块，1:二级菜单，2：操作,3:独立页面(弹框)
      * {@link com.marubi.security.system.MenuType}
      */
+    @TableField(value="\""+"type"+"\"")
     private Integer type;
 
     /**

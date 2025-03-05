@@ -60,9 +60,9 @@ public class BooksController {
     }
 
 
-    @GetMapping("/page")
+    @PostMapping("/page")
     @ApiOperation("图书分页列表查询")
-    public Result<IPage<ShowBookVo>> page(BookPageParamDto pageParamDto) throws IOException {
+    public Result<IPage<ShowBookVo>> page(@RequestBody BookPageParamDto pageParamDto) throws IOException {
         return Result.build(booksService.page(pageParamDto));
     }
 
