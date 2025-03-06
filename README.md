@@ -18,11 +18,11 @@ mvn clean package "-Dmaven.test.skip=true"
 
 ```shell
 #dev环境 服务端口 8089
-java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=dev -jar admin-core\targetadmin-core-0.0.1.jar
+java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=dev -jar admin-core\target\admin-core-0.0.1.jar
 #test环境
-java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=test -jar admin-core\targetadmin-core-0.0.1.jar
+java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=test -jar admin-core\target\admin-core-0.0.1.jar
 #prod环境
-java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=prod -jar admin-core\targetadmin-core-0.0.1.jar
+java  -Dfile.encoding=UTF-8  -Dspring.profiles.active=prod -jar admin-core\target\admin-core-0.0.1.jar
 ```
 
 ## 项目描述
