@@ -59,8 +59,8 @@ logs 目录下 marubi\_all.log、marubi\_err.log
 ### 演示截图
 ![img_3.png](img_3.png)
 ![img_4.png](img_4.png)
-![img_5.png](img_5.png)
-![img_6.png](img_6.png)
+![img_10.png](img_10.png)
+![img_9.png](img_9.png)
 ![img_7.png](img_7.png)
 ## 项目接口文档
 
