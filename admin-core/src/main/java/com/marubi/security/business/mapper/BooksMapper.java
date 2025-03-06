@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.CacheNamespace;
  * @author tmz
  * @since 2025-03-05
  */
-@CacheNamespace
 public interface BooksMapper extends BaseMapper<BooksEntity> {
 
 }

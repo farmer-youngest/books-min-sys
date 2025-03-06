@@ -15,7 +15,7 @@ spring:
 #    password: 123456
     driver-class-name: org.h2.Driver
 #    url: jdbc:h2:file:./db/testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=true;
-    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=true;
+    url: jdbc:h2:mem:devdb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=true;
     username: root
     password: root
     hikari:
@@ -31,7 +31,7 @@ spring:
     servlet:
       content-type: text/html
     mode: HTML
-    cache: true
+    cache: false
 
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/ , file:static/upload
@@ -45,9 +45,6 @@ logging:
     root: info
     com.marubi.security.system.mapper: debug
     com.marubi.security.business.mapper: debug
-mybatis-plus:
-  configuration:
-    cache-enabled: true
 
 #solt
 admin:

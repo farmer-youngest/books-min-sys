@@ -20,6 +20,8 @@ import com.marubi.security.system.utils.UserHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +59,7 @@ public class BooksServiceImpl extends ServiceImpl<BooksMapper, BooksEntity> impl
     }
 
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "getVoById", key = "#edit.bookId")
     @Override
     public boolean edit(BookEditParamDto edit) {
         log.debug("id:{}",edit.getBookId());
@@ -68,12 +71,14 @@ public class BooksServiceImpl extends ServiceImpl<BooksMapper, BooksEntity> impl
     }
 
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = "getVoById", key = "#delId")
     @Override
     public boolean del(Integer delId) {
         return removeById(delId);
     }
 
     @Override
+    @Cacheable(value = "getVoById", key = "#id")
     public ShowBookVo getVoById(Integer id) {
         BooksEntity entity = getById(id);
         ShowBookVo vo = new ShowBookVo();

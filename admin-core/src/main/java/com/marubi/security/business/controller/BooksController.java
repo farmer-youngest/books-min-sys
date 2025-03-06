@@ -65,5 +65,10 @@ public class BooksController {
     public Result<IPage<ShowBookVo>> page(@RequestBody BookPageParamDto pageParamDto) throws IOException {
         return Result.build(booksService.page(pageParamDto));
     }
+    @GetMapping("getBookById")
+    @ApiOperation("根据Id获取图书")
+    public Result<ShowBookVo> getBookById(@RequestParam("id")Integer id) throws IOException {
+        return Result.build(booksService.getVoById(id));
+    }
 
 }
