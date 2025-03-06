@@ -7,8 +7,8 @@ spring:
       path: /h2-console
   datasource:
     sql-script-encoding: UTF-8
-    schema: classpath:/db/1.sql
-    data: classpath:/db/2.sql
+    schema: classpath:/db/schema.sql
+    data: classpath:/db/data.sql
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&
 #    username: root

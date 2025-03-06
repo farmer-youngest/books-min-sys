@@ -51,7 +51,7 @@ public class BookEditParamDto implements Serializable {
     /**
      * 出版日期
      */
-    @ApiModelProperty("出版日期")
+    @ApiModelProperty("出版日期 yyyy-MM-dd")
     @NotNull(groups = {GroupAdd.class})
     private LocalDate publishDate;
 
